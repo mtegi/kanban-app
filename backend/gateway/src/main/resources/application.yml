@@ -1,0 +1,31 @@
+server:
+  port: 8000
+  ssl:
+    key-store: classpath:keystore.p12
+    key-store-password: password
+    key-store-type: pkcs12
+    key-alias: zuul
+    key-password: password
+spring:
+  application:
+    name: gateway
+zuul:
+  host:
+    connect-timeout-millis: 60000
+    socket-timeout-millis: 60000
+  prefix: /api
+  routes:
+    oauth2:
+      path: /oauth/**
+      service-id: auth-service
+      strip-prefix: false
+    projects:
+      path: /projects/**
+      service-id: project-service
+      strip-prefix: false
+    users:
+      path: /**
+      service-id: user-service
+      strip-prefix: false
+
+  sensitive-headers: Cookie, Set-Cookie

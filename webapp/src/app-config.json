@@ -1,0 +1,11 @@
+{
+  "api": {
+    "host": "localhost",
+    "port": "8000",
+    "prefix": "/api",
+    "oauth": {
+      "client": "oauth",
+      "secret": "oauth"
+    }
+  }
+}

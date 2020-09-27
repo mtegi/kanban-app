@@ -1,0 +1,13 @@
+server:
+  port: 8200
+
+spring:
+  application:
+    name: auth-service
+
+jwt:
+  secret: secret
+
+user-service:
+  username: admin
+  password: passw0rd
