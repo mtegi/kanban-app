@@ -1,0 +1,16 @@
+{
+  "form": {
+    "required": "Pole wymagane.",
+    "letters": "Pole może zawierać wyłącznie litery.",
+    "max": "Limit znaków przekroczony.",
+    "email": {
+      "format": "Zły format adresu email.",
+      "taken": "Email jest już w użyciu."
+    },
+    "password": {
+      "min": "Hasło jest za krótkie.",
+      "repeat": "Hasła muszą być identyczne."
+    }
+  },
+  "other": "Wystąpił niespodziewany błąd."
+}

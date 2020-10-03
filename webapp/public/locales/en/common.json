@@ -1,0 +1,9 @@
+{
+  "menu": {
+    "login": "Login"
+  },
+  "reset-password": "Recover password",
+  "register": "Create account",
+  "logout": "Logout",
+  "my-account": "My account"
+}

@@ -1,6 +1,20 @@
 import React from 'react';
-import GuestMainView from './GuestMainView';
+import { useSelector } from 'react-redux';
+import GuestMainView from './main/GuestMainView';
+import UserMainView from './main/UserMainView';
 
-const MainController = () => <GuestMainView />;
+const Switch = (isLogged) => {
+  switch (isLogged) {
+    case true:
+      return <UserMainView />;
+    default:
+      return <GuestMainView />;
+  }
+};
+
+const MainController = () => {
+  const isLogged = useSelector((state) => state.auth.isLogged);
+  return Switch(isLogged);
+};
 
 export default MainController;

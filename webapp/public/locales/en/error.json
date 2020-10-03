@@ -1,0 +1,16 @@
+{
+  "form": {
+    "required": "Field is required.",
+    "letters": "Field must consist only of letters.",
+    "max": "Character limit reached.",
+    "email": {
+      "format": "Email invalid.",
+      "taken": "This email is already taken."
+    },
+    "password": {
+      "min": "Password is too short.",
+      "repeat": "Password must be identical."
+    }
+  },
+  "other": "Application encountered unexpected error."
+}

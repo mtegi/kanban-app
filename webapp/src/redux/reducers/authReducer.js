@@ -11,6 +11,7 @@ const initState = {
     user_name: '',
     name: '',
   },
+  isLogged: false,
 };
 
 export const authReducer = (state = initState, action) => {
@@ -19,6 +20,7 @@ export const authReducer = (state = initState, action) => {
       return {
         ...state,
         token: action.payload,
+        isLogged: true,
       };
     case CLEAR_AUTH:
       return initState;

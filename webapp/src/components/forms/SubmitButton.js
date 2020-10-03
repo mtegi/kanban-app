@@ -12,7 +12,6 @@ const Wrapper = styled.div`
 
 const buttonProgress = {
   position: 'absolute',
-  color: 'green',
 };
 
 const buttonStyle = {
@@ -25,7 +24,7 @@ const SubmitButton = ({ label, onClick, loading }) => (
   <Wrapper>
     <Button
       variant="contained"
-      color="primary"
+      color="secondary"
       disabled={loading}
       onClick={onClick}
       style={buttonStyle}

@@ -1,0 +1,7 @@
+{
+  "form": {
+    "username": "Username",
+    "password": "Password",
+    "submit": "Login"
+  }
+}

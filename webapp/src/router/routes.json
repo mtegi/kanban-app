@@ -1,6 +1,18 @@
 {
+  "home": {
+    "title": "home",
+    "uri": "/"
+  },
   "login": {
-    "title": "login",
+    "title": "menu.login",
     "uri": "/login"
+  },
+  "resetPassword": {
+    "title": "reset-password",
+    "uri": "/reset-password"
+  },
+  "register": {
+    "title": "register",
+    "uri": "/register"
   }
 }

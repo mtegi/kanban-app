@@ -2,11 +2,13 @@ import React from 'react';
 import Alert from '@material-ui/lab/Alert';
 import PropTypes from 'prop-types';
 
+const style = {
+  width: '100%',
+  justifyContent: 'center',
+};
+
 const GenericAlert = ({ message, severity }) => (
-  <Alert
-    severity={severity}
-    style={{ marginTop: '0.2rem', width: 'max-content' }}
-  >
+  <Alert severity={severity} style={style}>
     {message}
   </Alert>
 );

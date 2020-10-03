@@ -1,0 +1,11 @@
+{
+  "form": {
+    "username": "Nazwa użytkownika",
+    "password": "Hasło",
+    "repeatPassword": "Powtórz hasło",
+    "firstName": "Imię",
+    "lastName": "Nazwisko",
+    "email": "Email",
+    "submit": "Utwórz konto"
+  }
+}

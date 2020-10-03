@@ -4,16 +4,15 @@ import { Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import routes from '../../router/routes.json';
 import MenuWrapper from './Wrapper';
+import AccountMenu from './AccountMenu';
 
-const GuestMenu = () => {
+const UserMenu = () => {
   const { t } = useTranslation('common');
   return (
     <MenuWrapper>
-      <Link to={routes.login.uri}>
-        <Button>{t(routes.login.title)}</Button>
-      </Link>
+      <AccountMenu />
     </MenuWrapper>
   );
 };
 
-export default GuestMenu;
+export default UserMenu;

@@ -1,5 +1,7 @@
 server:
   port: 8000
+  tomcat:
+    connection-timeout: 5000
   ssl:
     key-store: classpath:keystore.p12
     key-store-password: password
