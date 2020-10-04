@@ -11,6 +11,6 @@ import java.util.ArrayList;
 @RequestMapping("/test")
 public class TestController {
 
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<?> hello(){ return ResponseEntity.ok(new ArrayList<>());}
 }

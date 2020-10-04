@@ -1,7 +1,7 @@
 server:
   port: 8000
   tomcat:
-    connection-timeout: 5000
+    connection-timeout: 10000
   ssl:
     key-store: classpath:keystore.p12
     key-store-password: password
@@ -11,10 +11,17 @@ server:
 spring:
   application:
     name: gateway
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000
+ribbon:
+  ConnectTimeout: 10000
+  ReadTimeout: 10000
 zuul:
-  host:
-    connect-timeout-millis: 60000
-    socket-timeout-millis: 60000
   prefix: /api
   routes:
     oauth2:

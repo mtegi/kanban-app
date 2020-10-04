@@ -1,4 +1,4 @@
-package pl.lodz.p.it.mtegi.authservice.util;
+package pl.lodz.p.it.mtegi.security;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -7,14 +7,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.oauth2.provider.token.UserAuthenticationConverter;
-import pl.lodz.p.it.mtegi.authservice.model.ProjectAuthority;
+import pl.lodz.p.it.mtegi.security.model.ProjectAuthority;
 
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class AuthConverter implements UserAuthenticationConverter {
-
     @Override
     public Map<String, ?> convertUserAuthentication(Authentication authentication) {
         Map<String, Object> response = new LinkedHashMap();

@@ -19,7 +19,7 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import pl.lodz.p.it.mtegi.authservice.model.UserAuth;
-import pl.lodz.p.it.mtegi.authservice.util.TokenConverter;
+import pl.lodz.p.it.mtegi.security.TokenConverter;
 
 import java.util.Arrays;
 

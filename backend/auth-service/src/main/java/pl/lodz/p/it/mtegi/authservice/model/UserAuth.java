@@ -3,6 +3,7 @@ package pl.lodz.p.it.mtegi.authservice.model;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.userdetails.UserDetails;
+import pl.lodz.p.it.mtegi.security.model.ProjectAuthority;
 
 import java.util.Collection;
 import java.util.Map;
