@@ -5,9 +5,8 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
-import pl.lodz.p.it.mtegi.security.CommonResourceServerConfig;
+import pl.lodz.p.it.mtegi.common.security.CommonResourceServerConfig;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -20,15 +19,6 @@ import java.util.Base64;
 @RequiredArgsConstructor
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ResourceServerConfig extends CommonResourceServerConfig {
-
-    @Override
-    public void configure(HttpSecurity http) throws Exception {
-        http.cors().configurationSource(corsConfigurationSource())
-        .and().authorizeRequests()
-                .antMatchers("/users-auth/**").permitAll()
-                .anyRequest().authenticated();;
-    }
-
 
     private final AuthServiceProperties authServiceProperties;
 

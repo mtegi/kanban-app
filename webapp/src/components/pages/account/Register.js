@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Formik } from 'formik';
 import Row from 'react-bootstrap/Row';
@@ -10,18 +10,21 @@ import SubmitButton from '../../forms/SubmitButton';
 import FormControl from '../../forms/FormControl';
 import FormControlPassword from '../../forms/FormControlPassword';
 import useYupHelper from '../../forms/UseYupHelper';
+import AccountApi from '../../../api/AccountApi';
+import useFormStatus from '../../forms/UseFormStatus';
 
 const Register = () => {
   const { t } = useTranslation(['register', 'common', 'error']);
   const yupHelper = useYupHelper();
-  const [error, setError] = useState(null);
+  const status = useFormStatus();
 
   const handleSubmit = async (values, { resetForm }) => {
     try {
-      console.log(values);
+      await AccountApi.register(values);
       resetForm({});
+      status.handleSuccess();
     } catch (e) {
-      setError(e);
+      status.handleError(e);
     }
   };
 
@@ -49,8 +52,12 @@ const Register = () => {
         }}
         validationSchema={validationSchema}
       >
-        {({ submitForm, isSubmitting }) => (
-          <Form onSubmit={handleSubmit} error={error}>
+        {({ submitForm, isSubmitting, errors }) => (
+          <Form
+            onSubmit={handleSubmit}
+            error={status.error}
+            success={status.success}
+          >
             <Row>
               <Col>
                 <FormControl
@@ -108,6 +115,7 @@ const Register = () => {
                   label={t('form.submit')}
                   onClick={submitForm}
                   loading={isSubmitting}
+                  disabled={Object.keys(errors).length !== 0}
                 />
               </Col>
             </Row>

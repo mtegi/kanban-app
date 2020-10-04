@@ -15,6 +15,8 @@ import AuthApi from '../../../api/AuthApi';
 import Form from '../../forms/Form';
 import routes from '../../../router/routes.json';
 import FormControlPassword from '../../forms/FormControlPassword';
+import useYupHelper from '../../forms/UseYupHelper';
+import useFormStatus from '../../forms/UseFormStatus';
 
 const LoginLink = styled(Link)`
   font-size: 1rem;
@@ -28,15 +30,13 @@ const LoginLink = styled(Link)`
 
 const Login = () => {
   const { t } = useTranslation(['login', 'common', 'error']);
-  const [error, setError] = useState(null);
+  const status = useFormStatus();
   const navigate = useNavigate();
+  const yupHelper = useYupHelper();
 
   const validationSchema = yup.object().shape({
-    username: yup.string().required(t('error:form.required')),
-    password: yup
-      .string()
-      .required(t('error:form.required'))
-      .min(8, t('error')),
+    username: yupHelper.username,
+    password: yupHelper.password,
   });
 
   const handleSubmit = async (values) => {
@@ -44,7 +44,7 @@ const Login = () => {
       await AuthApi.login(values.username, values.password);
       navigate(routes.home.uri);
     } catch (e) {
-      setError(e);
+      status.handleError(e);
     }
   };
 
@@ -56,7 +56,7 @@ const Login = () => {
         validationSchema={validationSchema}
       >
         {({ submitForm, isSubmitting }) => (
-          <Form onSubmit={handleSubmit} error={error}>
+          <Form onSubmit={handleSubmit} error={status.error}>
             <Row>
               <Col>
                 <FormControl

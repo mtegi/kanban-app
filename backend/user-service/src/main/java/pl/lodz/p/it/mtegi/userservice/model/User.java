@@ -13,7 +13,7 @@ import static pl.lodz.p.it.mtegi.userservice.model.Status.ACTIVE;
 @Entity
 @Table(name = "users")
 @Data
-@SequenceGenerator(name="seq_user_id", initialValue=1, allocationSize=50)
+@SequenceGenerator(name="seq_user_id", initialValue=50, allocationSize=50)
 public class User {
 
     @Id

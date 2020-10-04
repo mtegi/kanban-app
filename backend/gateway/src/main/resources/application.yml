@@ -17,10 +17,10 @@ hystrix:
       execution:
         isolation:
           thread:
-            timeoutInMilliseconds: 10000
+            timeoutInMilliseconds: 80000
 ribbon:
-  ConnectTimeout: 10000
-  ReadTimeout: 10000
+  ConnectTimeout: 30000
+  ReadTimeout: 30000
 zuul:
   prefix: /api
   routes:

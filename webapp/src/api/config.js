@@ -5,6 +5,7 @@ export const API_PATH = `https://${config.api.host}:${config.api.port}${config.a
 
 export const ConfigureApi = () => {
   axios.defaults.baseURL = API_PATH;
+  axios.defaults.withCredentials = true;
 };
 
 export const setAxiosToken = (type, token) => {

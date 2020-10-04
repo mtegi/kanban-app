@@ -32,12 +32,7 @@ const AuthApi = {
       const token = JSON.parse(window.atob(data.access_token.split('.')[1]));
       store.store.dispatch(setToken(token));
     } catch (e) {
-      if (e.response !== undefined && e.response.status === 401) {
-        throw new Error('error');
-      } else {
-        console.log(e);
-        handleError(e);
-      }
+      handleError(e);
     }
     return response;
   },

@@ -10,7 +10,14 @@
     "password": {
       "min": "Password is too short.",
       "repeat": "Password must be identical."
+    },
+    "username": {
+      "taken": "Username is already taken."
     }
+  },
+  "login": {
+    "notActive": "Account is not active.",
+    "badCredentials": "Incorrect login or password."
   },
   "other": "Application encountered unexpected error."
 }

@@ -1,4 +1,4 @@
-package pl.lodz.p.it.mtegi.security;
+package pl.lodz.p.it.mtegi.common.security;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -7,7 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.oauth2.provider.token.UserAuthenticationConverter;
-import pl.lodz.p.it.mtegi.security.model.ProjectAuthority;
+import pl.lodz.p.it.mtegi.common.security.model.ProjectAuthority;
 
 import java.util.Collection;
 import java.util.LinkedHashMap;

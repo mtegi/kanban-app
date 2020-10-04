@@ -10,7 +10,14 @@
     "password": {
       "min": "Hasło jest za krótkie.",
       "repeat": "Hasła muszą być identyczne."
+    },
+    "username": {
+      "taken": "Nazwa użytkownika jest już zajęta."
     }
+  },
+  "login": {
+    "notActive": "Konto nieaktywne.",
+    "badCredentials": "Nieprawidłowy login lub hasło."
   },
   "other": "Wystąpił niespodziewany błąd."
 }

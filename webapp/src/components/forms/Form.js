@@ -6,6 +6,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import GenericAlert from './GenericAlert';
+import PopUp from '../misc/PopUp';
 
 const StyledForm = styled(Form)`
   width: 100%;
@@ -13,11 +14,12 @@ const StyledForm = styled(Form)`
   row-gap: 2rem;
 `;
 
-const FormWrapper = ({ error, onSubmit, children }) => {
-  const { t } = useTranslation('error');
+const FormWrapper = ({ error, onSubmit, children, success, successText }) => {
+  const { t } = useTranslation();
+
   return (
-    <StyledForm onSubmit={onSubmit}>
-      {children}
+    <>
+      <StyledForm onSubmit={onSubmit}>{children}</StyledForm>
       {error && (
         <Row>
           <Col>
@@ -25,7 +27,8 @@ const FormWrapper = ({ error, onSubmit, children }) => {
           </Col>
         </Row>
       )}
-    </StyledForm>
+      {success && <PopUp text={t(successText)} />}
+    </>
   );
 };
 
@@ -33,11 +36,15 @@ FormWrapper.propTypes = {
   onSubmit: PropTypes.func,
   children: PropTypes.node.isRequired,
   error: PropTypes.shape({ message: PropTypes.string.isRequired }),
+  success: PropTypes.bool,
+  successText: PropTypes.string,
 };
 
 FormWrapper.defaultProps = {
   onSubmit: () => {},
   error: null,
+  success: false,
+  successText: 'common:success',
 };
 
 export default FormWrapper;

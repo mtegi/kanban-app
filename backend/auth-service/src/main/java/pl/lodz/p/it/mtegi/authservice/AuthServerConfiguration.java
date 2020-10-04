@@ -18,8 +18,9 @@ import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+import pl.lodz.p.it.mtegi.authservice.exception.OAuth2ExceptionTranslator;
 import pl.lodz.p.it.mtegi.authservice.model.UserAuth;
-import pl.lodz.p.it.mtegi.security.TokenConverter;
+import pl.lodz.p.it.mtegi.common.security.TokenConverter;
 
 import java.util.Arrays;
 
@@ -47,6 +48,7 @@ public class AuthServerConfiguration extends AuthorizationServerConfigurerAdapte
         TokenEnhancerChain chain = new TokenEnhancerChain();
         chain.setTokenEnhancers(Arrays.asList(tokenEnhancer(), accessTokenConverter()));
         endpoints.authenticationManager(authenticationManager)
+                .exceptionTranslator(new OAuth2ExceptionTranslator())
                 .userDetailsService(userDetailsService)
                 .tokenEnhancer(chain)
                 .tokenStore(tokenStore());

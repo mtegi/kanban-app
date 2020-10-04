@@ -1,4 +1,4 @@
-package pl.lodz.p.it.mtegi.userservice.exception;
+package pl.lodz.p.it.mtegi.common.exception;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

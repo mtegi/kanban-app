@@ -3,17 +3,6 @@ import PropTypes from 'prop-types';
 import { fieldToTextField } from 'formik-material-ui';
 import { Field } from 'formik';
 import MuiTextField from '@material-ui/core/TextField';
-import styled from 'styled-components';
-
-const StyledTextField = styled(MuiTextField)`
-  &.root {
-    width: 100%;
-    height: 3rem;
-  }
-`;
-
-const inputLabelStyle = { fontSize: '1.5rem' };
-const inputStyle = { fontSize: '1rem' };
 
 const CustomTextField = (props) => (
   <MuiTextField

@@ -3,7 +3,7 @@ package pl.lodz.p.it.mtegi.authservice.model;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.userdetails.UserDetails;
-import pl.lodz.p.it.mtegi.security.model.ProjectAuthority;
+import pl.lodz.p.it.mtegi.common.security.model.ProjectAuthority;
 
 import java.util.Collection;
 import java.util.Map;
@@ -14,13 +14,13 @@ public class UserAuth implements UserDetails {
 
     private String username;
     private String password;
-    private boolean accountNonExpired;
+    private boolean accountNonLocked;
     private boolean enabled;
     private Collection<ProjectAuthority> authorities;
     private Map<String, Object> additionalInformation;
 
     @Override
-    public boolean isAccountNonLocked() {
+    public boolean isAccountNonExpired() {
         return true;
     }
 

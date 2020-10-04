@@ -20,12 +20,12 @@ const buttonStyle = {
   alignItems: 'center',
 };
 
-const SubmitButton = ({ label, onClick, loading }) => (
+const SubmitButton = ({ label, onClick, loading, disabled }) => (
   <Wrapper>
     <Button
       variant="contained"
       color="secondary"
-      disabled={loading}
+      disabled={loading || disabled}
       onClick={onClick}
       style={buttonStyle}
     >
@@ -39,10 +39,12 @@ SubmitButton.propTypes = {
   label: PropTypes.string.isRequired,
   loading: PropTypes.bool,
   onClick: PropTypes.func.isRequired,
+  disabled: PropTypes.bool,
 };
 
 SubmitButton.defaultProps = {
   loading: false,
+  disabled: false,
 };
 
 export default SubmitButton;

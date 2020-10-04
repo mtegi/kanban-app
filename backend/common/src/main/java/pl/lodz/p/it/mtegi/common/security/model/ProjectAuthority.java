@@ -1,4 +1,4 @@
-package pl.lodz.p.it.mtegi.security.model;
+package pl.lodz.p.it.mtegi.common.security.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
