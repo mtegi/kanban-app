@@ -5,5 +5,6 @@
   "reset-password": "Odzyskaj hasło",
   "register": "Utwórz nowe konto",
   "logout": "Wyloguj",
-  "my-account": "Moje konto"
+  "my-account": "Moje konto",
+  "success": "Operacja zakończona powodzeniem."
 }
