@@ -6,5 +6,7 @@
   "register": "Create account",
   "logout": "Logout",
   "my-account": "My account",
-  "success": "Operation completed successfully."
+  "success": "Operation completed successfully.",
+  "editMode": "Edit",
+  "confirmEdit": "Edit"
 }

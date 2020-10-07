@@ -47,8 +47,8 @@ const Register = () => {
           email: '',
           password: '',
           repeatPassword: '',
-          firstName: '',
-          lastName: '',
+          firstName: null,
+          lastName: null,
         }}
         validationSchema={validationSchema}
       >
@@ -77,18 +77,10 @@ const Register = () => {
             </Row>
             <Row>
               <Col>
-                <FormControl
-                  label={t('form.firstName')}
-                  name="firstName"
-                  required
-                />
+                <FormControl label={t('form.firstName')} name="firstName" />
               </Col>
               <Col>
-                <FormControl
-                  label={t('form.lastName')}
-                  name="lastName"
-                  required
-                />
+                <FormControl label={t('form.lastName')} name="lastName" />
               </Col>
             </Row>
             <Row>

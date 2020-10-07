@@ -25,15 +25,15 @@ const useYupHelper = () => {
   const firstName = yup
     .string()
     .trim()
-    .required(i18next.t('error:form.required'))
     .max(16, i18next.t('error:form.max'))
-    .matches(lettersOnly, i18next.t('error:form.letters'));
+    .matches(lettersOnly, i18next.t('error:form.letters'))
+    .nullable();
   const lastName = yup
     .string()
     .trim()
-    .required(i18next.t('error:form.required'))
     .max(32, i18next.t('error:form.max'))
-    .matches(lettersOnly, i18next.t('error:form.letters'));
+    .matches(lettersOnly, i18next.t('error:form.letters'))
+    .nullable();
   const username = yup
     .string()
     .trim()

@@ -18,12 +18,8 @@ const Layout = ({ menu, children }) => (
 );
 
 Layout.propTypes = {
-  menu: PropTypes.element,
+  menu: PropTypes.element.isRequired,
   children: PropTypes.node.isRequired,
-};
-
-Layout.defaultProps = {
-  menu: () => {},
 };
 
 export default Layout;

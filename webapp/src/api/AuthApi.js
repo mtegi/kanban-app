@@ -1,7 +1,7 @@
 import axios from 'axios';
+import { decode } from 'js-base64';
 import handleError from './errorHandler';
 import config from '../app-config.json';
-import { setAxiosToken } from './config';
 import store from '../redux/store';
 import { setToken } from '../redux/reducers/actions/authActions';
 
@@ -28,9 +28,9 @@ const AuthApi = {
         params
       );
       const { data } = response;
-      setAxiosToken(data.token_type, data.access_token);
-      const token = JSON.parse(window.atob(data.access_token.split('.')[1]));
-      store.store.dispatch(setToken(token));
+      const Authorization = `${data.token_type} ${data.access_token}`;
+      const token = JSON.parse(decode(data.access_token.split('.')[1]));
+      store.store.dispatch(setToken({ token, Authorization }));
     } catch (e) {
       handleError(e);
     }

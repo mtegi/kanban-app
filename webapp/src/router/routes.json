@@ -14,5 +14,9 @@
   "register": {
     "title": "register",
     "uri": "/register"
+  },
+  "myAccount": {
+    "title": "my-account",
+    "uri": "/my-account"
   }
 }

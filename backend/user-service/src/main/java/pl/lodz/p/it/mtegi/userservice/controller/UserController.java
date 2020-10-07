@@ -2,11 +2,11 @@ package pl.lodz.p.it.mtegi.userservice.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
 import pl.lodz.p.it.mtegi.userservice.dto.RegisterDto;
+import pl.lodz.p.it.mtegi.userservice.dto.UserInfoDto;
 import pl.lodz.p.it.mtegi.userservice.service.UserService;
 
 import javax.annotation.security.PermitAll;
@@ -26,5 +26,16 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/me")
+    public UserInfoDto meGet(Authentication auth) {
+        return userService.getAccountDetails(auth.getName());
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PutMapping("/me")
+    public UserInfoDto mePut(@Valid @RequestBody UserInfoDto userInfoDto, Authentication auth) {
+        return userService.editAccountDetails(userInfoDto, auth.getName());
+    }
 
 }

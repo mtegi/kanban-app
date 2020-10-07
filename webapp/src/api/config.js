@@ -7,7 +7,3 @@ export const ConfigureApi = () => {
   axios.defaults.baseURL = API_PATH;
   axios.defaults.withCredentials = true;
 };
-
-export const setAxiosToken = (type, token) => {
-  axios.defaults.headers.common.Authorization = `${type} ${token}`;
-};

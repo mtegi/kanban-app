@@ -35,9 +35,21 @@ const NameWrapper = styled.span`
   color: azure;
 `;
 
-const getLetters = (name) => {
-  const split = name.split(' ');
-  return [split[0].charAt(0), split[1].charAt(0)];
+const getLetters = (name, username) => {
+  let split;
+  if (name !== null && name !== '') {
+    if (name.includes(' ')) {
+      split = name.split(' ');
+      return [split[0].charAt(0), split[1].charAt(0)];
+    }
+    split = name;
+  } else {
+    split = username;
+  }
+  if (split.length >= 2) {
+    return [split.charAt(0), split.charAt(1)];
+  }
+  return [split.charAt(0), null];
 };
 
 const StyledMenuItem = withStyles((theme) => ({
@@ -59,9 +71,10 @@ const StyledAvatar = withStyles((theme) => ({
 
 const AccountMenu = () => {
   const name = useSelector((state) => state.auth.token.name);
+  const username = useSelector((state) => state.auth.token.user_name);
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const letters = getLetters(name);
+  const letters = getLetters(name, username);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -92,7 +105,7 @@ const AccountMenu = () => {
           {letters[0]}
           {letters[1]}
         </StyledAvatar>
-        <NameWrapper>{name}</NameWrapper>
+        <NameWrapper>{name || username}</NameWrapper>
       </Wrapper>
       <Menu
         id="fade-menu"
@@ -101,6 +114,7 @@ const AccountMenu = () => {
         open={open}
         onClose={handleClose}
         TransitionComponent={Fade}
+        getContentAnchorEl={null}
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'center',
@@ -110,7 +124,7 @@ const AccountMenu = () => {
           horizontal: 'center',
         }}
       >
-        <StyledMenuItem>
+        <StyledMenuItem onClick={() => navigate(routes.myAccount.uri)}>
           <ListItemIcon>
             <AccountBox />
           </ListItemIcon>

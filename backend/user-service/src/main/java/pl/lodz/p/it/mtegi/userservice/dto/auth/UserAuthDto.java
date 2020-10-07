@@ -21,8 +21,15 @@ public class UserAuthDto extends UserAuthData {
         if(user.getEmail() != null) {
             additionalInformation.put("email", user.getEmail());
         }
+        String nameKey = "name";
         if(user.getFirstName() != null && user.getLastName() != null) {
-            additionalInformation.put("name", user.getFirstName() + " " + user.getLastName());
+            additionalInformation.put(nameKey, user.getFirstName() + " " + user.getLastName());
+        } else if(user.getFirstName() != null) {
+            additionalInformation.put(nameKey, user.getFirstName());
+        } else if(user.getLastName() != null){
+            additionalInformation.put(nameKey, user.getLastName());
+        } else {
+            additionalInformation.put(nameKey, null);
         }
     }
 }

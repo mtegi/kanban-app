@@ -20,6 +20,7 @@ const FormControl = ({
   helperText,
   required,
   InputProps,
+  disabled,
 }) => (
   <Field
     component={CustomTextField}
@@ -29,6 +30,7 @@ const FormControl = ({
     helperText={helperText}
     required={required}
     InputProps={InputProps}
+    disabled={disabled}
   />
 );
 
@@ -42,6 +44,7 @@ FormControl.propTypes = {
     startAdornment: PropTypes.node,
     endAdornment: PropTypes.node,
   }),
+  disabled: PropTypes.bool,
 };
 
 FormControl.defaultProps = {
@@ -49,6 +52,7 @@ FormControl.defaultProps = {
   helperText: null,
   required: false,
   InputProps: null,
+  disabled: false,
 };
 
 export default FormControl;

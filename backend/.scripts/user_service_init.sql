@@ -1,5 +1,5 @@
 insert into users(id, username, email, confirmed, first_name, last_name, password, status, version)
-values (1,'admin', 'admin@admin.com' ,true , 'Test', 'Testowy', '$2y$12$J1upwVOgZ9cJcE7VewBiOuYhtTaMhgXlk5rUqvazW15PV14KGbAci', 'ACTIVE', 1);
+values (1,'admin', 'admin@admin.com' ,true , 'Mariusz', 'Pudzianowski', '$2y$12$J1upwVOgZ9cJcE7VewBiOuYhtTaMhgXlk5rUqvazW15PV14KGbAci', 'ACTIVE', 0);
 
 insert into roles(id, name, project_id, user_id)
 values (1, 'DEVELOPER', 1, 1);
