@@ -11,6 +11,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import { AccountBox, ExitToApp } from '@material-ui/icons';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 import { logout } from '../../redux/reducers/actions/authActions';
 import routes from '../../router/routes.json';
 
@@ -18,8 +19,10 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   background-color: ${(props) => props.theme.palette.primary.dark};
-  padding: 0.4rem;
+  padding: 0.2rem 0.4rem;
   border-radius: 1rem;
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+    0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
   &:hover {
     filter: brightness(0.7);
   }
@@ -33,11 +36,12 @@ const NameWrapper = styled.span`
   margin-left: 0.5rem;
   font-weight: bolder;
   color: azure;
+  user-select: none;
 `;
 
 const getLetters = (name, username) => {
   let split;
-  if (name !== null && name !== '') {
+  if (name !== null && name !== '' && name !== undefined) {
     if (name.includes(' ')) {
       split = name.split(' ');
       return [split[0].charAt(0), split[1].charAt(0)];
@@ -69,12 +73,20 @@ const StyledAvatar = withStyles((theme) => ({
   },
 }))(Avatar);
 
+const useStyles = makeStyles((theme) => ({
+  avatar: {
+    width: theme.spacing(5),
+    height: theme.spacing(5),
+  },
+}));
+
 const AccountMenu = () => {
   const name = useSelector((state) => state.auth.token.name);
   const username = useSelector((state) => state.auth.token.user_name);
   const { t } = useTranslation();
   const navigate = useNavigate();
   const letters = getLetters(name, username);
+  const classes = useStyles();
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -101,7 +113,7 @@ const AccountMenu = () => {
         onKeyDown={handleClick}
         role="button"
       >
-        <StyledAvatar>
+        <StyledAvatar className={classes.avatar}>
           {letters[0]}
           {letters[1]}
         </StyledAvatar>

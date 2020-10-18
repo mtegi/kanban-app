@@ -6,6 +6,9 @@
     "firstName": "Imię",
     "lastName": "Nazwisko",
     "email": "Email",
-    "submit": "Utwórz konto"
-  }
+    "submit": "Utwórz konto",
+    "success": "Konto utworzone. Na podany adres został wysłany link aktywacyjny."
+  },
+  "activateSuccess": "Konto aktywowane.",
+  "goToLogin": "Przejdź do logowania."
 }

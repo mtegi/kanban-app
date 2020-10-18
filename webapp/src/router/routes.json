@@ -18,5 +18,17 @@
   "myAccount": {
     "title": "my-account",
     "uri": "/my-account"
+  },
+  "boards": {
+    "title": "boards",
+    "uri": "/boards"
+  },
+  "dashboard": {
+    "title": "dashboard",
+    "uri": "/dashboard"
+  },
+  "activate": {
+    "title": "activate",
+    "uri": "/activate"
   }
 }

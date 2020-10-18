@@ -2,6 +2,7 @@ import { createStore, applyMiddleware } from 'redux';
 import { persistReducer, persistStore } from 'redux-persist';
 import localforage from 'localforage';
 import logger from 'redux-logger';
+import thunk from 'redux-thunk';
 import rootReducer from './reducers/rootReducer';
 
 const persistConfig = {
@@ -10,8 +11,10 @@ const persistConfig = {
   /* blacklist: ['auth', 'currentAccessLevel'], */
 };
 
+const middlewares = [thunk, logger];
+
 const persistedReducer = persistReducer(persistConfig, rootReducer);
-const store = createStore(persistedReducer, applyMiddleware(logger));
+const store = createStore(persistedReducer, applyMiddleware(...middlewares));
 const persistor = persistStore(store);
 
 export default { store, persistor };

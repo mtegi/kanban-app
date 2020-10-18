@@ -19,5 +19,10 @@
     "notActive": "Account is not active.",
     "badCredentials": "Incorrect login or password."
   },
+  "account": {
+    "notFound": "Account does not exist.",
+    "badToken": "Bad activation token.",
+    "confirmed": "Account is already confirmed."
+  },
   "other": "Application encountered unexpected error."
 }

@@ -6,6 +6,9 @@
     "firstName": "First name",
     "lastName": "Last name",
     "email": "Email",
-    "submit": "Create account"
-  }
+    "submit": "Create account",
+    "success": "Account created. Check your email to confirm for activation link."
+  },
+  "activateSuccess": "Account activated.",
+  "goToLogin": "Proceed to login form."
 }

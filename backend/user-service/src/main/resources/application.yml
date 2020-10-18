@@ -11,6 +11,13 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+  rabbitmq:
+    host: roedeer.rmq.cloudamqp.com
+    username: wnwjkwrv
+    virtual-host: wnwjkwrv
+    password: 7ECy4EkNoo20We1lk28-OMcx6bCyBWo4
+    ssl:
+      enabled: true
 security:
   oauth2:
     client:

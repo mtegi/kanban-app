@@ -34,7 +34,7 @@ PopUp.propTypes = {
   text: PropTypes.string.isRequired,
   autoHideDuration: PropTypes.number,
   vertical: PropTypes.oneOf(['top', 'bottom', 'left', 'right']),
-  horizontal: PropTypes.oneOf(['top', 'bottom', 'left', 'right']),
+  horizontal: PropTypes.oneOf(['top', 'bottom', 'left', 'right', 'center']),
 };
 
 PopUp.defaultProps = {

@@ -19,5 +19,10 @@
     "notActive": "Konto nieaktywne.",
     "badCredentials": "Nieprawidłowy login lub hasło."
   },
+  "account": {
+    "notFound": "Podane konto nie istnieje.",
+    "badToken": "Zły token aktywacyjny.",
+    "confirmed": "Konto zostało już potwierdzone."
+  },
   "other": "Wystąpił niespodziewany błąd."
 }

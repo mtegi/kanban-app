@@ -5,7 +5,6 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import * as yup from 'yup';
 import { useAsync } from 'react-async-hook';
-import { Skeleton } from '@material-ui/lab';
 import Form from '../../forms/Form';
 import BasicFormContainer from '../../forms/BasicFormContainer';
 import SubmitButton from '../../forms/SubmitButton';

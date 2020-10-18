@@ -20,6 +20,7 @@ public class RegisterDto {
     private String lastName;
     @NotBlank
     private String password;
+    private String locale;
 
     public void putProperties(User entity) {
         entity.setUsername(getUsername());

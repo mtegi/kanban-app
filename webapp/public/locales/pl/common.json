@@ -8,5 +8,11 @@
   "my-account": "Moje konto",
   "success": "Operacja zakończona powodzeniem.",
   "editMode": "Tryb edycji",
-  "confirmEdit": "Edytuj"
+  "confirmEdit": "Edytuj",
+  "boards": "Tablice",
+  "search": "Wyszukaj",
+  "favourite": "Ulubione",
+  "all-boards": "Wszystkie tablice",
+  "last": "Ostatnie",
+  "dashboard": "Statystyki"
 }

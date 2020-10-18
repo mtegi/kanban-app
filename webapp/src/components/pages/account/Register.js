@@ -57,6 +57,7 @@ const Register = () => {
             onSubmit={handleSubmit}
             error={status.error}
             success={status.success}
+            successText="register:form.success"
           >
             <Row>
               <Col>

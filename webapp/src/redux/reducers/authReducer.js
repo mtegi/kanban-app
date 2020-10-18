@@ -1,4 +1,4 @@
-import { CLEAR_AUTH, SET_TOKEN } from './actions/types';
+import { CLEAR_AUTH, SET_NAME, SET_TOKEN } from './actions/types';
 
 const initState = {
   Authorization: '',
@@ -23,6 +23,14 @@ export const authReducer = (state = initState, action) => {
         Authorization: action.payload.Authorization,
         token: action.payload.token,
         isLogged: true,
+      };
+    case SET_NAME:
+      return {
+        ...state,
+        token: {
+          ...state.token,
+          name: action.payload,
+        },
       };
     case CLEAR_AUTH:
       return initState;

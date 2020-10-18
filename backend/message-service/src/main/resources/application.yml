@@ -1,0 +1,30 @@
+server:
+  port: 8106
+
+spring:
+  application:
+    name: message-service
+  mail:
+    host: localhost
+    port: 25
+    username: dummy
+    password: dummy
+  rabbitmq:
+    host: roedeer.rmq.cloudamqp.com
+    username: wnwjkwrv
+    virtual-host: wnwjkwrv
+    password: 7ECy4EkNoo20We1lk28-OMcx6bCyBWo4
+    ssl:
+      enabled: true
+security:
+  oauth2:
+    client:
+      client-id: oauth2
+      client-secret: oauth2
+    resource:
+      token-info-uri: http://localhost:8200/oauth/check_token
+messaging:
+  hostname: localhost:3000
+  ssl: false
+  email: noreply@kanban.com
+
