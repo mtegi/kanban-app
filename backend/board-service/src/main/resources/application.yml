@@ -1,0 +1,22 @@
+server:
+  port: 8100
+
+spring:
+  application:
+    name: board-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    password: postgres
+    username: postgres
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+security:
+  oauth2:
+    client:
+      client-id: oauth2
+      client-secret: oauth2
+    resource:
+      token-info-uri: http://localhost:8200/oauth/check_token
+
+

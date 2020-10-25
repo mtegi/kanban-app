@@ -21,7 +21,11 @@
   },
   "boards": {
     "title": "boards",
-    "uri": "/boards"
+    "uri": "/boards",
+    "create": {
+      "title": "boards.create",
+      "uri": "/boards/new"
+    }
   },
   "dashboard": {
     "title": "dashboard",

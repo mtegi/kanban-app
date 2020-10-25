@@ -28,9 +28,9 @@ zuul:
       path: /oauth/**
       service-id: auth-service
       strip-prefix: false
-    projects:
-      path: /projects/**
-      service-id: project-service
+    boards:
+      path: /boards/**
+      url: board-service
       strip-prefix: false
     users:
       path: /**

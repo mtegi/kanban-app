@@ -20,9 +20,9 @@ const Label = styled.span`
 const CardWrapper = styled.div`
   width: 100%;
   display: grid;
-  grid-auto-flow: column;
   grid-column-gap: 0.7rem;
-  grid-auto-columns: min-content;
+  grid-row-gap: 0.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(200px, min-content));
 `;
 
 const BoardSection = ({ label, boards }) => {
@@ -35,8 +35,8 @@ const BoardSection = ({ label, boards }) => {
         {boards.map((b) => (
           <BoardCard
             key={b.id}
-            title={b.title}
-            onClick={() => navigate(`${routes.boards.uri}/${b.id}`)}
+            title={b.name}
+            onClick={() => navigate(`${routes.boards.uri}/${b.name}`)}
           />
         ))}
       </CardWrapper>

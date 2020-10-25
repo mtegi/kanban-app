@@ -1,0 +1,10 @@
+{
+  "create": "New board",
+  "form": {
+    "name": "Name",
+    "create": {
+      "success": "Board created.",
+      "submit": "Add board"
+    }
+  }
+}

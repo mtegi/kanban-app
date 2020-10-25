@@ -39,8 +39,23 @@ const useYupHelper = () => {
     .trim()
     .required(i18next.t('error:form.required'))
     .max(16, i18next.t('error:form.max'));
+  const boardHelper = {
+    name: yup
+      .string()
+      .trim()
+      .required(i18next.t('error:form.required'))
+      .max(254, i18next.t('error:form.max')),
+  };
 
-  return { email, password, repeatPassword, username, firstName, lastName };
+  return {
+    email,
+    password,
+    repeatPassword,
+    username,
+    firstName,
+    lastName,
+    boardHelper,
+  };
 };
 
 export default useYupHelper;

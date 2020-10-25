@@ -1,0 +1,10 @@
+{
+  "create": "Nowa tablica",
+  "form": {
+    "name": "Nazwa",
+    "create": {
+      "success": "Utworzono tablicę.",
+      "submit": "Dodaj tablicę"
+    }
+  }
+}
