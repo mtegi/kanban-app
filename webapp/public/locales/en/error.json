@@ -3,6 +3,7 @@
     "required": "Field is required.",
     "letters": "Field must consist only of letters.",
     "max": "Character limit reached.",
+    "validation": "Field is invalid.",
     "email": {
       "format": "Email invalid.",
       "taken": "This email is already taken."

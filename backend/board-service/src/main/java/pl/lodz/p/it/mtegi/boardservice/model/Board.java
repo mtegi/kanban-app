@@ -31,6 +31,9 @@ public class Board {
     @Column(nullable = false)
     private boolean favourite;
 
+    @Column(nullable = false)
+    private String color;
+
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="board_id", nullable = false, updatable = false)
     private List<Lane> lanes;

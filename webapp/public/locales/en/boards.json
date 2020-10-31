@@ -2,6 +2,7 @@
   "create": "New board",
   "form": {
     "name": "Name",
+    "color": "Board color",
     "create": {
       "success": "Board created.",
       "submit": "Add board"

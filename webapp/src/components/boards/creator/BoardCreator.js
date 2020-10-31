@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Formik } from 'formik';
+import { Field, Formik } from 'formik';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import * as yup from 'yup';
@@ -13,6 +13,7 @@ import FormControl from '../../forms/FormControl';
 import SubmitButton from '../../forms/SubmitButton';
 import BoardApi from '../../../api/BoardApi';
 import routes from '../../../router/routes.json';
+import FormControlColor from '../../forms/FormControlColor';
 
 const BoardCreator = () => {
   const { t } = useTranslation(['boards', 'common', 'error']);
@@ -42,10 +43,11 @@ const BoardCreator = () => {
         onSubmit={handleSubmit}
         initialValues={{
           name: '',
+          color: '#ff7f50',
         }}
         validationSchema={validationSchema}
       >
-        {({ submitForm, isSubmitting, errors }) => (
+        {({ submitForm, isSubmitting, errors, values }) => (
           <Form
             onSubmit={handleSubmit}
             error={status.error}
@@ -55,6 +57,11 @@ const BoardCreator = () => {
             <Row>
               <Col>
                 <FormControl label={t('form.name')} name="name" required />
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <FormControlColor label={t('form.color')} name="color" />
               </Col>
             </Row>
             <Row>

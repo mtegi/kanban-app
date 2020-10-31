@@ -6,7 +6,7 @@ const Card = styled.div`
   width: 12rem;
   height: 6rem;
   padding: 0.1rem 0.5rem;
-  background-color: coral;
+  background-color: ${(props) => props.color};
   border-radius: 0.2rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   transition: box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -27,8 +27,8 @@ const CardTitle = styled.span`
   user-select: none;
 `;
 
-const BoardCard = ({ title, onClick }) => (
-  <Card role="button" onClick={onClick}>
+const BoardCard = ({ title, onClick, color }) => (
+  <Card role="button" onClick={onClick} color={color}>
     <CardTitle>{title}</CardTitle>
   </Card>
 );
@@ -36,11 +36,13 @@ const BoardCard = ({ title, onClick }) => (
 BoardCard.propTypes = {
   title: PropTypes.string,
   onClick: PropTypes.func,
+  color: PropTypes.string,
 };
 
 BoardCard.defaultProps = {
   title: '',
   onClick: () => {},
+  color: '#ff7f50',
 };
 
 export default BoardCard;

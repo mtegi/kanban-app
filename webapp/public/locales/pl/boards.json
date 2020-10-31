@@ -2,6 +2,7 @@
   "create": "Nowa tablica",
   "form": {
     "name": "Nazwa",
+    "color": "Kolor tablicy",
     "create": {
       "success": "Utworzono tablicę.",
       "submit": "Dodaj tablicę"

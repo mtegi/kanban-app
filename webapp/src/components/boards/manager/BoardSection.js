@@ -36,6 +36,7 @@ const BoardSection = ({ label, boards }) => {
           <BoardCard
             key={b.id}
             title={b.name}
+            color={b.color}
             onClick={() => navigate(`${routes.boards.uri}/${b.name}`)}
           />
         ))}

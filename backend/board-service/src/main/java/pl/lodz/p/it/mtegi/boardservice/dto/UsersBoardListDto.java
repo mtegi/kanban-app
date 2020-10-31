@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 public class UsersBoardListDto extends CommonResponseDto<Board> {
     private long id;
     private String name;
+    private String color;
     private boolean favourite;
     private LocalDateTime lastOpened;
 

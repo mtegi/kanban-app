@@ -3,6 +3,7 @@
     "required": "Pole wymagane.",
     "letters": "Pole może zawierać wyłącznie litery.",
     "max": "Limit znaków przekroczony.",
+    "validation": "Podano niedozwoloną wartość.",
     "email": {
       "format": "Zły format adresu email.",
       "taken": "Email jest już w użyciu."
