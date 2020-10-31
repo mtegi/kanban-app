@@ -4,6 +4,13 @@ server:
 spring:
   application:
     name: auth-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    password: postgres
+    username: postgres
+  jpa:
+    hibernate:
+      ddl-auto: update
 
 jwt:
   secret: secret
