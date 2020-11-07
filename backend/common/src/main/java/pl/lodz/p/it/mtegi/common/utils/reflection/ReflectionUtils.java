@@ -2,6 +2,7 @@ package pl.lodz.p.it.mtegi.common.utils.reflection;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.Collection;
 
 public class ReflectionUtils {
     public static boolean setField(Object targetObject, String fieldName, Object fieldValue) {
@@ -19,7 +20,7 @@ public class ReflectionUtils {
                 superClass = superClass.getSuperclass();
             }
         }
-        if (field == null) {
+        if (field == null || Collection.class.isAssignableFrom(field.getType())) {
             return false;
         }
         field.setAccessible(true);

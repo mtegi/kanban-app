@@ -3,7 +3,6 @@ package pl.lodz.p.it.mtegi.boardservice.model;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
 import java.util.List;
 
 @Entity
@@ -24,17 +23,17 @@ public class Lane {
     private Long version;
 
     @Column
-    private String name;
+    private String title;
 
     @Column
-    @Min(0)
-    private Integer sequence;
+    private Integer index;
 
+    @Column
     private Integer taskLimit;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="lane_id", nullable = false)
-    private List<Task> tasks;
+    @JoinColumn(name="card_id", nullable = false)
+    private List<Card> cards;
 
     public Lane() {
     }

@@ -5,11 +5,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.lodz.p.it.mtegi.boardservice.dto.CreateBoardDto;
 import pl.lodz.p.it.mtegi.boardservice.dto.UsersBoardListDto;
+import pl.lodz.p.it.mtegi.boardservice.dto.details.BoardDetailsDto;
+import pl.lodz.p.it.mtegi.boardservice.exception.BoardError;
 import pl.lodz.p.it.mtegi.boardservice.factory.BoardFactory;
 import pl.lodz.p.it.mtegi.boardservice.model.Board;
 import pl.lodz.p.it.mtegi.boardservice.model.BoardMember;
 import pl.lodz.p.it.mtegi.boardservice.repository.BoardMemberRepository;
 import pl.lodz.p.it.mtegi.boardservice.repository.BoardRepository;
+import pl.lodz.p.it.mtegi.common.exception.ApplicationException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,6 +25,7 @@ public class BoardServiceImpl implements BoardService {
     private final BoardRepository boardRepository;
     private final BoardFactory boardFactory;
     private final BoardMemberRepository memberRepository;
+    private final LaneService laneService;
 
     @Override
     public List<Board> findAll() {
@@ -42,5 +46,16 @@ public class BoardServiceImpl implements BoardService {
             dto.fillProperties(member);
             return dto;
         }).collect(Collectors.toList());
+    }
+
+    @Override
+    public BoardDetailsDto getBoardDetails(Long id) {
+        BoardDetailsDto dto = new BoardDetailsDto();
+        dto.fillProperties(findById(id));
+        return dto;
+    }
+
+    public Board findById(Long id) {
+        return boardRepository.findById(id).orElseThrow(() -> new ApplicationException(BoardError.NOT_FOUND));
     }
 }

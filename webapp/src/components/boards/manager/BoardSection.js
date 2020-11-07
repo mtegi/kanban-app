@@ -37,7 +37,11 @@ const BoardSection = ({ label, boards }) => {
             key={b.id}
             title={b.name}
             color={b.color}
-            onClick={() => navigate(`${routes.boards.uri}/${b.name}`)}
+            onClick={() =>
+              navigate(`${routes.boards.uri}/${b.name}`, {
+                state: { id: b.id },
+              })
+            }
           />
         ))}
       </CardWrapper>

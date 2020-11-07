@@ -15,16 +15,16 @@ public class BoardFactoryImpl implements BoardFactory {
     public Board createFromDefaultTemplate(CreateBoardDto dto) {
         Board board = new Board();
         dto.putProperties(board);
-        int seq = 0;
+        int i = 0;
         List<Lane> lanes = new ArrayList<>(
                 Arrays.asList(
-                        Lane.builder().sequence(seq).name("backlog").build(),
-                        Lane.builder().sequence(++seq).name("design").build(),
-                        Lane.builder().sequence(++seq).name("todo").build(),
-                        Lane.builder().sequence(++seq).name("doing").build(),
-                        Lane.builder().sequence(++seq).name("code-review").build(),
-                        Lane.builder().sequence(++seq).name("testing").build(),
-                        Lane.builder().sequence(++seq).name("done").build()
+                        Lane.builder().title("backlog").index(i).build(),
+                        Lane.builder().title("design").index(++i).build(),
+                        Lane.builder().title("todo").index(++i).build(),
+                        Lane.builder().title("doing").index(++i).build(),
+                        Lane.builder().title("code-review").index(++i).build(),
+                        Lane.builder().title("testing").index(++i).build(),
+                        Lane.builder().title("done").index(++i).build()
                 ));
         board.setLanes(lanes);
         board.setFavourite(false);

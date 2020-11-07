@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { getI18n } from 'react-i18next';
 import handleError from './errorHandler';
 import store from '../redux/store';
 
@@ -36,6 +35,21 @@ const BoardApi = {
     } catch (e) {
       handleError(e);
     }
+  },
+
+  getBoardDetails: async (id) => {
+    let response;
+    try {
+      const { Authorization } = store.store.getState().auth;
+      response = await axios.get(`${axios.defaults.baseURL}/${prefix}/${id}`, {
+        headers: {
+          Authorization,
+        },
+      });
+    } catch (e) {
+      handleError(e);
+    }
+    return response.data;
   },
 };
 

@@ -7,5 +7,19 @@
       "success": "Utworzono tablicę.",
       "submit": "Dodaj tablicę"
     }
+  },
+  "Add another lane": "+ Dodaj listę",
+  "Click to add card": "Nowa karta",
+  "Delete lane": "Usuń listę",
+  "Lane actions": "Akcja",
+  "button": {
+    "Add lane": "Dodaj listę",
+    "Add card": "Nowa karta",
+    "Cancel": "Anuluj"
+  },
+  "placeholder": {
+    "title": "tytuł",
+    "description": "opis",
+    "label": "nazwa"
   }
 }

@@ -9,6 +9,7 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 import pl.lodz.p.it.mtegi.boardservice.dto.CreateBoardDto;
 import pl.lodz.p.it.mtegi.boardservice.dto.UsersBoardListDto;
+import pl.lodz.p.it.mtegi.boardservice.dto.details.BoardDetailsDto;
 import pl.lodz.p.it.mtegi.boardservice.model.Board;
 import pl.lodz.p.it.mtegi.boardservice.service.BoardService;
 
@@ -41,5 +42,10 @@ public class BoardController {
     @GetMapping("/manager")
     public List<UsersBoardListDto> getUsersBoardsForManager(Authentication authentication) {
         return boardService.getUsersBoardsForManager(authentication.getName());
+    }
+
+    @GetMapping("/{id}")
+    public BoardDetailsDto getBoardDetails(@PathVariable Long id){
+        return boardService.getBoardDetails(id);
     }
 }
