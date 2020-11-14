@@ -29,5 +29,6 @@ public class BoardDetailsDto extends CommonResponseDto<Board> {
             return dto;
         }).collect(Collectors.toList()));
         lanes.sort(Comparator.comparing(LaneDetailsDto::getIndex));
+        lanes.forEach(lane -> lane.getCards().sort(Comparator.comparing(CardDetailsDto::getIndex)));
     }
 }

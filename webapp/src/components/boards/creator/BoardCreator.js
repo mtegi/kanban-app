@@ -52,7 +52,7 @@ const BoardCreator = () => {
             onSubmit={handleSubmit}
             error={status.error}
             success={status.success}
-            successText="form.create.success"
+            successText={t('form.create.success')}
           >
             <Row>
               <Col>

@@ -1,31 +1,41 @@
-import { useState } from 'react';
 import useWebSockets from '../../../api/useWebSockets';
 
 const useEventHandler = (boardId, username) => {
-  const [eventBus, setEventBus] = useState(null);
   const ws = useWebSockets();
 
   const onCardAdd = (card, laneId) => {
-    ws.send('/add', { username, laneId, card: { ...card, id: null } });
+    ws.send(`/${boardId}/card/add`, {
+      username,
+      laneId,
+      card,
+    });
   };
 
-  const handleDragEnd = (
-    cardId,
-    sourceLaneId,
-    targetLaneId,
-    position,
-    cardDetails
-  ) => {
-    console.log(
-      'card drag',
+  const onCardMoveAcrossLanes = (fromLaneId, toLaneId, cardId, index) => {
+    ws.send(`/${boardId}/card/move`, {
+      username,
+      fromLaneId,
+      toLaneId,
       cardId,
-      sourceLaneId,
-      targetLaneId,
-      position,
-      cardDetails
-    );
+      index,
+    });
   };
-  return { onCardAdd, handleDragEnd, setEventBus };
+
+  const onCardDelete = (cardId, laneId) => {
+    ws.send(`/${boardId}/card/delete`, {
+      username,
+      cardId,
+      laneId,
+    });
+  };
+
+  const subscribe = (handleMessage) => {
+    if (handleMessage.toString() !== '() => {}') {
+      ws.subscribe(`/board/${boardId}`, handleMessage);
+    }
+  };
+
+  return { onCardAdd, subscribe, onCardMoveAcrossLanes, onCardDelete };
 };
 
 export default useEventHandler;

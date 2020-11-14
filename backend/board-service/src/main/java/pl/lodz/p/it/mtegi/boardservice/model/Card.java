@@ -13,9 +13,7 @@ import javax.persistence.*;
 public class Card {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_card_id")
-    @Setter(AccessLevel.NONE)
-    private Long id;
+    private String id;
 
     @Version
     @Setter(AccessLevel.NONE)
@@ -23,6 +21,9 @@ public class Card {
 
     @Column
     private String title;
+
+    @Column
+    private Integer index;
 
     @Column
     private String description;

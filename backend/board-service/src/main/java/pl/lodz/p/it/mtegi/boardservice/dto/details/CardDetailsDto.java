@@ -10,7 +10,8 @@ import pl.lodz.p.it.mtegi.common.dto.CommonDto;
 @Setter
 @NoArgsConstructor
 public class CardDetailsDto extends CommonDto<Card> {
-    private Long id;
+    private String id;
     private String title;
     private String description;
+    private Integer index;
 }

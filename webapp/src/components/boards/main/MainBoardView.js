@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Board from 'react-trello';
 import { useTranslation, withTranslation } from 'react-i18next';
 import { useAsync } from 'react-async-hook';
@@ -20,6 +20,12 @@ const MainBoardView = () => {
   const username = useSelector((state) => state.auth.token.user_name);
   const handler = useEventHandler(boardId, username);
 
+  let handleMessage = () => {};
+
+  useEffect(() => {
+    handler.subscribe(handleMessage);
+  }, [handleMessage]);
+
   return (
     <>
       {data.loading && <ProgressBar />}
@@ -38,8 +44,19 @@ const MainBoardView = () => {
             draggable
             data={data.result}
             style={{ backgroundColor: data.result.color }}
+            eventBusHandle={(handle) => {
+              handleMessage = (message) => {
+                const body = JSON.parse(message.body);
+                if (body.username !== username) {
+                  handle.publish(body);
+                } else {
+                  console.log('event by self', body);
+                }
+              };
+            }}
             onCardAdd={handler.onCardAdd}
-            handleDragEnd={handler.handleDragEnd}
+            onCardMoveAcrossLanes={handler.onCardMoveAcrossLanes}
+            onCardDelete={handler.onCardDelete}
           />
         </>
       )}
