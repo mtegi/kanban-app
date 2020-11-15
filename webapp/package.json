@@ -12,6 +12,7 @@
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.20.0",
     "bootstrap": "^4.5.2",
+    "date-fns": "^2.16.1",
     "formik": "^2.1.5",
     "formik-material-ui": "^3.0.0",
     "formik-material-ui-pickers": "0.0.11",

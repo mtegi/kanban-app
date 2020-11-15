@@ -1,6 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
+import { format, parseISO } from 'date-fns';
+import { pl, enUS } from 'date-fns/locale';
+import { getI18n } from 'react-i18next';
 
 const Card = styled.div`
   width: 12rem;
@@ -19,17 +22,41 @@ const Card = styled.div`
     outline: none;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   }
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 const CardTitle = styled.span`
+  display: flex;
   font-weight: bold;
   font-size: 1.2rem;
   user-select: none;
 `;
 
-const BoardCard = ({ title, onClick, color }) => (
+const CardDate = styled.span`
+  display: flex;
+  font-weight: bold;
+  font-size: 0.8rem;
+  user-select: none;
+  align-self: flex-end;
+`;
+
+const getLocale = () => {
+  switch (getI18n().language) {
+    case 'pl' || 'pl-Pl':
+      return pl;
+    default:
+      return enUS;
+  }
+};
+
+const BoardCard = ({ title, onClick, color, lastOpened }) => (
   <Card role="button" onClick={onClick} color={color}>
     <CardTitle>{title}</CardTitle>
+    <CardDate>
+      {format(parseISO(lastOpened), 'do MMM Y : p', { locale: getLocale() })}
+    </CardDate>
   </Card>
 );
 
@@ -37,6 +64,7 @@ BoardCard.propTypes = {
   title: PropTypes.string,
   onClick: PropTypes.func,
   color: PropTypes.string,
+  lastOpened: PropTypes.string.isRequired,
 };
 
 BoardCard.defaultProps = {

@@ -34,8 +34,7 @@ public class Board {
     @Column(nullable = false)
     private String color;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="board_id", nullable = false, updatable = false)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "board")
     private List<Lane> lanes;
 
     @OneToMany(mappedBy = "board" ,cascade = CascadeType.ALL)

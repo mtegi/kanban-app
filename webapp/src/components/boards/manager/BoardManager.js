@@ -34,7 +34,7 @@ const BoardManager = () => {
             />
           </BoardManagerMenu>
           <Divider />
-          <BoardSection label={t('last')} boards={data.result} />
+          <BoardSection label={t('last')} boards={data.result.slice(0, 10)} />
           <Divider />
           <BoardSection label={t('favourite')} />
           <Divider />

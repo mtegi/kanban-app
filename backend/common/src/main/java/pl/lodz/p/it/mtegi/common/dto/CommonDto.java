@@ -7,7 +7,7 @@ import java.util.Arrays;
 public abstract class CommonDto<T> implements RequestDto<T>, ResponseDto<T> {
     @Override
     public void putProperties(T entity) {
-        Arrays.stream(entity.getClass().getDeclaredFields()).forEach(field -> ReflectionUtils.setField(entity, field.getName(), ReflectionUtils.runGetter(field.getName(), this)));
+        Arrays.stream(this.getClass().getDeclaredFields()).forEach(field -> ReflectionUtils.setField(entity, field.getName(), ReflectionUtils.runGetter(field.getName(), this)));
     }
 
     @Override

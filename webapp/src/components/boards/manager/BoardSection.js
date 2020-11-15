@@ -37,6 +37,7 @@ const BoardSection = ({ label, boards }) => {
             key={b.id}
             title={b.name}
             color={b.color}
+            lastOpened={b.lastOpened}
             onClick={() =>
               navigate(`${routes.boards.uri}/${b.name}`, {
                 state: { id: b.id },
