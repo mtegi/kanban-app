@@ -7,6 +7,6 @@ import java.util.Arrays;
 public abstract class CommonRequestDto<T> implements RequestDto<T> {
     @Override
     public void putProperties(T entity) {
-        Arrays.stream(entity.getClass().getDeclaredFields()).forEach(field -> ReflectionUtils.setField(entity, field.getName(), ReflectionUtils.runGetter(field.getName(), this)));
+        Arrays.stream(this.getClass().getDeclaredFields()).forEach(field -> ReflectionUtils.setField(entity, field.getName(), ReflectionUtils.runGetter(field.getName(), this)));
     }
 }

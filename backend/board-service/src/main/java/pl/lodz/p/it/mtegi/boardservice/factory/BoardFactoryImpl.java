@@ -18,13 +18,13 @@ public class BoardFactoryImpl implements BoardFactory {
         int i = 0;
         List<Lane> lanes = new ArrayList<>(
                 Arrays.asList(
-                        Lane.builder().title("backlog").index(i).build(),
-                        Lane.builder().title("design").index(++i).build(),
-                        Lane.builder().title("todo").index(++i).build(),
-                        Lane.builder().title("doing").index(++i).build(),
-                        Lane.builder().title("code-review").index(++i).build(),
-                        Lane.builder().title("testing").index(++i).build(),
-                        Lane.builder().title("done").index(++i).build()
+                        Lane.builder().title("backlog").index(i).board(board).build(),
+                        Lane.builder().title("design").index(++i).board(board).build(),
+                        Lane.builder().title("todo").index(++i).board(board).build(),
+                        Lane.builder().title("doing").index(++i).board(board).build(),
+                        Lane.builder().title("code-review").index(++i).board(board).build(),
+                        Lane.builder().title("testing").index(++i).board(board).build(),
+                        Lane.builder().title("done").index(++i).board(board).build()
                 ));
         board.setLanes(lanes);
         board.setFavourite(false);

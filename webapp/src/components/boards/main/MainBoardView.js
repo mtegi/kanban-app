@@ -26,6 +26,10 @@ const MainBoardView = () => {
     handler.subscribe(handleMessage);
   }, [handleMessage]);
 
+  useEffect(() => {
+    setTimeout(handler.onBoardOpen, 1000);
+  }, []);
+
   return (
     <>
       {data.loading && <ProgressBar />}
@@ -57,6 +61,7 @@ const MainBoardView = () => {
             onCardAdd={handler.onCardAdd}
             onCardMoveAcrossLanes={handler.onCardMoveAcrossLanes}
             onCardDelete={handler.onCardDelete}
+            onLaneUpdate={handler.onLaneUpdate}
           />
         </>
       )}

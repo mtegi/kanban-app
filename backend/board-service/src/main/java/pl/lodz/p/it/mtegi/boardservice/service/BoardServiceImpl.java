@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.lodz.p.it.mtegi.boardservice.dto.CreateBoardDto;
 import pl.lodz.p.it.mtegi.boardservice.dto.UsersBoardListDto;
 import pl.lodz.p.it.mtegi.boardservice.dto.details.BoardDetailsDto;
+import pl.lodz.p.it.mtegi.boardservice.dto.events.BoardOpenedDto;
 import pl.lodz.p.it.mtegi.boardservice.exception.BoardError;
 import pl.lodz.p.it.mtegi.boardservice.factory.BoardFactory;
 import pl.lodz.p.it.mtegi.boardservice.model.Board;
@@ -14,6 +15,8 @@ import pl.lodz.p.it.mtegi.boardservice.repository.BoardMemberRepository;
 import pl.lodz.p.it.mtegi.boardservice.repository.BoardRepository;
 import pl.lodz.p.it.mtegi.common.exception.ApplicationException;
 
+import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,7 +48,7 @@ public class BoardServiceImpl implements BoardService {
             UsersBoardListDto dto = new UsersBoardListDto();
             dto.fillProperties(member);
             return dto;
-        }).collect(Collectors.toList());
+        }).sorted(Comparator.comparing(UsersBoardListDto::getLastOpened).reversed()).collect(Collectors.toList());
     }
 
     @Override
@@ -53,6 +56,11 @@ public class BoardServiceImpl implements BoardService {
         BoardDetailsDto dto = new BoardDetailsDto();
         dto.fillProperties(findById(id));
         return dto;
+    }
+
+    @Override
+    public void onBoardOpened(BoardOpenedDto dto) {
+        memberRepository.findAllByUsername(dto.getUsername()).stream().filter(user -> dto.getBoardId().equals(user.getBoard().getId())).findFirst().ifPresent(boardMember -> boardMember.setLastOpened(LocalDateTime.now()));
     }
 
     public Board findById(Long id) {

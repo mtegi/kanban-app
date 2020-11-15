@@ -29,13 +29,34 @@ const useEventHandler = (boardId, username) => {
     });
   };
 
+  const onLaneUpdate = (laneId, data) => {
+    ws.send(`/${boardId}/lane/update`, {
+      username,
+      laneId,
+      data,
+    });
+  };
+
+  const onBoardOpen = () => {
+    ws.send(`/${boardId}/board/open`, {
+      username,
+    });
+  };
+
   const subscribe = (handleMessage) => {
     if (handleMessage.toString() !== '() => {}') {
       ws.subscribe(`/board/${boardId}`, handleMessage);
     }
   };
 
-  return { onCardAdd, subscribe, onCardMoveAcrossLanes, onCardDelete };
+  return {
+    onCardAdd,
+    subscribe,
+    onCardMoveAcrossLanes,
+    onCardDelete,
+    onLaneUpdate,
+    onBoardOpen,
+  };
 };
 
 export default useEventHandler;
