@@ -44,8 +44,9 @@ public class BoardController {
         return boardService.getUsersBoardsForManager(authentication.getName());
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/{id}")
-    public BoardDetailsDto getBoardDetails(@PathVariable Long id){
-        return boardService.getBoardDetails(id);
+    public BoardDetailsDto getBoardDetails(@PathVariable Long id, Authentication authentication){
+        return boardService.getBoardDetails(authentication.getName(), id);
     }
 }

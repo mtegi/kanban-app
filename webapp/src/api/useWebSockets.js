@@ -1,14 +1,18 @@
 import SockJS from 'sockjs-client';
 import { Client } from '@stomp/stompjs';
 import { useEffect, useState } from 'react';
-
-const defaultClient = new Client({
-  webSocketFactory: () => new SockJS('http://localhost:8100/ws'),
-  reconnectDelay: 5000,
-  debug: (str) => console.log(str),
-});
+import { useSelector } from 'react-redux';
 
 const useWebSockets = () => {
+  const accessToken = useSelector(
+    (state) => state.auth.Authorization.split(' ')[1]
+  );
+  const defaultClient = new Client({
+    webSocketFactory: () =>
+      new SockJS(`http://localhost:8100/ws?access_token=${accessToken}`),
+    reconnectDelay: 5000,
+    debug: (str) => console.log(str),
+  });
   const prefix = '/api';
   const [client, setClient] = useState(defaultClient);
 

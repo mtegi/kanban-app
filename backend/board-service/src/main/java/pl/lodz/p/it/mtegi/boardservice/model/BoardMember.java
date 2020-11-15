@@ -27,10 +27,14 @@ public class BoardMember {
     @Column(nullable = false)
     private LocalDateTime lastOpened;
 
+    @Column(nullable = false)
+    private boolean favourite;
+
     @Builder
     public BoardMember(String username, Board board) {
-        this.username = username;
-        this.board = board;
-        this.lastOpened = LocalDateTime.now();
+        setUsername(username);
+        setBoard(board);
+        setLastOpened(LocalDateTime.now());
+        setFavourite(false);
     }
 }

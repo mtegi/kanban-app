@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.lodz.p.it.mtegi.boardservice.dto.CreateBoardDto;
 import pl.lodz.p.it.mtegi.boardservice.dto.UsersBoardListDto;
 import pl.lodz.p.it.mtegi.boardservice.dto.details.BoardDetailsDto;
+import pl.lodz.p.it.mtegi.boardservice.dto.events.BoardFavouriteDto;
 import pl.lodz.p.it.mtegi.boardservice.dto.events.BoardOpenedDto;
 import pl.lodz.p.it.mtegi.boardservice.exception.BoardError;
 import pl.lodz.p.it.mtegi.boardservice.factory.BoardFactory;
@@ -52,9 +53,9 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public BoardDetailsDto getBoardDetails(Long id) {
+    public BoardDetailsDto getBoardDetails(String username, Long id) {
         BoardDetailsDto dto = new BoardDetailsDto();
-        dto.fillProperties(findById(id));
+        dto.fillProperties(findByUsernameAndBoard(username, id));
         return dto;
     }
 
@@ -63,7 +64,18 @@ public class BoardServiceImpl implements BoardService {
         memberRepository.findAllByUsername(dto.getUsername()).stream().filter(user -> dto.getBoardId().equals(user.getBoard().getId())).findFirst().ifPresent(boardMember -> boardMember.setLastOpened(LocalDateTime.now()));
     }
 
+    @Override
+    public void onBoardFavourite(BoardFavouriteDto dto) {
+        BoardMember member = findByUsernameAndBoard(dto.getUsername(), dto.getBoardId());
+        member.setFavourite(dto.isFavourite());
+        memberRepository.save(member);
+    }
+
     public Board findById(Long id) {
         return boardRepository.findById(id).orElseThrow(() -> new ApplicationException(BoardError.NOT_FOUND));
+    }
+
+    private BoardMember findByUsernameAndBoard(String username, Long boardId){
+        return memberRepository.findFirstByUsernameAndBoard_Id(username, boardId).orElseThrow(() -> new ApplicationException(BoardError.NOT_FOUND));
     }
 }

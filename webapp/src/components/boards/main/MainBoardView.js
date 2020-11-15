@@ -18,7 +18,7 @@ const MainBoardView = () => {
   const data = useAsync(BoardApi.getBoardDetails, [boardId]);
   const I18nBoard = withTranslation('boards')(Board);
   const username = useSelector((state) => state.auth.token.user_name);
-  const handler = useEventHandler(boardId, username);
+  const handler = useEventHandler(boardId);
 
   let handleMessage = () => {};
 
@@ -40,6 +40,7 @@ const MainBoardView = () => {
             color={data.result.color}
             name={data.result.name}
             favourite={data.result.favourite}
+            handler={handler}
           />
           <I18nBoard
             canAddLanes

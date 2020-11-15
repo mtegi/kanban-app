@@ -35,6 +35,7 @@ public class Lane {
     @JoinColumn(name = "board_id", nullable = false, updatable = false)
     private Board board;
 
+    @ToString.Exclude
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="card_id", nullable = false)
     private List<Card> cards;

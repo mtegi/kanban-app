@@ -15,10 +15,16 @@ const Wrapper = styled.div`
   border-bottom: 2px solid ${(props) => props.theme.palette.secondary.dark};
 `;
 
-const MainBoardMenu = ({ name, favourite, color }) => {
+const MainBoardMenu = ({ name, favourite, color, handler }) => {
   const { t } = useTranslation();
   const [title, setTitle] = useState(name);
   const [isFavourite, setIsFavourite] = useState(favourite);
+
+  const handleFavourite = () => {
+    const val = !isFavourite;
+    setIsFavourite(val);
+    handler.onFavourite(val);
+  };
 
   return (
     <Wrapper color={color}>
@@ -31,10 +37,7 @@ const MainBoardMenu = ({ name, favourite, color }) => {
           style: { padding: '10px 12px 10px', fontWeight: 'bold' },
         }}
       />
-      <FavoriteButton
-        isFavourite={isFavourite}
-        onClick={() => setIsFavourite(!isFavourite)}
-      />
+      <FavoriteButton isFavourite={isFavourite} onClick={handleFavourite} />
       <NavButton to={routes.dashboard.uri}>{t('dashboard')}</NavButton>
     </Wrapper>
   );
@@ -44,6 +47,15 @@ MainBoardMenu.propTypes = {
   name: PropTypes.string,
   favourite: PropTypes.bool,
   color: PropTypes.string,
+  handler: PropTypes.shape({
+    onCardAdd: PropTypes.func,
+    subscribe: PropTypes.func,
+    onCardMoveAcrossLanes: PropTypes.func,
+    onCardDelete: PropTypes.func,
+    onLaneUpdate: PropTypes.func,
+    onBoardOpen: PropTypes.func,
+    onFavourite: PropTypes.func,
+  }).isRequired,
 };
 
 MainBoardMenu.defaultProps = {

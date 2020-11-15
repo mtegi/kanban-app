@@ -12,6 +12,6 @@ public abstract class CommonDto<T> implements RequestDto<T>, ResponseDto<T> {
 
     @Override
     public void fillProperties(T entity) {
-        Arrays.stream(this.getClass().getDeclaredFields()).forEach(field -> ReflectionUtils.setField(this, field.getName(), ReflectionUtils.runGetter(field.getName(), entity)));
+        Arrays.stream(entity.getClass().getDeclaredFields()).forEach(field -> ReflectionUtils.setField(this, field.getName(), ReflectionUtils.runGetter(field.getName(), entity)));
     }
 }

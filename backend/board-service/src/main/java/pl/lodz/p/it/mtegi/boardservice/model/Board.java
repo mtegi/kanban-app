@@ -3,6 +3,7 @@ package pl.lodz.p.it.mtegi.boardservice.model;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -29,14 +30,13 @@ public class Board {
     private String name;
 
     @Column(nullable = false)
-    private boolean favourite;
-
-    @Column(nullable = false)
     private String color;
 
+    @ToString.Exclude
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "board")
     private List<Lane> lanes;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "board" ,cascade = CascadeType.ALL)
     private List<BoardMember> members = new ArrayList<>();
 }

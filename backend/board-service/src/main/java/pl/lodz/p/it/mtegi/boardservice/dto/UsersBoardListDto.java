@@ -22,5 +22,6 @@ public class UsersBoardListDto extends CommonResponseDto<Board> {
     public void fillProperties(BoardMember member) {
         super.fillProperties(member.getBoard());
         setLastOpened(member.getLastOpened());
+        setFavourite(member.isFavourite());
     }
 }

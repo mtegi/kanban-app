@@ -36,7 +36,10 @@ const BoardManager = () => {
           <Divider />
           <BoardSection label={t('last')} boards={data.result.slice(0, 10)} />
           <Divider />
-          <BoardSection label={t('favourite')} />
+          <BoardSection
+            label={t('favourite')}
+            boards={data.result.filter((val) => val.favourite)}
+          />
           <Divider />
           <BoardSection label={t('all-boards')} boards={data.result} />
         </BoardManagerContainer>

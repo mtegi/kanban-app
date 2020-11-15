@@ -1,11 +1,10 @@
 import useWebSockets from '../../../api/useWebSockets';
 
-const useEventHandler = (boardId, username) => {
+const useEventHandler = (boardId) => {
   const ws = useWebSockets();
 
   const onCardAdd = (card, laneId) => {
     ws.send(`/${boardId}/card/add`, {
-      username,
       laneId,
       card,
     });
@@ -13,7 +12,6 @@ const useEventHandler = (boardId, username) => {
 
   const onCardMoveAcrossLanes = (fromLaneId, toLaneId, cardId, index) => {
     ws.send(`/${boardId}/card/move`, {
-      username,
       fromLaneId,
       toLaneId,
       cardId,
@@ -23,7 +21,6 @@ const useEventHandler = (boardId, username) => {
 
   const onCardDelete = (cardId, laneId) => {
     ws.send(`/${boardId}/card/delete`, {
-      username,
       cardId,
       laneId,
     });
@@ -31,16 +28,17 @@ const useEventHandler = (boardId, username) => {
 
   const onLaneUpdate = (laneId, data) => {
     ws.send(`/${boardId}/lane/update`, {
-      username,
       laneId,
       data,
     });
   };
 
   const onBoardOpen = () => {
-    ws.send(`/${boardId}/board/open`, {
-      username,
-    });
+    ws.send(`/${boardId}/board/open`);
+  };
+
+  const onFavourite = (favourite) => {
+    ws.send(`/${boardId}/board/favourite`, { favourite });
   };
 
   const subscribe = (handleMessage) => {
@@ -56,6 +54,7 @@ const useEventHandler = (boardId, username) => {
     onCardDelete,
     onLaneUpdate,
     onBoardOpen,
+    onFavourite,
   };
 };
 

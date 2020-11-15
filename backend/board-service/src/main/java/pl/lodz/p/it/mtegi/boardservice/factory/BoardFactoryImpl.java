@@ -27,7 +27,6 @@ public class BoardFactoryImpl implements BoardFactory {
                         Lane.builder().title("done").index(++i).board(board).build()
                 ));
         board.setLanes(lanes);
-        board.setFavourite(false);
         return board;
     }
 }
