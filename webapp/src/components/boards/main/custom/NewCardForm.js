@@ -14,6 +14,8 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import Form from '../../../forms/Form';
 import FormControl from '../../../forms/FormControl';
 import { DialogContentWrapper } from './styled';
+import FormControlDateTime from '../../../forms/FormControlDateTime';
+import FormControlColor from '../../../forms/FormControlColor';
 
 const NewCardForm = ({ onCancel, onAdd }) => {
   const [open, setOpen] = React.useState(true);
@@ -25,6 +27,7 @@ const NewCardForm = ({ onCancel, onAdd }) => {
     if (body.description === '') {
       delete body.lastName;
     }
+    console.log(body);
     onAdd(body);
   };
 
@@ -36,6 +39,7 @@ const NewCardForm = ({ onCancel, onAdd }) => {
   const validationSchema = yup.object().shape({
     title: yup.string().trim().required(t('error:form.required')),
     description: yup.string().trim(),
+    prop: yup.string().trim(),
   });
 
   return (
@@ -43,6 +47,7 @@ const NewCardForm = ({ onCancel, onAdd }) => {
       open={open}
       onClose={handleClose}
       aria-labelledby="form-dialog-title"
+      disableBackdropClick
     >
       <DialogTitle id="form-dialog-title">{t('button.Add card')}</DialogTitle>
       <Formik
@@ -51,6 +56,8 @@ const NewCardForm = ({ onCancel, onAdd }) => {
         initialValues={{
           title: '',
           description: '',
+          deadline: null,
+          color: '#ffffff',
         }}
         validationSchema={validationSchema}
       >
@@ -59,19 +66,27 @@ const NewCardForm = ({ onCancel, onAdd }) => {
             <DialogContentWrapper>
               <Row>
                 <Col>
-                  <FormControl
-                    label={t('placeholder.title')}
-                    name="title"
-                    required
-                  />
+                  <FormControl label={t('card.title')} name="title" required />
+                </Col>
+                <Col md="auto">
+                  <FormControlColor label={t('card.color')} name="color" />
                 </Col>
               </Row>
               <Row>
                 <Col>
                   <FormControl
-                    label={t('placeholder.description')}
+                    label={t('card.description')}
                     name="description"
                     multiline
+                  />
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <FormControlDateTime
+                    label={t('card.deadline')}
+                    name="deadline"
+                    minDate={new Date()}
                   />
                 </Col>
               </Row>

@@ -4,6 +4,7 @@ const useEventHandler = (boardId) => {
   const ws = useWebSockets();
 
   const onCardAdd = (card, laneId) => {
+    console.log('ADD_CARD', card);
     ws.send(`/${boardId}/card/add`, {
       laneId,
       card,

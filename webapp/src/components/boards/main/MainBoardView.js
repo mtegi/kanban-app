@@ -11,6 +11,7 @@ import AsyncStatus from '../../constants/AsyncStatus';
 import PopUp from '../../misc/PopUp';
 import useEventHandler from './useEventHandler';
 import NewCardForm from './custom/NewCardForm';
+import Card from './custom/Card';
 
 const MainBoardView = () => {
   const { t } = useTranslation(['boards', 'common', 'error']);
@@ -33,6 +34,7 @@ const MainBoardView = () => {
 
   const components = {
     NewCardForm,
+    Card,
   };
 
   return (

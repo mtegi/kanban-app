@@ -17,9 +17,10 @@
     "Add card": "Add card",
     "Cancel": "Cancel"
   },
-  "placeholder": {
-    "title": "title",
-    "description": "description",
-    "label": "label"
+  "card": {
+    "title": "Title",
+    "description": "Description",
+    "deadline": "Deadline",
+    "color": "Color"
   }
 }

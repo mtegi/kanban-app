@@ -2,8 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
 import { format, parseISO } from 'date-fns';
-import { pl, enUS } from 'date-fns/locale';
-import { getI18n } from 'react-i18next';
+import { getLocale, parseDate } from '../../../utils/date-utils';
 
 const Card = styled.div`
   width: 12rem;
@@ -42,21 +41,10 @@ const CardDate = styled.span`
   align-self: flex-end;
 `;
 
-const getLocale = () => {
-  switch (getI18n().language) {
-    case 'pl' || 'pl-Pl':
-      return pl;
-    default:
-      return enUS;
-  }
-};
-
 const BoardCard = ({ title, onClick, color, lastOpened }) => (
   <Card role="button" onClick={onClick} color={color}>
     <CardTitle>{title}</CardTitle>
-    <CardDate>
-      {format(parseISO(lastOpened), 'do MMM Y : p', { locale: getLocale() })}
-    </CardDate>
+    <CardDate>{parseDate(lastOpened, 'do MMM Y : p')}</CardDate>
   </Card>
 );
 

@@ -17,9 +17,10 @@
     "Add card": "Nowa karta",
     "Cancel": "Anuluj"
   },
-  "placeholder": {
-    "title": "tytuł",
-    "description": "opis",
-    "label": "nazwa"
+  "card": {
+    "title": "Tytuł",
+    "description": "Opis",
+    "deadline": "Termin",
+    "color": "Kolor"
   }
 }

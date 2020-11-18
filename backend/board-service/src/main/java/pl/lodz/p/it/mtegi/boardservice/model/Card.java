@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "cards")
@@ -27,5 +28,11 @@ public class Card {
 
     @Column
     private String description;
+
+    @Column
+    private LocalDateTime deadline;
+
+    @Column
+    private String color;
 
 }
