@@ -10,6 +10,7 @@ import ProgressBar from '../../misc/ProgressBar';
 import AsyncStatus from '../../constants/AsyncStatus';
 import PopUp from '../../misc/PopUp';
 import useEventHandler from './useEventHandler';
+import NewCardForm from './custom/NewCardForm';
 
 const MainBoardView = () => {
   const { t } = useTranslation(['boards', 'common', 'error']);
@@ -29,6 +30,10 @@ const MainBoardView = () => {
   useEffect(() => {
     setTimeout(handler.onBoardOpen, 1000);
   }, []);
+
+  const components = {
+    NewCardForm,
+  };
 
   return (
     <>
@@ -63,6 +68,7 @@ const MainBoardView = () => {
             onCardMoveAcrossLanes={handler.onCardMoveAcrossLanes}
             onCardDelete={handler.onCardDelete}
             onLaneUpdate={handler.onLaneUpdate}
+            components={components}
           />
         </>
       )}

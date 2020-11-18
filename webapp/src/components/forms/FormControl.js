@@ -21,6 +21,8 @@ const FormControl = ({
   required,
   InputProps,
   disabled,
+  multiline,
+  rows,
 }) => (
   <Field
     component={CustomTextField}
@@ -31,6 +33,8 @@ const FormControl = ({
     required={required}
     InputProps={InputProps}
     disabled={disabled}
+    multiline={multiline}
+    rows={rows}
   />
 );
 
@@ -45,6 +49,8 @@ FormControl.propTypes = {
     endAdornment: PropTypes.node,
   }),
   disabled: PropTypes.bool,
+  multiline: PropTypes.bool,
+  rows: PropTypes.number,
 };
 
 FormControl.defaultProps = {
@@ -53,6 +59,8 @@ FormControl.defaultProps = {
   required: false,
   InputProps: null,
   disabled: false,
+  multiline: false,
+  rows: 4,
 };
 
 export default FormControl;
