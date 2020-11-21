@@ -7,14 +7,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 import org.springframework.messaging.converter.MessageConverter;
 import org.springframework.web.context.annotation.RequestScope;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.Inet4Address;
-import java.util.Arrays;
-import java.util.Collections;
 
 @EnableEurekaClient
 @SpringBootApplication
@@ -38,19 +33,5 @@ public class BoardServiceApplication {
     @Bean
     public MessageConverter jsonMessageConverter(){
         return new MappingJackson2MessageConverter();
-    }
-
-    @Bean
-    public CorsFilter corsFilter() {
-        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        final CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Collections.singletonList("*"));
-        configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE","HEAD","OPTIONS"));
-        configuration.setAllowCredentials(true);
-        configuration.addAllowedOrigin("*");
-        configuration.addAllowedHeader("*");
-        configuration.addAllowedMethod("*");
-        source.registerCorsConfiguration("/tutorialspoint-websocket/**", configuration);
-        return new CorsFilter(source);
     }
 }

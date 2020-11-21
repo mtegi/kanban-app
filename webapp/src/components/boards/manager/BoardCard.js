@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
-import { format, parseISO } from 'date-fns';
-import { getLocale, parseDate } from '../../../utils/date-utils';
+import { parseDate } from '../../../utils/date-utils';
 
 const Card = styled.div`
   width: 12rem;

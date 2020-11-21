@@ -9,7 +9,7 @@ const useWebSockets = () => {
   );
   const defaultClient = new Client({
     webSocketFactory: () =>
-      new SockJS(`http://localhost:8100/ws?access_token=${accessToken}`),
+      new SockJS(`https://localhost:8000/ws?access_token=${accessToken}`),
     reconnectDelay: 5000,
     debug: (str) => console.log(str),
   });

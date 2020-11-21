@@ -1,43 +1,18 @@
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import BoardCard from './BoardCard';
 import routes from '../../../router/routes.json';
-
-const BoardSectionContainer = styled.div`
-  width: 100%;
-  min-height: 14rem;
-  padding: 0.2rem 0.5rem;
-`;
-
-const Label = styled.span`
-  font-size: 3rem;
-  font-weight: bold;
-  user-select: none;
-`;
-
-const CardWrapper = styled.div`
-  width: 100%;
-  display: grid;
-  grid-column-gap: 0.7rem;
-  grid-row-gap: 0.5rem;
-  grid-template-columns: repeat(auto-fill, minmax(200px, min-content));
-`;
+import { BoardSectionContainer, CardWrapper, Label } from './styled';
 
 const BoardSection = ({ label, boards, icon }) => {
   const navigate = useNavigate();
-
-  const Icon = styled(icon)`
-    font-size: 75% !important;
-    margin-left: 1rem;
-  `;
 
   return (
     <BoardSectionContainer>
       <Label>
         {label}
-        <Icon />
+        {icon}
       </Label>
       <CardWrapper>
         {boards.map((b) => (
