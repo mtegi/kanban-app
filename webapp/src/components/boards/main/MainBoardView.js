@@ -12,6 +12,7 @@ import PopUp from '../../misc/PopUp';
 import useEventHandler from './useEventHandler';
 import NewCardForm from './custom/NewCardForm';
 import Card from './custom/Card';
+import { useBoardDispatch } from '../context/BoardContext';
 
 const MainBoardView = () => {
   const { t } = useTranslation(['boards', 'common', 'error']);
@@ -21,6 +22,7 @@ const MainBoardView = () => {
   const I18nBoard = withTranslation('boards')(Board);
   const username = useSelector((state) => state.auth.token.user_name);
   const handler = useEventHandler(boardId);
+  const boardDispatch = useBoardDispatch();
 
   let handleMessage = () => {};
 
@@ -31,6 +33,19 @@ const MainBoardView = () => {
   useEffect(() => {
     setTimeout(handler.onBoardOpen, 1000);
   }, []);
+
+  useEffect(() => {
+    if (data.status === AsyncStatus.SUCCESS) {
+      boardDispatch({
+        type: 'SET_ALL',
+        payload: {
+          color: data.result.color,
+          name: data.result.name,
+          favourite: data.result.favourite,
+        },
+      });
+    }
+  }, [data.status]);
 
   const components = {
     NewCardForm,
@@ -43,12 +58,7 @@ const MainBoardView = () => {
       {data.error && <PopUp text={t(data.error.message)} />}
       {data.status === AsyncStatus.SUCCESS && (
         <>
-          <MainBoardMenu
-            color={data.result.color}
-            name={data.result.name}
-            favourite={data.result.favourite}
-            handler={handler}
-          />
+          <MainBoardMenu handler={handler} />
           <I18nBoard
             canAddLanes
             editLaneTitle
@@ -60,7 +70,11 @@ const MainBoardView = () => {
               handleMessage = (message) => {
                 const body = JSON.parse(message.body);
                 if (body.username !== username) {
-                  handle.publish(body);
+                  if (body.type === 'UPDATE_BOARD_NAME') {
+                    boardDispatch(body);
+                  } else {
+                    handle.publish(body);
+                  }
                 } else {
                   console.log('event by self', body);
                 }

@@ -42,6 +42,10 @@ const useEventHandler = (boardId) => {
     ws.send(`/${boardId}/board/favourite`, { favourite });
   };
 
+  const onNameUpdate = (name) => {
+    ws.send(`/${boardId}/board/name`, { name });
+  };
+
   const subscribe = (handleMessage) => {
     if (handleMessage.toString() !== '() => {}') {
       ws.subscribe(`/board/${boardId}`, handleMessage);
@@ -56,6 +60,7 @@ const useEventHandler = (boardId) => {
     onLaneUpdate,
     onBoardOpen,
     onFavourite,
+    onNameUpdate,
   };
 };
 

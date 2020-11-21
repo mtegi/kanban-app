@@ -53,9 +53,16 @@ public class BoardWsController {
     }
 
     @MessageMapping("/{boardId}/board/favourite")
-    public void onBoardFavourite(@DestinationVariable Long boardId, @Payload BoardFavouriteDto dto, Authentication authentication) {
+    public void onBoardFavouriteUpdate(@DestinationVariable Long boardId, @Payload BoardFavouriteDto dto, Authentication authentication) {
         dto.setUsername(authentication.getName());
         dto.setBoardId(boardId);
         boardService.onBoardFavourite(dto);
+    }
+
+    @MessageMapping("/{boardId}/board/name")
+    public void onBoardNameUpdate(@DestinationVariable Long boardId, @Payload BoardNameDto dto, Authentication authentication) {
+        dto.setUsername(authentication.getName());
+        dto.setBoardId(boardId);
+        messageTemplate.convertAndSend("/board/"+ boardId, boardService.onBoardNameUpdate(dto));
     }
 }

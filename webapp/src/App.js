@@ -14,7 +14,7 @@ import theme from './theme';
 const App = () => {
   useEffect(() => {
     ConfigureApi();
-  });
+  }, []);
   return (
     <Provider store={store.store}>
       <PersistGate loading={null} persistor={store.persistor}>

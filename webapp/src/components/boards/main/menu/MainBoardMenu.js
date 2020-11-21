@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import TextField from '@material-ui/core/TextField';
@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import FavoriteButton from './FavoriteButton';
 import NavButton from '../../../misc/NavButton';
 import routes from '../../../../router/routes.json';
+import { useBoardDispatch, useBoardState } from '../../context/BoardContext';
 
 const Wrapper = styled.div`
   display: flex;
@@ -15,38 +16,54 @@ const Wrapper = styled.div`
   border-bottom: 2px solid ${(props) => props.theme.palette.secondary.dark};
 `;
 
-const MainBoardMenu = ({ name, favourite, color, handler }) => {
+const MainBoardMenu = ({ handler }) => {
   const { t } = useTranslation();
-  const [title, setTitle] = useState(name);
-  const [isFavourite, setIsFavourite] = useState(favourite);
+  const boardState = useBoardState();
+  const boardDispatch = useBoardDispatch();
+  let timer = null;
+  const [isTouched, setTouched] = useState(false);
 
   const handleFavourite = () => {
-    const val = !isFavourite;
-    setIsFavourite(val);
+    const val = !boardState.favourite;
+    boardDispatch({ type: 'TOGGLE_FAVOURITE' });
     handler.onFavourite(val);
   };
 
+  const handleTitle = (e) => {
+    clearTimeout(timer);
+    setTouched(true);
+    boardDispatch({ type: 'UPDATE_BOARD_NAME', payload: e.target.value });
+  };
+
+  useEffect(() => {
+    if (isTouched) {
+      timer = setTimeout(() => {
+        handler.onNameUpdate(boardState.name);
+      }, 3000);
+    }
+  }, [boardState.name]);
+
   return (
-    <Wrapper color={color}>
+    <Wrapper color={boardState.color}>
       <TextField
         color="secondary"
         variant="filled"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        value={boardState.name}
+        onChange={handleTitle}
         inputProps={{
           style: { padding: '10px 12px 10px', fontWeight: 'bold' },
         }}
       />
-      <FavoriteButton isFavourite={isFavourite} onClick={handleFavourite} />
+      <FavoriteButton
+        isFavourite={boardState.favourite}
+        onClick={handleFavourite}
+      />
       <NavButton to={routes.dashboard.uri}>{t('dashboard')}</NavButton>
     </Wrapper>
   );
 };
 
 MainBoardMenu.propTypes = {
-  name: PropTypes.string,
-  favourite: PropTypes.bool,
-  color: PropTypes.string,
   handler: PropTypes.shape({
     onCardAdd: PropTypes.func,
     subscribe: PropTypes.func,
@@ -55,13 +72,8 @@ MainBoardMenu.propTypes = {
     onLaneUpdate: PropTypes.func,
     onBoardOpen: PropTypes.func,
     onFavourite: PropTypes.func,
+    onNameUpdate: PropTypes.func,
   }).isRequired,
-};
-
-MainBoardMenu.defaultProps = {
-  name: '',
-  favourite: false,
-  color: '#ff7f50',
 };
 
 export default MainBoardMenu;
