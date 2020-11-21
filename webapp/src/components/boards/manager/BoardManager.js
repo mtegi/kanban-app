@@ -3,8 +3,9 @@ import { useTranslation } from 'react-i18next';
 import { Divider } from '@material-ui/core';
 import { useNavigate } from 'react-router-dom';
 import { useAsync } from 'react-async-hook';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import FolderIcon from '@material-ui/icons/Folder';
+import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import BoardManagerContainer from './BoardManagerContainer';
 import BoardManagerMenu from './BoardManagerMenu';
 import SearchInput from './SearchInput';
@@ -34,14 +35,23 @@ const BoardManager = () => {
             />
           </BoardManagerMenu>
           <Divider />
-          <BoardSection label={t('last')} boards={data.result.slice(0, 10)} />
+          <BoardSection
+            label={t('last')}
+            boards={data.result.slice(0, 10)}
+            icon={AccessTimeIcon}
+          />
           <Divider />
           <BoardSection
             label={t('favourite')}
             boards={data.result.filter((val) => val.favourite)}
+            icon={FavoriteIcon}
           />
           <Divider />
-          <BoardSection label={t('all-boards')} boards={data.result} />
+          <BoardSection
+            label={t('all-boards')}
+            boards={data.result}
+            icon={FolderIcon}
+          />
         </BoardManagerContainer>
       )}
       {data.error && <PopUp text={t(data.error.message)} />}

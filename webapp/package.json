@@ -67,6 +67,7 @@
       "object-curly-newline": "off",
       "import/prefer-default-export": "off",
       "react/jsx-props-no-spreading": "off",
+      "react/jsx-wrap-multilines": "off",
       "react/jsx-curly-newline": "off",
       "react/jsx-filename-extension": [
         1,

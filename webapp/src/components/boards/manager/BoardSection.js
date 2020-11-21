@@ -25,12 +25,20 @@ const CardWrapper = styled.div`
   grid-template-columns: repeat(auto-fill, minmax(200px, min-content));
 `;
 
-const BoardSection = ({ label, boards }) => {
+const BoardSection = ({ label, boards, icon }) => {
   const navigate = useNavigate();
+
+  const Icon = styled(icon)`
+    font-size: 75% !important;
+    margin-left: 1rem;
+  `;
 
   return (
     <BoardSectionContainer>
-      <Label>{label}</Label>
+      <Label>
+        {label}
+        <Icon />
+      </Label>
       <CardWrapper>
         {boards.map((b) => (
           <BoardCard
@@ -52,6 +60,7 @@ const BoardSection = ({ label, boards }) => {
 
 BoardSection.propTypes = {
   label: PropTypes.string,
+  icon: PropTypes.element.isRequired,
   boards: PropTypes.arrayOf(
     PropTypes.shape({ title: PropTypes.string, id: PropTypes.number })
   ),
