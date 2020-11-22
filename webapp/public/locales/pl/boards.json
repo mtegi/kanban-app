@@ -1,5 +1,6 @@
 {
   "create": "Nowa tablica",
+  "add-to-favourite": "Dodaj do ulubionych",
   "form": {
     "name": "Nazwa",
     "color": "Kolor tablicy",

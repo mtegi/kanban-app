@@ -1,5 +1,6 @@
 {
   "create": "New board",
+  "add-to-favourite": "Add to favourite",
   "form": {
     "name": "Name",
     "color": "Board color",
