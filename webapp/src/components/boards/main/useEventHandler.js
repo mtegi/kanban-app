@@ -59,6 +59,14 @@ const useEventHandler = (boardId) => {
     ws.send(`/${boardId}/lane/delete`, { laneId });
   };
 
+  const onLaneDragEnd = (removedIndex, addedIndex, payload) => {
+    ws.send(`/${boardId}/lane/move`, {
+      fromIndex: removedIndex,
+      toIndex: addedIndex,
+      laneId: payload.id,
+    });
+  };
+
   return {
     onCardAdd,
     subscribe,
@@ -70,6 +78,7 @@ const useEventHandler = (boardId) => {
     onNameUpdate,
     onLaneAdd,
     onLaneDelete,
+    onLaneDragEnd,
   };
 };
 

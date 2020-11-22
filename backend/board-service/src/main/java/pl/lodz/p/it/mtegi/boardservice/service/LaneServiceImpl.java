@@ -3,8 +3,6 @@ package pl.lodz.p.it.mtegi.boardservice.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.lodz.p.it.mtegi.boardservice.dto.details.CardDetailsDto;
-import pl.lodz.p.it.mtegi.boardservice.dto.details.LaneDetailsDto;
 import pl.lodz.p.it.mtegi.boardservice.dto.events.*;
 import pl.lodz.p.it.mtegi.boardservice.model.Board;
 import pl.lodz.p.it.mtegi.boardservice.model.Card;
@@ -12,13 +10,12 @@ import pl.lodz.p.it.mtegi.boardservice.model.Lane;
 import pl.lodz.p.it.mtegi.boardservice.repository.BoardRepository;
 import pl.lodz.p.it.mtegi.boardservice.repository.CardRepository;
 import pl.lodz.p.it.mtegi.boardservice.repository.LaneRepository;
+import pl.lodz.p.it.mtegi.boardservice.utils.LaneUtils;
 import pl.lodz.p.it.mtegi.common.exception.ApplicationException;
 import pl.lodz.p.it.mtegi.common.exception.CommonError;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -80,13 +77,8 @@ public class LaneServiceImpl implements LaneService {
         Lane lane = findById(updateDto.getLaneId());
         updateDto.getData().putProperties(lane);
         laneRepository.save(lane);
-        updateDto.setLanes(lane.getBoard().getLanes().stream().map(l -> {
-            LaneDetailsDto dto = new LaneDetailsDto();
-            dto.fillProperties(l);
-            return dto;
-        }).collect(Collectors.toList()));
-        updateDto.getLanes().sort(Comparator.comparing(LaneDetailsDto::getIndex));
-        updateDto.getLanes().forEach(l -> l.getCards().sort(Comparator.comparing(CardDetailsDto::getIndex)));
+        updateDto.setLanes(LaneUtils.mapToDto(lane.getBoard().getLanes()));
+        LaneUtils.sort(updateDto.getLanes());
         return updateDto;
     }
 
@@ -97,13 +89,8 @@ public class LaneServiceImpl implements LaneService {
         dto.putProperties(lane);
         board.getLanes().add(lane);
         boardRepository.save(board);
-        dto.setLanes(board.getLanes().stream().map(l -> {
-            LaneDetailsDto newDto = new LaneDetailsDto();
-            newDto.fillProperties(l);
-            return newDto;
-        }).collect(Collectors.toList()));
-        dto.getLanes().sort(Comparator.comparing(LaneDetailsDto::getIndex));
-        dto.getLanes().forEach(l -> l.getCards().sort(Comparator.comparing(CardDetailsDto::getIndex)));
+        dto.setLanes(LaneUtils.mapToDto(board.getLanes()));
+        LaneUtils.sort(dto.getLanes());
         return dto;
     }
 
@@ -113,16 +100,27 @@ public class LaneServiceImpl implements LaneService {
         Board board = boardRepository.findById(dto.getBoardId()).orElseThrow(() -> new ApplicationException(CommonError.NOT_FOUND));
         List<Lane> lanes = board.getLanes();
         lanes.remove(lane);
-        lanes.stream().filter(l -> l.getIndex() > lane.getIndex()).forEach(c -> c.setIndex(c.getIndex() - 1));
+        lanes.stream().filter(l -> l.getIndex() > lane.getIndex()).forEach(l -> l.setIndex(l.getIndex() - 1));
         laneRepository.delete(lane);
-        dto.setLanes(board.getLanes().stream().map(l -> {
-            LaneDetailsDto newDto = new LaneDetailsDto();
-            newDto.fillProperties(l);
-            return newDto;
-        }).collect(Collectors.toList()));
-        dto.getLanes().sort(Comparator.comparing(LaneDetailsDto::getIndex));
-        dto.getLanes().forEach(l -> l.getCards().sort(Comparator.comparing(CardDetailsDto::getIndex)));
+        dto.setLanes(LaneUtils.mapToDto(board.getLanes()));
+        LaneUtils.sort(dto.getLanes());
         return dto;
+    }
+
+    @Override
+    public LaneMovedDto onLaneMoved(LaneMovedDto movedDto) {
+        Board board = boardRepository.findById(movedDto.getBoardId()).orElseThrow(() -> new ApplicationException(CommonError.NOT_FOUND));
+        Lane lane = findById(movedDto.getLaneId());
+        if(movedDto.getToIndex() < movedDto.getFromIndex()) {
+            board.getLanes().stream().filter(l -> l.getIndex() >= movedDto.getToIndex() && l.getIndex() <= movedDto.getFromIndex()).forEach(l -> l.setIndex(l.getIndex() + 1));
+        } else if(movedDto.getToIndex() > movedDto.getFromIndex()) {
+            board.getLanes().stream().filter(l -> l.getIndex() <= movedDto.getToIndex() && l.getIndex() >= movedDto.getFromIndex()).forEach(l -> l.setIndex(l.getIndex() - 1));
+        }
+        lane.setIndex(movedDto.getToIndex());
+        laneRepository.saveAll(board.getLanes());
+        movedDto.setLanes(LaneUtils.mapToDto(board.getLanes()));
+        LaneUtils.sort(movedDto.getLanes());
+        return movedDto;
     }
 
     public Lane findById(Long id) {

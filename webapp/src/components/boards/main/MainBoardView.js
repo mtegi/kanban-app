@@ -90,6 +90,7 @@ const MainBoardView = () => {
             onLaneUpdate={handler.onLaneUpdate}
             onLaneAdd={handler.onLaneAdd}
             onLaneDelete={handler.onLaneDelete}
+            handleLaneDragEnd={handler.onLaneDragEnd}
             components={components}
           />
         </>

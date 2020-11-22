@@ -9,4 +9,5 @@ public interface LaneService {
     LaneUpdateDto updateLane(LaneUpdateDto updateDto);
     LaneAddedDto onLaneAdded(LaneAddedDto dto);
     LaneDeletedDto onLaneDeleted(LaneDeletedDto dto);
+    LaneMovedDto onLaneMoved(LaneMovedDto movedDto);
 }
