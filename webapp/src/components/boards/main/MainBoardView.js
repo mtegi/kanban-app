@@ -69,10 +69,14 @@ const MainBoardView = () => {
             eventBusHandle={(handle) => {
               handleMessage = (message) => {
                 const body = JSON.parse(message.body);
-                if (body.username !== username) {
+                if (
+                  body.username !== username ||
+                  body.type === 'UPDATE_LANES'
+                ) {
                   if (body.type === 'UPDATE_BOARD_NAME') {
                     boardDispatch(body);
                   } else {
+                    console.log('event', body);
                     handle.publish(body);
                   }
                 } else {
@@ -84,6 +88,7 @@ const MainBoardView = () => {
             onCardMoveAcrossLanes={handler.onCardMoveAcrossLanes}
             onCardDelete={handler.onCardDelete}
             onLaneUpdate={handler.onLaneUpdate}
+            onLaneAdd={handler.onLaneAdd}
             components={components}
           />
         </>

@@ -23,7 +23,7 @@ public class Card {
     @Column
     private String title;
 
-    @Column
+    @Column(nullable = false)
     private Integer index;
 
     @Column

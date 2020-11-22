@@ -65,4 +65,11 @@ public class BoardWsController {
         dto.setBoardId(boardId);
         messageTemplate.convertAndSend("/board/"+ boardId, boardService.onBoardNameUpdate(dto));
     }
+
+    @MessageMapping("/{boardId}/lane/add")
+    public void onLaneAdded(@DestinationVariable Long boardId, @Payload LaneAddedDto dto, Authentication authentication) {
+        dto.setUsername(authentication.getName());
+        dto.setBoardId(boardId);
+        messageTemplate.convertAndSend("/board/"+ boardId, laneService.onLaneAdded(dto));
+    }
 }

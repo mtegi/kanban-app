@@ -30,7 +30,6 @@ public class BoardServiceImpl implements BoardService {
     private final BoardRepository boardRepository;
     private final BoardFactory boardFactory;
     private final BoardMemberRepository memberRepository;
-    private final LaneService laneService;
 
     @Override
     public List<Board> findAll() {

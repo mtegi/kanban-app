@@ -25,7 +25,7 @@ public class Lane {
     @Column
     private String title;
 
-    @Column
+    @Column(nullable = false)
     private Integer index;
 
     @Column

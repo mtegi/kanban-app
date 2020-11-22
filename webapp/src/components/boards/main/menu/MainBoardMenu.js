@@ -73,6 +73,7 @@ MainBoardMenu.propTypes = {
     onBoardOpen: PropTypes.func,
     onFavourite: PropTypes.func,
     onNameUpdate: PropTypes.func,
+    onDataChange: PropTypes.func,
   }).isRequired,
 };
 

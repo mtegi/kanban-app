@@ -4,7 +4,6 @@ const useEventHandler = (boardId) => {
   const ws = useWebSockets();
 
   const onCardAdd = (card, laneId) => {
-    console.log('ADD_CARD', card);
     ws.send(`/${boardId}/card/add`, {
       laneId,
       card,
@@ -52,6 +51,10 @@ const useEventHandler = (boardId) => {
     }
   };
 
+  const onLaneAdd = (data) => {
+    ws.send(`/${boardId}/lane/add`, data);
+  };
+
   return {
     onCardAdd,
     subscribe,
@@ -61,6 +64,7 @@ const useEventHandler = (boardId) => {
     onBoardOpen,
     onFavourite,
     onNameUpdate,
+    onLaneAdd,
   };
 };
 
