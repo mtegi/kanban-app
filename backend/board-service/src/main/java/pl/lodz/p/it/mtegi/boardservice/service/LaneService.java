@@ -8,4 +8,5 @@ public interface LaneService {
     CardDeletedDto deleteCard(CardDeletedDto deletedDto);
     LaneUpdateDto updateLane(LaneUpdateDto updateDto);
     LaneAddedDto onLaneAdded(LaneAddedDto dto);
+    LaneDeletedDto onLaneDeleted(LaneDeletedDto dto);
 }

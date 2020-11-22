@@ -55,6 +55,10 @@ const useEventHandler = (boardId) => {
     ws.send(`/${boardId}/lane/add`, data);
   };
 
+  const onLaneDelete = (laneId) => {
+    ws.send(`/${boardId}/lane/delete`, { laneId });
+  };
+
   return {
     onCardAdd,
     subscribe,
@@ -65,6 +69,7 @@ const useEventHandler = (boardId) => {
     onFavourite,
     onNameUpdate,
     onLaneAdd,
+    onLaneDelete,
   };
 };
 

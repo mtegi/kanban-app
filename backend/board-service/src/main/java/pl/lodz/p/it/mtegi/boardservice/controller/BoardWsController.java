@@ -72,4 +72,11 @@ public class BoardWsController {
         dto.setBoardId(boardId);
         messageTemplate.convertAndSend("/board/"+ boardId, laneService.onLaneAdded(dto));
     }
+
+    @MessageMapping("/{boardId}/lane/delete")
+    public void onLaneAdded(@DestinationVariable Long boardId, @Payload LaneDeletedDto dto, Authentication authentication) {
+        dto.setUsername(authentication.getName());
+        dto.setBoardId(boardId);
+        messageTemplate.convertAndSend("/board/"+ boardId, laneService.onLaneDeleted(dto));
+    }
 }

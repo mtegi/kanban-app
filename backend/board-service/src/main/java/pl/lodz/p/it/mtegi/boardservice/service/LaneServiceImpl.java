@@ -107,6 +107,24 @@ public class LaneServiceImpl implements LaneService {
         return dto;
     }
 
+    @Override
+    public LaneDeletedDto onLaneDeleted(LaneDeletedDto dto) {
+        Lane lane = findById(dto.getLaneId());
+        Board board = boardRepository.findById(dto.getBoardId()).orElseThrow(() -> new ApplicationException(CommonError.NOT_FOUND));
+        List<Lane> lanes = board.getLanes();
+        lanes.remove(lane);
+        lanes.stream().filter(l -> l.getIndex() > lane.getIndex()).forEach(c -> c.setIndex(c.getIndex() - 1));
+        laneRepository.delete(lane);
+        dto.setLanes(board.getLanes().stream().map(l -> {
+            LaneDetailsDto newDto = new LaneDetailsDto();
+            newDto.fillProperties(l);
+            return newDto;
+        }).collect(Collectors.toList()));
+        dto.getLanes().sort(Comparator.comparing(LaneDetailsDto::getIndex));
+        dto.getLanes().forEach(l -> l.getCards().sort(Comparator.comparing(CardDetailsDto::getIndex)));
+        return dto;
+    }
+
     public Lane findById(Long id) {
         return laneRepository.findById(id).orElseThrow(() -> new ApplicationException(CommonError.NOT_FOUND));
     }
