@@ -3,6 +3,7 @@ package pl.lodz.p.it.mtegi.boardservice.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.lodz.p.it.mtegi.boardservice.dto.details.CardDetailsDto;
 import pl.lodz.p.it.mtegi.boardservice.dto.events.*;
 import pl.lodz.p.it.mtegi.boardservice.model.Board;
 import pl.lodz.p.it.mtegi.boardservice.model.Card;
@@ -30,9 +31,9 @@ public class LaneServiceImpl implements LaneService {
     public CardAddedDto addCardToLane(CardAddedDto dto) {
         Card card = new Card();
         dto.getCard().putProperties(card);
-        List<Card> cards = findById(dto.getLaneId()).getCards();
-        card.setIndex(cards.size());
-        cards.add(card);
+        Lane lane = findById(dto.getLaneId());
+        card.setIndex(lane.getCards().size());
+        card.setLane(lane);
         cardRepository.save(card);
         dto.getCard().fillProperties(card);
         return dto;
@@ -41,8 +42,9 @@ public class LaneServiceImpl implements LaneService {
     @Override
     public CardMovedDto moveCardAcrossLanes(CardMovedDto movedDto) {
         Card card = findCardById(movedDto.getCardId());
+        Lane toLane = findById(movedDto.getToLaneId());
         List<Card> fromCards = findById(movedDto.getFromLaneId()).getCards();
-        List<Card> toCards = findById(movedDto.getToLaneId()).getCards();
+        List<Card> toCards = toLane.getCards();
         fromCards.remove(card);
         toCards.add(card);
         fromCards.forEach(c -> {
@@ -58,6 +60,7 @@ public class LaneServiceImpl implements LaneService {
             }
         });
         card.setIndex(movedDto.getIndex());
+        card.setLane(toLane);
         cardRepository.save(card);
         return movedDto;
     }
@@ -121,6 +124,24 @@ public class LaneServiceImpl implements LaneService {
         movedDto.setLanes(LaneUtils.mapToDto(board.getLanes()));
         LaneUtils.sort(movedDto.getLanes());
         return movedDto;
+    }
+
+    @Override
+    public CardDetailsDto getCardDetails(String id) {
+        CardDetailsDto dto = new CardDetailsDto();
+        dto.fillProperties(findCardById(id));
+        return dto;
+    }
+
+    @Override
+    public CardUpdatedDto onCardUpdated(CardUpdatedDto dto) {
+        Card card = findCardById(dto.getCard().getId());
+        dto.getCard().setIndex(card.getIndex());
+        dto.getCard().putProperties(card);
+        dto.setLaneId(card.getLane().getId());
+        cardRepository.save(card);
+        dto.getCard().fillProperties(card);
+        return dto;
     }
 
     public Lane findById(Long id) {

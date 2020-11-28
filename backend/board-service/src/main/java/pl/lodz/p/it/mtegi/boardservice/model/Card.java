@@ -35,4 +35,8 @@ public class Card {
     @Column
     private String color;
 
+    @ManyToOne
+    @JoinColumn(name="lane_id", nullable = false)
+    private Lane lane;
+
 }

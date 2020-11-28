@@ -22,6 +22,7 @@
     "title": "Tytuł",
     "description": "Opis",
     "deadline": "Termin",
-    "color": "Kolor"
+    "color": "Kolor",
+    "edit": "Edytuj kartę"
   }
 }

@@ -67,6 +67,12 @@ const useEventHandler = (boardId) => {
     });
   };
 
+  const onCardEdit = (card) => {
+    ws.send(`/${boardId}/card/update`, {
+      card,
+    });
+  };
+
   return {
     onCardAdd,
     subscribe,
@@ -79,6 +85,7 @@ const useEventHandler = (boardId) => {
     onLaneAdd,
     onLaneDelete,
     onLaneDragEnd,
+    onCardEdit,
   };
 };
 

@@ -18,4 +18,11 @@ public class CardDetailsDto extends CommonDto<Card> {
     private LocalDateTime deadline;
     private String color;
     private Integer index;
+    private Long laneId;
+
+    @Override
+    public void fillProperties(Card entity) {
+        super.fillProperties(entity);
+        setLaneId(entity.getLane().getId());
+    }
 }

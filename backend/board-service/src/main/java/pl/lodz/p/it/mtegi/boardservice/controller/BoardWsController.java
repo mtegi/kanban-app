@@ -86,4 +86,10 @@ public class BoardWsController {
         dto.setBoardId(boardId);
         messageTemplate.convertAndSend("/board/"+ boardId, laneService.onLaneMoved(dto));
     }
+
+    @MessageMapping("/{boardId}/card/update")
+    public void onCardEdit(@DestinationVariable Long boardId, @Payload CardUpdatedDto dto, Authentication authentication) {
+        dto.setUsername(authentication.getName());
+        messageTemplate.convertAndSend("/board/"+ boardId, laneService.onCardUpdated(dto));
+    }
 }

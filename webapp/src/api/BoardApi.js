@@ -51,6 +51,21 @@ const BoardApi = {
     }
     return response.data;
   },
+
+  getCardDetails: async (id) => {
+    let response;
+    try {
+      const { Authorization } = store.store.getState().auth;
+      response = await axios.get(`${axios.defaults.baseURL}/cards/${id}`, {
+        headers: {
+          Authorization,
+        },
+      });
+    } catch (e) {
+      handleError(e);
+    }
+    return response.data;
+  },
 };
 
 export default BoardApi;

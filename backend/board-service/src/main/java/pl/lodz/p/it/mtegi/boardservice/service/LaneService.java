@@ -1,5 +1,6 @@
 package pl.lodz.p.it.mtegi.boardservice.service;
 
+import pl.lodz.p.it.mtegi.boardservice.dto.details.CardDetailsDto;
 import pl.lodz.p.it.mtegi.boardservice.dto.events.*;
 
 public interface LaneService {
@@ -10,4 +11,6 @@ public interface LaneService {
     LaneAddedDto onLaneAdded(LaneAddedDto dto);
     LaneDeletedDto onLaneDeleted(LaneDeletedDto dto);
     LaneMovedDto onLaneMoved(LaneMovedDto movedDto);
+    CardDetailsDto getCardDetails(String id);
+    CardUpdatedDto onCardUpdated(CardUpdatedDto dto);
 }
