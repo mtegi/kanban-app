@@ -1,6 +1,6 @@
 package pl.lodz.p.it.mtegi.userservice.dto.auth;
 
-import pl.lodz.p.it.mtegi.common.security.model.ProjectAuthority;
+import pl.lodz.p.it.mtegi.common.security.model.BoardAuthority;
 import pl.lodz.p.it.mtegi.common.security.model.UserAuthData;
 import pl.lodz.p.it.mtegi.userservice.model.User;
 
@@ -14,10 +14,7 @@ public class UserAuthDto extends UserAuthData {
         setPassword(user.getPassword());
         setAccountNonLocked(user.isActive());
         setEnabled(user.isConfirmed());
-        user.getRoles().forEach(role -> authorities.addAll(
-                role.getPermissions().stream().map(permission -> new ProjectAuthority(role.getProjectId(), permission.getCode().getValue()))
-                        .collect(Collectors.toList())
-        ));
+        setAuthorities(user.getRoles().stream().map(role -> new BoardAuthority(role.getBoardId(), role.getRole())).collect(Collectors.toList()));
         if(user.getEmail() != null) {
             additionalInformation.put("email", user.getEmail());
         }

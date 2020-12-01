@@ -42,7 +42,7 @@ const Login = () => {
   const handleSubmit = async (values) => {
     try {
       await AuthApi.login(values.username, values.password);
-      navigate(routes.home.uri);
+      navigate(routes.boards.uri);
     } catch (e) {
       status.handleError(e);
     }

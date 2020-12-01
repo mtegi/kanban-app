@@ -16,7 +16,7 @@ public class UserAuthData {
     protected String password;
     protected boolean accountNonLocked;
     protected boolean enabled;
-    protected Collection<ProjectAuthority> authorities;
+    protected Collection<BoardAuthority> authorities;
     protected Map<String, Object> additionalInformation;
 
     protected void init() {

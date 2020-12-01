@@ -11,6 +11,7 @@ import * as yup from 'yup';
 import IconButton from '@material-ui/core/IconButton';
 import CancelIcon from '@material-ui/icons/Cancel';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
+import { Tooltip } from '@material-ui/core';
 import Form from '../../../forms/Form';
 import FormControl from '../../../forms/FormControl';
 import { DialogContentWrapper } from './styled';
@@ -92,21 +93,25 @@ const NewCardForm = ({ onCancel, onAdd }) => {
               </Row>
             </DialogContentWrapper>
             <DialogActions>
-              <IconButton
-                aria-label={t('button.Cancel')}
-                onClick={handleClose}
-                color="primary"
-              >
-                <CancelIcon fontSize="large" />
-              </IconButton>
-              <IconButton
-                aria-label={t('button.Add card')}
-                onClick={submitForm}
-                color="primary"
-                disabled={Object.keys(errors).length !== 0}
-              >
-                <AddCircleIcon fontSize="large" />
-              </IconButton>
+              <Tooltip title={t('button.Cancel')}>
+                <IconButton
+                  aria-label={t('button.Cancel')}
+                  onClick={handleClose}
+                  color="primary"
+                >
+                  <CancelIcon fontSize="large" />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title={t('button.Add card')}>
+                <IconButton
+                  aria-label={t('button.Add card')}
+                  onClick={submitForm}
+                  color="primary"
+                  disabled={Object.keys(errors).length !== 0}
+                >
+                  <AddCircleIcon fontSize="large" />
+                </IconButton>
+              </Tooltip>
             </DialogActions>
           </Form>
         )}

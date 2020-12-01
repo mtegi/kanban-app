@@ -24,5 +24,8 @@
     "deadline": "Deadline",
     "color": "Color",
     "edit": "Edit card"
-  }
+  },
+  "share": "Share",
+  "copy": "Copy to clipboard",
+  "newLink": "Generate new link"
 }

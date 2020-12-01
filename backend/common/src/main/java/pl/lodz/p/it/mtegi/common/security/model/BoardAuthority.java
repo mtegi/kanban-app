@@ -11,13 +11,13 @@ import org.springframework.security.core.GrantedAuthority;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProjectAuthority implements GrantedAuthority {
-    private Long projectId;
-    private String code;
+public class BoardAuthority implements GrantedAuthority {
+    private Long boardId;
+    private Role role;
 
     @JsonIgnore
     @Override
     public String getAuthority() {
-        return null;
+        return role.name();
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.lodz.p.it.mtegi.userservice.dto.ActivateDto;
 import pl.lodz.p.it.mtegi.userservice.dto.RegisterDto;
 import pl.lodz.p.it.mtegi.userservice.dto.UserInfoDto;
+import pl.lodz.p.it.mtegi.userservice.service.RoleService;
 import pl.lodz.p.it.mtegi.userservice.service.UserService;
 
 import javax.annotation.security.PermitAll;
@@ -20,6 +21,7 @@ import java.security.NoSuchAlgorithmException;
 public class UserController {
 
     private final UserService userService;
+    private final RoleService roleService;
 
     @PermitAll
     @PostMapping("/register")

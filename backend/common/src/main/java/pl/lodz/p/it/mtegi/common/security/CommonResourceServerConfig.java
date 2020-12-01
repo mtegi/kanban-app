@@ -3,7 +3,6 @@ package pl.lodz.p.it.mtegi.common.security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
@@ -11,7 +10,10 @@ import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
-import pl.lodz.p.it.mtegi.common.security.model.ProjectAuthority;
+import pl.lodz.p.it.mtegi.common.security.model.BoardAuthority;
+import pl.lodz.p.it.mtegi.common.security.model.Role;
+
+import java.util.Arrays;
 
 public class CommonResourceServerConfig extends ResourceServerConfigurerAdapter {
     public interface ProjectPermissions {
@@ -57,19 +59,10 @@ public class CommonResourceServerConfig extends ResourceServerConfigurerAdapter 
     }
 
     public static class SecurityService  {
-        private boolean checkProjectPermission(Long id, String permission, GrantedAuthority authority) {
-            ProjectAuthority projectAuthority = ((ProjectAuthority) authority);
-            return projectAuthority.getProjectId().equals(id) && projectAuthority.getCode().equals(permission);
+        private boolean hasRole(Long boardId, GrantedAuthority authority, Role ...roles) {
+            BoardAuthority boardAuthority = ((BoardAuthority) authority);
+            return boardAuthority.getBoardId().equals(boardId) && Arrays.stream(roles).anyMatch(role -> role.equals(boardAuthority.getRole()));
         }
-
-        public boolean projectRead(Long projectId, Authentication authentication) {
-            return authentication.getAuthorities().stream().anyMatch(grantedAuthority -> checkProjectPermission(projectId, CommonResourceServerConfig.ProjectPermissions.READ, grantedAuthority));
-        }
-
-        public boolean projectWrite(Long projectId, Authentication authentication) {
-            return authentication.getAuthorities().stream().anyMatch(grantedAuthority -> checkProjectPermission(projectId, ProjectPermissions.WRITE, grantedAuthority));
-        }
-
     }
 
     @Bean

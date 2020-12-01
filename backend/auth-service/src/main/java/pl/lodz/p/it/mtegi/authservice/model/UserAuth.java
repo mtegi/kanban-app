@@ -3,7 +3,7 @@ package pl.lodz.p.it.mtegi.authservice.model;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.userdetails.UserDetails;
-import pl.lodz.p.it.mtegi.common.security.model.ProjectAuthority;
+import pl.lodz.p.it.mtegi.common.security.model.BoardAuthority;
 
 import java.util.Collection;
 import java.util.Map;
@@ -16,7 +16,7 @@ public class UserAuth implements UserDetails {
     private String password;
     private boolean accountNonLocked;
     private boolean enabled;
-    private Collection<ProjectAuthority> authorities;
+    private Collection<BoardAuthority> authorities;
     private Map<String, Object> additionalInformation;
 
     @Override

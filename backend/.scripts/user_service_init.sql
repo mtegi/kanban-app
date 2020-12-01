@@ -1,11 +1,5 @@
 insert into users(id, username, email, confirmed, first_name, last_name, password, status, version)
-values (1,'admin', 'admin@admin.com' ,true , 'Mariusz', 'Pudzianowski', '$2y$12$J1upwVOgZ9cJcE7VewBiOuYhtTaMhgXlk5rUqvazW15PV14KGbAci', 'ACTIVE', 0);
-
-insert into roles(id, name, project_id, user_id)
-values (1, 'DEVELOPER', 1, 1);
-
-insert into permission_codes(id, value)
-values (1, 'PROJECT_READ'), (2, 'PROJECT_WRITE');
-
-insert into permissions(id, code_id, role_id)
-values (1, 1, 1), (2, 2, 1);
+values
+    (1, 'admin', 'admin@admin.com' ,true , 'Michał', 'Tęgi', '$2y$12$s309WjBlZLbxO0TWmR/pYuOXN1Bz/weJh/2AE49PFp/R9RWB2O4Tm', 'ACTIVE', 0),
+    (2, 'user', 'user@admin.com' ,true , 'Jan', 'Pudzianowski', '$2y$12$s309WjBlZLbxO0TWmR/pYuOXN1Bz/weJh/2AE49PFp/R9RWB2O4Tm', 'ACTIVE', 0)
+;

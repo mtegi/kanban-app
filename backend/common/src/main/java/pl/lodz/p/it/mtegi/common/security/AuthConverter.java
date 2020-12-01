@@ -7,7 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.oauth2.provider.token.UserAuthenticationConverter;
-import pl.lodz.p.it.mtegi.common.security.model.ProjectAuthority;
+import pl.lodz.p.it.mtegi.common.security.model.BoardAuthority;
 
 import java.util.Collection;
 import java.util.LinkedHashMap;
@@ -45,7 +45,7 @@ public class AuthConverter implements UserAuthenticationConverter {
                 return AuthorityUtils.commaSeparatedStringToAuthorityList((String)authorities);
             } else if (authorities instanceof Collection) {
                 ObjectMapper mapper = new ObjectMapper();
-                return mapper.convertValue(authorities, new TypeReference<Collection<ProjectAuthority>>() {});
+                return mapper.convertValue(authorities, new TypeReference<Collection<BoardAuthority>>() {});
             } else {
                 throw new IllegalArgumentException("Authorities must be either a String or a Collection");
             }

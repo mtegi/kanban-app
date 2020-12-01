@@ -13,6 +13,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAsync } from 'react-async-hook';
+import { Tooltip } from '@material-ui/core';
 import { DialogContentWrapper } from './main/custom/styled';
 import FormControl from '../forms/FormControl';
 import FormControlColor from '../forms/FormControlColor';
@@ -100,21 +101,25 @@ const EditCardForm = ({ onEdit }) => {
                 </Row>
               </DialogContentWrapper>
               <DialogActions>
-                <IconButton
-                  aria-label={t('button.Cancel')}
-                  onClick={handleClose}
-                  color="primary"
-                >
-                  <CancelIcon fontSize="large" />
-                </IconButton>
-                <IconButton
-                  aria-label={t('card.edit')}
-                  onClick={submitForm}
-                  color="primary"
-                  disabled={Object.keys(errors).length !== 0}
-                >
-                  <CheckCircleIcon fontSize="large" />
-                </IconButton>
+                <Tooltip title={t('button.Cancel')}>
+                  <IconButton
+                    aria-label={t('button.Cancel')}
+                    onClick={handleClose}
+                    color="primary"
+                  >
+                    <CancelIcon fontSize="large" />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip title={t('card.edit')}>
+                  <IconButton
+                    aria-label={t('card.edit')}
+                    onClick={submitForm}
+                    color="primary"
+                    disabled={Object.keys(errors).length !== 0}
+                  >
+                    <CheckCircleIcon fontSize="large" />
+                  </IconButton>
+                </Tooltip>
               </DialogActions>
             </Form>
           )}

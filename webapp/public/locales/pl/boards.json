@@ -24,5 +24,8 @@
     "deadline": "Termin",
     "color": "Kolor",
     "edit": "Edytuj kartę"
-  }
+  },
+  "share": "Udostępnij",
+  "copy": "Kopiuj do schowka",
+  "newLink": "Generuj nowy link"
 }

@@ -7,6 +7,7 @@ import FavoriteButton from './FavoriteButton';
 import NavButton from '../../../misc/NavButton';
 import routes from '../../../../router/routes.json';
 import { useBoardDispatch, useBoardState } from '../../context/BoardContext';
+import InviteManager from '../../InviteManager';
 
 const Wrapper = styled.div`
   display: flex;
@@ -58,6 +59,7 @@ const MainBoardMenu = ({ handler }) => {
         isFavourite={boardState.favourite}
         onClick={handleFavourite}
       />
+      <InviteManager />
       <NavButton to={routes.dashboard.uri}>{t('dashboard')}</NavButton>
     </Wrapper>
   );
