@@ -6,7 +6,10 @@ const BoardDispatchContext = React.createContext();
 function boardReducer(state, action) {
   switch (action.type) {
     case 'UPDATE_BOARD_NAME': {
-      return { ...state, name: action.payload };
+      return { ...state, name: action.name };
+    }
+    case 'UPDATE_INVITE_TOKEN': {
+      return { ...state, token: action.token };
     }
     case 'SET_ALL': {
       return action.payload;
@@ -26,6 +29,7 @@ function BoardProvider({ children }) {
     name: '',
     favourite: false,
     color: '#ff7f50',
+    token: '',
   });
   return (
     <BoardStateContext.Provider value={state}>

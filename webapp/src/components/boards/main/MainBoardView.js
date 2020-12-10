@@ -45,6 +45,7 @@ const MainBoardView = () => {
           color: data.result.color,
           name: data.result.name,
           favourite: data.result.favourite,
+          token: data.result.token,
         },
       });
     }
@@ -76,9 +77,13 @@ const MainBoardView = () => {
                 if (
                   body.username !== username ||
                   body.type === 'UPDATE_LANES' ||
-                  body.type === 'UPDATE_CARD'
+                  body.type === 'UPDATE_CARD' ||
+                  body.type === 'UPDATE_INVITE_TOKEN'
                 ) {
-                  if (body.type === 'UPDATE_BOARD_NAME') {
+                  if (
+                    body.type === 'UPDATE_BOARD_NAME' ||
+                    body.type === 'UPDATE_INVITE_TOKEN'
+                  ) {
                     boardDispatch(body);
                   } else {
                     console.log('event', body);

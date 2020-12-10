@@ -19,10 +19,12 @@ public class BoardDetailsDto extends CommonResponseDto<Board> {
     private String name;
     private String color;
     private boolean favourite;
+    private String token;
     private List<LaneDetailsDto> lanes;
 
     public void fillProperties(BoardMember entity) {
         super.fillProperties(entity.getBoard());
+        setToken(entity.getBoard().getInviteToken().getValue());
         setFavourite(entity.isFavourite());
         setLanes(entity.getBoard().getLanes().stream().map(lane -> {
             LaneDetailsDto dto = new LaneDetailsDto();
