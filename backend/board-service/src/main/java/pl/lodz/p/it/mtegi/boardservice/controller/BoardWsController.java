@@ -92,4 +92,12 @@ public class BoardWsController {
         dto.setUsername(authentication.getName());
         messageTemplate.convertAndSend("/board/"+ boardId, laneService.onCardUpdated(dto));
     }
+
+    @MessageMapping("/{boardId}/link/reset")
+    public void onLinkReset(@DestinationVariable Long boardId, Authentication authentication) {
+        InviteTokenUpdateDto dto = new InviteTokenUpdateDto();
+        dto.setUsername(authentication.getName());
+        dto.setBoardId(boardId);
+        messageTemplate.convertAndSend("/board/"+ boardId, boardService.onInviteLinkUpdate(dto));
+    }
 }

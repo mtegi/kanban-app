@@ -33,6 +33,10 @@ public class Board {
     private String color;
 
     @ToString.Exclude
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "board", optional = false)
+    private InviteToken inviteToken;
+
+    @ToString.Exclude
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "board")
     private List<Lane> lanes;
 

@@ -8,19 +8,23 @@ import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import RefreshIcon from '@material-ui/icons/Refresh';
+import PropTypes from 'prop-types';
 import { StyledIconButton } from './main/menu/styled';
+import { useBoardState } from './context/BoardContext';
 
-const InviteManager = () => {
+const InviteManager = ({ onInviteLinkUpdate }) => {
   const { t } = useTranslation('boards');
+  const { token } = useBoardState();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [open, setOpen] = React.useState(false);
+  const url = `${window.location.origin}/join&token=${token}`;
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
     setOpen(!open);
   };
 
-  const copyToClipboard = () => navigator.clipboard.writeText('hhhhhh');
+  const copyToClipboard = () => navigator.clipboard.writeText(url);
 
   return (
     <>
@@ -36,9 +40,9 @@ const InviteManager = () => {
               <TextField
                 color="secondary"
                 variant="outlined"
-                value="http:localhost/fg68678565"
+                value={url}
                 inputProps={{
-                  style: { padding: '10px 12px 10px' },
+                  style: { padding: '10px 12px 10px', minWidth: 400 },
                 }}
                 disabled
               />
@@ -48,7 +52,10 @@ const InviteManager = () => {
                 </StyledIconButton>
               </Tooltip>
               <Tooltip title={t('newLink')} placement="bottom">
-                <StyledIconButton color="secondary" onClick={handleClick}>
+                <StyledIconButton
+                  color="secondary"
+                  onClick={onInviteLinkUpdate}
+                >
                   <RefreshIcon />
                 </StyledIconButton>
               </Tooltip>
@@ -58,6 +65,10 @@ const InviteManager = () => {
       </Popper>
     </>
   );
+};
+
+InviteManager.propTypes = {
+  onInviteLinkUpdate: PropTypes.func.isRequired,
 };
 
 export default InviteManager;

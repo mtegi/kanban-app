@@ -59,7 +59,7 @@ const MainBoardMenu = ({ handler }) => {
         isFavourite={boardState.favourite}
         onClick={handleFavourite}
       />
-      <InviteManager />
+      <InviteManager onInviteLinkUpdate={handler.onInviteLinkUpdate} />
       <NavButton to={routes.dashboard.uri}>{t('dashboard')}</NavButton>
     </Wrapper>
   );
@@ -76,6 +76,7 @@ MainBoardMenu.propTypes = {
     onFavourite: PropTypes.func,
     onNameUpdate: PropTypes.func,
     onDataChange: PropTypes.func,
+    onInviteLinkUpdate: PropTypes.func,
   }).isRequired,
 };
 

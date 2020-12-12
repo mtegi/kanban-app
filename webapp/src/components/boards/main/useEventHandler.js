@@ -67,6 +67,10 @@ const useEventHandler = (boardId) => {
     });
   };
 
+  const onInviteLinkUpdate = () => {
+    ws.send(`/${boardId}/link/reset`);
+  };
+
   const onCardEdit = (card) => {
     ws.send(`/${boardId}/card/update`, {
       card,
@@ -86,6 +90,7 @@ const useEventHandler = (boardId) => {
     onLaneDelete,
     onLaneDragEnd,
     onCardEdit,
+    onInviteLinkUpdate,
   };
 };
 
