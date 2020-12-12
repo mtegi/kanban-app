@@ -1,12 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  CardHeader,
-  CardRightContent,
-  CardTitle,
-  Detail,
-  MovableCardWrapper,
-} from './styled';
+import { CardHeader, CardRightContent, CardTitle, Detail, MovableCardWrapper } from './styled';
 import DeleteButton from './DeleteButton';
 import { parseDate } from '../../../../utils/date-utils';
 

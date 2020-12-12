@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
-import { useTranslation, getI18n } from 'react-i18next';
+import { getI18n, useTranslation } from 'react-i18next';
 
 const SEO = ({ description, lang, meta, title }) => {
   const { t } = useTranslation('titles');

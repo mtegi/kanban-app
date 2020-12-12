@@ -9,8 +9,7 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { KeyboardDateTimePicker } from 'material-ui-formik-components';
 
 const FormControlDateTime = ({ name, label, required, disabled, minDate }) => {
-  const isPlLocale =
-    getI18n().language === 'pl' || getI18n().language === 'pl-PL';
+  const isPlLocale = getI18n().language === 'pl' || getI18n().language === 'pl-PL';
   return (
     <MuiPickersUtilsProvider
       utils={DateFnsUtils}

@@ -1,4 +1,4 @@
-import { SET_TOKEN, CLEAR_AUTH, SET_NAME } from './types';
+import { CLEAR_AUTH, SET_NAME, SET_TOKEN } from './types';
 import store from '../../store';
 
 export const setToken = (token) => ({ type: SET_TOKEN, payload: token });

@@ -74,9 +74,9 @@ const MainBoardView = () => {
               handleMessage = (message) => {
                 const body = JSON.parse(message.body);
                 if (
-                  body.username !== username ||
-                  body.type === 'UPDATE_LANES' ||
-                  body.type === 'UPDATE_CARD'
+                  body.username !== username
+                  || body.type === 'UPDATE_LANES'
+                  || body.type === 'UPDATE_CARD'
                 ) {
                   if (body.type === 'UPDATE_BOARD_NAME') {
                     boardDispatch(body);
