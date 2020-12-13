@@ -56,7 +56,7 @@ const BoardManager = () => {
           />
         </BoardManagerContainer>
       )}
-      {data.error && <PopUp text={t(data.error.message)} />}
+      {data.error && <PopUp text={t(data.error.message)} severity="error" />}
     </>
   );
 };

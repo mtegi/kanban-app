@@ -49,4 +49,11 @@ public class BoardController {
     public BoardDetailsDto getBoardDetails(@PathVariable Long id, Authentication authentication){
         return boardService.getBoardDetails(authentication.getName(), id);
     }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/join")
+    public ResponseEntity<?> joinBoard(@RequestParam String token, Authentication authentication){
+        boardService.joinBoard(token, authentication);
+        return ResponseEntity.ok().build();
+    }
 }

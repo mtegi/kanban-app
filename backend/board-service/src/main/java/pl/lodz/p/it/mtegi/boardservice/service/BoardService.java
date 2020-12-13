@@ -1,6 +1,7 @@
 package pl.lodz.p.it.mtegi.boardservice.service;
 
 
+import org.springframework.security.core.Authentication;
 import pl.lodz.p.it.mtegi.boardservice.dto.CreateBoardDto;
 import pl.lodz.p.it.mtegi.boardservice.dto.UsersBoardListDto;
 import pl.lodz.p.it.mtegi.boardservice.dto.details.BoardDetailsDto;
@@ -10,6 +11,8 @@ import pl.lodz.p.it.mtegi.boardservice.dto.events.BoardOpenedDto;
 import pl.lodz.p.it.mtegi.boardservice.dto.events.InviteTokenUpdateDto;
 import pl.lodz.p.it.mtegi.boardservice.model.Board;
 
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 public interface BoardService {
@@ -21,4 +24,5 @@ public interface BoardService {
     void onBoardFavourite(BoardFavouriteDto dto);
     BoardNameDto onBoardNameUpdate(BoardNameDto dto);
     InviteTokenUpdateDto onInviteLinkUpdate(InviteTokenUpdateDto dto);
+    void joinBoard(String token, Authentication authentication);
 }

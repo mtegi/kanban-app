@@ -27,5 +27,6 @@
   },
   "share": "Share",
   "copy": "Copy to clipboard",
-  "newLink": "Generate new link"
+  "newLink": "Generate new link",
+  "join-success":"Successfully joined new board. Redirecting."
 }

@@ -66,6 +66,19 @@ const BoardApi = {
     }
     return response.data;
   },
+
+  joinBoard: async (search) => {
+    try {
+      const { Authorization } = store.store.getState().auth;
+      await axios.post(`${axios.defaults.baseURL}/${prefix}/join${search}`, {}, {
+        headers: {
+          Authorization,
+        },
+      });
+    } catch (e) {
+      handleError(e);
+    }
+  }
 };
 
 export default BoardApi;

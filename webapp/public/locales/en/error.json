@@ -25,5 +25,9 @@
     "badToken": "Bad activation token.",
     "confirmed": "Account is already confirmed."
   },
+  "inviteToken": {
+    "invalid": "Bad invitation link.",
+    "invited": "Access to board has been already granted"
+  },
   "other": "Application encountered unexpected error."
 }

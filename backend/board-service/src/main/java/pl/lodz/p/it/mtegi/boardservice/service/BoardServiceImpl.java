@@ -1,6 +1,7 @@
 package pl.lodz.p.it.mtegi.boardservice.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.lodz.p.it.mtegi.boardservice.dto.CreateBoardDto;
@@ -23,8 +24,12 @@ import pl.lodz.p.it.mtegi.boardservice.repository.InviteTokenRepository;
 import pl.lodz.p.it.mtegi.boardservice.utils.BoardUtils;
 import pl.lodz.p.it.mtegi.common.dto.AddRoleDto;
 import pl.lodz.p.it.mtegi.common.exception.ApplicationException;
+import pl.lodz.p.it.mtegi.common.exception.CommonError;
 import pl.lodz.p.it.mtegi.common.security.model.Role;
+import pl.lodz.p.it.mtegi.common.utils.crypto.HmacUtils;
 
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
@@ -52,7 +57,11 @@ public class BoardServiceImpl implements BoardService {
         Board board = boardFactory.createFromDefaultTemplate(dto);
         board.getMembers().add(BoardMember.builder().username(username).board(board).build());
         boardRepository.save(board);
-        board.setInviteToken(inviteTokenFactory.generateNew(board));
+        try {
+            board.setInviteToken(inviteTokenFactory.generateNew(board));
+        } catch (NoSuchAlgorithmException | InvalidKeyException e) {
+            throw new ApplicationException(CommonError.OTHER);
+        }
         AddRoleDto addRoleDto = AddRoleDto.builder().boardId(board.getId()).username(username).role(Role.OWNER).build();
         userService.addRole(addRoleDto);
         return board;
@@ -97,11 +106,36 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public InviteTokenUpdateDto onInviteLinkUpdate(InviteTokenUpdateDto dto) {
         InviteToken token = findById(dto.getBoardId()).getInviteToken();
-        String value = BoardUtils.generateInviteToken(dto.getBoardId());
+        String value;
+        try {
+            value = BoardUtils.generateInviteToken(dto.getBoardId());
+        } catch (NoSuchAlgorithmException | InvalidKeyException e) {
+            throw new ApplicationException(CommonError.OTHER);
+        }
         token.setValue(value);
         inviteTokenRepository.save(token);
         dto.setToken(value);
         return dto;
+    }
+
+    @Override
+    public void joinBoard(String tokenValue, Authentication authentication) {
+        InviteToken token = inviteTokenRepository.findByValue(tokenValue).orElseThrow(() -> new ApplicationException(BoardError.INVALID_INVITE_TOKEN));
+        try {
+            if(!BoardUtils.verifyInviteToken(tokenValue, token)){
+                throw new ApplicationException(BoardError.INVALID_INVITE_TOKEN);
+            }
+        } catch (NoSuchAlgorithmException | InvalidKeyException e) {
+            throw new ApplicationException(CommonError.OTHER);
+        }
+        String username = authentication.getName();
+        if(memberRepository.existsByUsernameAndBoard_Id(username, token.getBoard().getId())){
+            throw new ApplicationException(BoardError.USER_ALREADY_INVITED);
+        }
+        BoardMember member = BoardMember.builder().username(username).board(token.getBoard()).build();
+        memberRepository.save(member);
+        AddRoleDto addRoleDto = AddRoleDto.builder().boardId(token.getBoard().getId()).username(username).role(Role.MEMBER).build();
+        userService.addRole(addRoleDto);
     }
 
     public Board findById(Long id) {

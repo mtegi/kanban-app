@@ -9,6 +9,7 @@ import BoardManager from '../boards/manager/BoardManager';
 import MainBoardView from '../boards/main/MainBoardView';
 import BoardCreator from '../boards/creator/BoardCreator';
 import { BoardProvider } from '../boards/context/BoardContext';
+import JoinBoard from '../boards/join/JoinBoard';
 
 const UserMainView = () => (
   <Layout menu={<UserMenu />}>
@@ -25,6 +26,7 @@ const UserMainView = () => (
       />
       <Route path={routes.myAccount.uri} element={<MyAccount />} />
       <Route path={routes.boards.create.uri} element={<BoardCreator />} />
+      <Route path={routes.boards.join.uri} element={<JoinBoard />} />
     </Routes>
   </Layout>
 );

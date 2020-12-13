@@ -17,7 +17,7 @@ const InviteManager = ({ onInviteLinkUpdate }) => {
   const { token } = useBoardState();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [open, setOpen] = React.useState(false);
-  const url = `${window.location.origin}/join&token=${token}`;
+  const url = `${window.location.origin}/boards/join?token=${token}`;
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);

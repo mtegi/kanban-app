@@ -25,6 +25,10 @@
     "create": {
       "title": "boards.create",
       "uri": "/boards/new"
+    },
+    "join": {
+      "title": "boards.join",
+      "uri": "/boards/join"
     }
   },
   "dashboard": {

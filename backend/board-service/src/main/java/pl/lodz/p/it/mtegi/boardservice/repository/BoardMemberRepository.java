@@ -10,4 +10,5 @@ public interface BoardMemberRepository extends JpaRepository<BoardMember, Long> 
 
     List<BoardMember> findAllByUsername(String username);
     Optional<BoardMember> findFirstByUsernameAndBoard_Id(String username, Long boardId);
+    boolean existsByUsernameAndBoard_Id(String username, Long boardId);
 }

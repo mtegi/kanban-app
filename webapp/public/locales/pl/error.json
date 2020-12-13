@@ -25,5 +25,9 @@
     "badToken": "Zły token aktywacyjny.",
     "confirmed": "Konto zostało już potwierdzone."
   },
+  "inviteToken": {
+    "invalid": "Podano zły link.",
+    "invited": "Dostęp do tablicy został już przyznany."
+  },
   "other": "Wystąpił niespodziewany błąd."
 }

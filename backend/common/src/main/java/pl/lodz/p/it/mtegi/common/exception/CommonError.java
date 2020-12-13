@@ -6,7 +6,8 @@ import org.springframework.http.HttpStatus;
 
 @RequiredArgsConstructor
 public enum CommonError implements ErrorWithMessageAndStatus {
-    NOT_FOUND("error:notfound", HttpStatus.NOT_FOUND);
+    NOT_FOUND("error:notfound", HttpStatus.NOT_FOUND),
+    OTHER("error:other", HttpStatus.BAD_REQUEST);
 
     @Getter
     private final String message;
