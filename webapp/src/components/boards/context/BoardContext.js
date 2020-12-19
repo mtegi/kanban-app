@@ -3,19 +3,37 @@ import React from 'react';
 const BoardStateContext = React.createContext();
 const BoardDispatchContext = React.createContext();
 
+export const BoardActions = {
+  UPDATE_BOARD_NAME: 'UPDATE_BOARD_NAME',
+  UPDATE_INVITE_TOKEN: 'UPDATE_INVITE_TOKEN',
+  SET_ALL: 'SET_ALL',
+  UPDATE_MEMBERS: 'UPDATE_MEMBERS',
+  TOGGLE_FAVOURITE: 'TOGGLE_FAVOURITE'
+};
+
+export const isBoardAction = (type) => !!BoardActions[type];
+
+export const isUpdateAction = (type) =>
+  type === BoardActions.UPDATE_BOARD_NAME
+  || type === BoardActions.UPDATE_INVITE_TOKEN
+  || type === BoardActions.UPDATE_MEMBERS;
+
 function boardReducer(state, action) {
   switch (action.type) {
-    case 'UPDATE_BOARD_NAME': {
+    case BoardActions.UPDATE_BOARD_NAME: {
       return { ...state, name: action.name };
     }
-    case 'UPDATE_INVITE_TOKEN': {
+    case BoardActions.UPDATE_INVITE_TOKEN: {
       return { ...state, token: action.token };
     }
-    case 'SET_ALL': {
+    case BoardActions.SET_ALL: {
       return action.payload;
     }
-    case 'TOGGLE_FAVOURITE': {
+    case BoardActions.TOGGLE_FAVOURITE: {
       return { ...state, favourite: !state.favourite };
+    }
+    case BoardActions.UPDATE_MEMBERS: {
+      return { ...state, members: action.members };
     }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
@@ -30,6 +48,7 @@ function BoardProvider({ children }) {
     favourite: false,
     color: '#ff7f50',
     token: '',
+    members: [{ name: '', role: '' }]
   });
   return (
     <BoardStateContext.Provider value={state}>

@@ -12,7 +12,12 @@ import PopUp from '../../misc/PopUp';
 import useEventHandler from './useEventHandler';
 import NewCardForm from './custom/NewCardForm';
 import Card from './custom/Card';
-import { useBoardDispatch } from '../context/BoardContext';
+import {
+  BoardActions,
+  isBoardAction,
+  isUpdateAction,
+  useBoardDispatch,
+} from '../context/BoardContext';
 import EditCardForm from '../EditCardForm';
 import { setEditCard } from '../../../redux/reducers/actions/editCardActions';
 
@@ -46,6 +51,7 @@ const MainBoardView = () => {
           name: data.result.name,
           favourite: data.result.favourite,
           token: data.result.token,
+          members: data.result.members
         },
       });
     }
@@ -74,16 +80,8 @@ const MainBoardView = () => {
             eventBusHandle={(handle) => {
               handleMessage = (message) => {
                 const body = JSON.parse(message.body);
-                if (
-                  body.username !== username ||
-                  body.type === 'UPDATE_LANES' ||
-                  body.type === 'UPDATE_CARD' ||
-                  body.type === 'UPDATE_INVITE_TOKEN'
-                ) {
-                  if (
-                    body.type === 'UPDATE_BOARD_NAME' ||
-                    body.type === 'UPDATE_INVITE_TOKEN'
-                  ) {
+                if (body.username !== username || isBoardAction(body.type)) {
+                  if (isUpdateAction(body.type)) {
                     boardDispatch(body);
                   } else {
                     console.log('event', body);

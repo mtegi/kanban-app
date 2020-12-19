@@ -16,7 +16,8 @@
   "button": {
     "Add lane": "Dodaj listę",
     "Add card": "Nowa karta",
-    "Cancel": "Anuluj"
+    "Cancel": "Anuluj",
+    "Close": "Zamknij"
   },
   "card": {
     "title": "Tytuł",
@@ -28,5 +29,7 @@
   "share": "Udostępnij",
   "copy": "Kopiuj do schowka",
   "newLink": "Generuj nowy link",
-  "join-success":"Dołączono do nowej tablicy. Przekierowanie."
+  "join-success":"Dołączono do nowej tablicy. Przekierowanie.",
+  "memberList": "Lista członków",
+  "owner": "Załozyciel"
 }

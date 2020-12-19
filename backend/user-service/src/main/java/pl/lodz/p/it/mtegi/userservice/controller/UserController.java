@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import pl.lodz.p.it.mtegi.common.dto.BoardMemberDetailsDto;
 import pl.lodz.p.it.mtegi.userservice.dto.ActivateDto;
 import pl.lodz.p.it.mtegi.userservice.dto.RegisterDto;
 import pl.lodz.p.it.mtegi.userservice.dto.UserInfoDto;
@@ -14,6 +15,8 @@ import pl.lodz.p.it.mtegi.userservice.service.UserService;
 import javax.annotation.security.PermitAll;
 import javax.validation.Valid;
 import java.security.NoSuchAlgorithmException;
+import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -21,7 +24,6 @@ import java.security.NoSuchAlgorithmException;
 public class UserController {
 
     private final UserService userService;
-    private final RoleService roleService;
 
     @PermitAll
     @PostMapping("/register")

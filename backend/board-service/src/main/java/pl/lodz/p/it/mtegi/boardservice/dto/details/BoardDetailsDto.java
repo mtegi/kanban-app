@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import pl.lodz.p.it.mtegi.boardservice.model.Board;
 import pl.lodz.p.it.mtegi.boardservice.model.BoardMember;
+import pl.lodz.p.it.mtegi.common.dto.BoardMemberDetailsDto;
 import pl.lodz.p.it.mtegi.common.dto.CommonResponseDto;
 
 import java.util.Comparator;
@@ -21,6 +22,7 @@ public class BoardDetailsDto extends CommonResponseDto<Board> {
     private boolean favourite;
     private String token;
     private List<LaneDetailsDto> lanes;
+    private List<BoardMemberDetailsDto> members;
 
     public void fillProperties(BoardMember entity) {
         super.fillProperties(entity.getBoard());

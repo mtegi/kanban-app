@@ -22,7 +22,7 @@ import java.util.List;
 public class BoardController {
 
     private final BoardService boardService;
-
+    private final BoardWsController wsController;
     private final UriComponentsBuilder uriBuilder;
 
     @GetMapping
@@ -53,7 +53,7 @@ public class BoardController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/join")
     public ResponseEntity<?> joinBoard(@RequestParam String token, Authentication authentication){
-        boardService.joinBoard(token, authentication);
+        wsController.onMemberUpdate(boardService.joinBoard(token, authentication));
         return ResponseEntity.ok().build();
     }
 }

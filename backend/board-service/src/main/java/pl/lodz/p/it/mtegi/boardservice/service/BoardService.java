@@ -5,10 +5,7 @@ import org.springframework.security.core.Authentication;
 import pl.lodz.p.it.mtegi.boardservice.dto.CreateBoardDto;
 import pl.lodz.p.it.mtegi.boardservice.dto.UsersBoardListDto;
 import pl.lodz.p.it.mtegi.boardservice.dto.details.BoardDetailsDto;
-import pl.lodz.p.it.mtegi.boardservice.dto.events.BoardFavouriteDto;
-import pl.lodz.p.it.mtegi.boardservice.dto.events.BoardNameDto;
-import pl.lodz.p.it.mtegi.boardservice.dto.events.BoardOpenedDto;
-import pl.lodz.p.it.mtegi.boardservice.dto.events.InviteTokenUpdateDto;
+import pl.lodz.p.it.mtegi.boardservice.dto.events.*;
 import pl.lodz.p.it.mtegi.boardservice.model.Board;
 
 import java.security.InvalidKeyException;
@@ -24,5 +21,5 @@ public interface BoardService {
     void onBoardFavourite(BoardFavouriteDto dto);
     BoardNameDto onBoardNameUpdate(BoardNameDto dto);
     InviteTokenUpdateDto onInviteLinkUpdate(InviteTokenUpdateDto dto);
-    void joinBoard(String token, Authentication authentication);
+    MembersUpdateDto joinBoard(String token, Authentication authentication);
 }

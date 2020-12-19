@@ -11,7 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableEurekaClient
-@EnableConfigurationProperties(AuthServiceProperties.class)
+@EnableConfigurationProperties(AuthProperties.class)
 @SpringBootApplication
 public class UserServiceApplication {
 

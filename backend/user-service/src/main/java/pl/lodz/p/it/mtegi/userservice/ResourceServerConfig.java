@@ -20,16 +20,16 @@ import java.util.Base64;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ResourceServerConfig extends CommonResourceServerConfig {
 
-    private final AuthServiceProperties authServiceProperties;
+    private final AuthProperties authProperties;
 
-    public class AuthControllerFilter implements Filter {
+    public class SecuredControllerFilter implements Filter {
         private boolean checkAuthServiceBasicAuth(String authHeader)
         {
             try {
                 String base64Credentials = authHeader.substring("Basic".length()).trim();
                 byte[] credDecoded = Base64.getDecoder().decode(base64Credentials);
                 String credentials = new String(credDecoded, StandardCharsets.UTF_8);
-                return credentials.equals(authServiceProperties.getUsername() + ":" + authServiceProperties.getPassword());
+                return credentials.equals(authProperties.getUsername() + ":" + authProperties.getPassword());
             } catch (Exception e) {
                 return false;
             }
@@ -48,10 +48,10 @@ public class ResourceServerConfig extends CommonResourceServerConfig {
     }
 
     @Bean
-    public FilterRegistrationBean<AuthControllerFilter> authControllerFilter(){
-        FilterRegistrationBean<AuthControllerFilter> registrationBean = new FilterRegistrationBean<>();
-        registrationBean.setFilter(new AuthControllerFilter());
-        registrationBean.addUrlPatterns("/users-auth/*");
+    public FilterRegistrationBean<SecuredControllerFilter> authControllerFilter(){
+        FilterRegistrationBean<SecuredControllerFilter> registrationBean = new FilterRegistrationBean<>();
+        registrationBean.setFilter(new SecuredControllerFilter());
+        registrationBean.addUrlPatterns("/users-secured/*");
         return registrationBean;
     }
 }

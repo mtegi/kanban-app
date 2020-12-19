@@ -1,10 +1,12 @@
 package pl.lodz.p.it.mtegi.userservice.service;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.lodz.p.it.mtegi.common.dto.BoardMemberDetailsDto;
 import pl.lodz.p.it.mtegi.common.exception.ApplicationException;
 import pl.lodz.p.it.mtegi.common.messaging.AMQP;
 import pl.lodz.p.it.mtegi.common.messaging.dto.AccountConfirmationMessage;
@@ -13,6 +15,7 @@ import pl.lodz.p.it.mtegi.userservice.dto.ActivateDto;
 import pl.lodz.p.it.mtegi.userservice.dto.RegisterDto;
 import pl.lodz.p.it.mtegi.userservice.dto.UserInfoDto;
 import pl.lodz.p.it.mtegi.userservice.exception.UserError;
+import pl.lodz.p.it.mtegi.userservice.model.Role;
 import pl.lodz.p.it.mtegi.userservice.model.Status;
 import pl.lodz.p.it.mtegi.userservice.model.User;
 import pl.lodz.p.it.mtegi.userservice.repository.UserRepository;
@@ -20,6 +23,10 @@ import pl.lodz.p.it.mtegi.userservice.utils.TokenUtils;
 import pl.lodz.p.it.mtegi.userservice.utils.Validator;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -78,5 +85,21 @@ public class UserServiceImpl implements UserService {
         repository.save(user);
         AccountConfirmationMessage message = new AccountConfirmationMessage(user.getUsername(), user.getEmail(), activateDto.getLocale());
         rabbitTemplate.convertAndSend(AMQP.EXCHANGES.ACCOUNTS, AMQP.KEYS.ACCOUNT_CONFIRM, message);
+    }
+
+    @Override
+    public List<BoardMemberDetailsDto> getBoardMembersDetails(List<String> usernames, Long boardId) {
+        List<User> users = repository.findUsersByUsernameIn(usernames);
+        return users.stream().map(user -> {
+            BoardMemberDetailsDto dto = new BoardMemberDetailsDto();
+            if(user.getFirstName() != null && user.getLastName() != null){
+                dto.setName(user.getFirstName() + " " + user.getLastName());
+            } else {
+                dto.setName(user.getUsername());
+            }
+            Optional<Role> roleOptional = user.getRoles().stream().filter(role -> role.getBoardId().equals(boardId)).findFirst();
+            roleOptional.ifPresent(role -> dto.setRole(role.getRole().name()));
+            return dto;
+        }).collect(Collectors.toList());
     }
 }

@@ -4,13 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.lodz.p.it.mtegi.boardservice.controller.BoardWsController;
 import pl.lodz.p.it.mtegi.boardservice.dto.CreateBoardDto;
 import pl.lodz.p.it.mtegi.boardservice.dto.UsersBoardListDto;
 import pl.lodz.p.it.mtegi.boardservice.dto.details.BoardDetailsDto;
-import pl.lodz.p.it.mtegi.boardservice.dto.events.BoardFavouriteDto;
-import pl.lodz.p.it.mtegi.boardservice.dto.events.BoardNameDto;
-import pl.lodz.p.it.mtegi.boardservice.dto.events.BoardOpenedDto;
-import pl.lodz.p.it.mtegi.boardservice.dto.events.InviteTokenUpdateDto;
+import pl.lodz.p.it.mtegi.boardservice.dto.events.*;
 import pl.lodz.p.it.mtegi.boardservice.exception.BoardError;
 import pl.lodz.p.it.mtegi.boardservice.factory.BoardFactory;
 import pl.lodz.p.it.mtegi.boardservice.factory.InviteTokenFactory;
@@ -23,6 +21,7 @@ import pl.lodz.p.it.mtegi.boardservice.repository.BoardRepository;
 import pl.lodz.p.it.mtegi.boardservice.repository.InviteTokenRepository;
 import pl.lodz.p.it.mtegi.boardservice.utils.BoardUtils;
 import pl.lodz.p.it.mtegi.common.dto.AddRoleDto;
+import pl.lodz.p.it.mtegi.common.dto.BoardMemberDetailsDto;
 import pl.lodz.p.it.mtegi.common.exception.ApplicationException;
 import pl.lodz.p.it.mtegi.common.exception.CommonError;
 import pl.lodz.p.it.mtegi.common.security.model.Role;
@@ -31,6 +30,7 @@ import pl.lodz.p.it.mtegi.common.utils.crypto.HmacUtils;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -80,6 +80,7 @@ public class BoardServiceImpl implements BoardService {
     public BoardDetailsDto getBoardDetails(String username, Long id) {
         BoardDetailsDto dto = new BoardDetailsDto();
         dto.fillProperties(findByUsernameAndBoard(username, id));
+        dto.setMembers(getBoardMemberDetails(id));
         return dto;
     }
 
@@ -119,7 +120,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public void joinBoard(String tokenValue, Authentication authentication) {
+    public MembersUpdateDto joinBoard(String tokenValue, Authentication authentication) {
         InviteToken token = inviteTokenRepository.findByValue(tokenValue).orElseThrow(() -> new ApplicationException(BoardError.INVALID_INVITE_TOKEN));
         try {
             if(!BoardUtils.verifyInviteToken(tokenValue, token)){
@@ -136,6 +137,10 @@ public class BoardServiceImpl implements BoardService {
         memberRepository.save(member);
         AddRoleDto addRoleDto = AddRoleDto.builder().boardId(token.getBoard().getId()).username(username).role(Role.MEMBER).build();
         userService.addRole(addRoleDto);
+        MembersUpdateDto dto = new MembersUpdateDto();
+        dto.setBoardId(token.getBoard().getId());
+        dto.setMembers(getBoardMemberDetails(dto.getBoardId()));
+        return dto;
     }
 
     public Board findById(Long id) {
@@ -144,5 +149,9 @@ public class BoardServiceImpl implements BoardService {
 
     private BoardMember findByUsernameAndBoard(String username, Long boardId){
         return memberRepository.findFirstByUsernameAndBoard_Id(username, boardId).orElseThrow(() -> new ApplicationException(BoardError.NOT_FOUND));
+    }
+
+    private List<BoardMemberDetailsDto> getBoardMemberDetails(Long boardId) {
+        return userService.getBoardMembersDetails(memberRepository.findAllByBoardId(boardId).stream().map(BoardMember::getUsername).collect(Collectors.toList()), boardId);
     }
 }

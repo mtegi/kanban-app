@@ -10,6 +10,9 @@ import org.springframework.stereotype.Controller;
 import pl.lodz.p.it.mtegi.boardservice.dto.events.*;
 import pl.lodz.p.it.mtegi.boardservice.service.BoardService;
 import pl.lodz.p.it.mtegi.boardservice.service.LaneService;
+import pl.lodz.p.it.mtegi.common.dto.BoardMemberDetailsDto;
+
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -99,5 +102,9 @@ public class BoardWsController {
         dto.setUsername(authentication.getName());
         dto.setBoardId(boardId);
         messageTemplate.convertAndSend("/board/"+ boardId, boardService.onInviteLinkUpdate(dto));
+    }
+
+    public void onMemberUpdate(MembersUpdateDto dto) {
+        messageTemplate.convertAndSend("/board/"+ dto.getBoardId(), dto);
     }
 }

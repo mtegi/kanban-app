@@ -8,6 +8,7 @@ import NavButton from '../../../misc/NavButton';
 import routes from '../../../../router/routes.json';
 import { useBoardDispatch, useBoardState } from '../../context/BoardContext';
 import InviteManager from '../../InviteManager';
+import BoardAvatarGroup from '../../AvatarGroup';
 
 const Wrapper = styled.div`
   display: flex;
@@ -21,8 +22,6 @@ const MainBoardMenu = ({ handler }) => {
   const { t } = useTranslation();
   const boardState = useBoardState();
   const boardDispatch = useBoardDispatch();
-  let timer = null;
-  const [isTouched, setTouched] = useState(false);
 
   const handleFavourite = () => {
     const val = !boardState.favourite;
@@ -31,18 +30,9 @@ const MainBoardMenu = ({ handler }) => {
   };
 
   const handleTitle = (e) => {
-    clearTimeout(timer);
-    setTouched(true);
+    handler.onNameUpdate(e.target.value);
     boardDispatch({ type: 'UPDATE_BOARD_NAME', payload: e.target.value });
   };
-
-  useEffect(() => {
-    if (isTouched) {
-      timer = setTimeout(() => {
-        handler.onNameUpdate(boardState.name);
-      }, 3000);
-    }
-  }, [boardState.name]);
 
   return (
     <Wrapper color={boardState.color}>
@@ -61,6 +51,7 @@ const MainBoardMenu = ({ handler }) => {
       />
       <InviteManager onInviteLinkUpdate={handler.onInviteLinkUpdate} />
       <NavButton to={routes.dashboard.uri}>{t('dashboard')}</NavButton>
+      <BoardAvatarGroup />
     </Wrapper>
   );
 };

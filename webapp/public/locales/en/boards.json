@@ -16,7 +16,8 @@
   "button": {
     "Add lane": "Add lane",
     "Add card": "Add card",
-    "Cancel": "Cancel"
+    "Cancel": "Cancel",
+    "Close": "Close"
   },
   "card": {
     "title": "Title",
@@ -28,5 +29,7 @@
   "share": "Share",
   "copy": "Copy to clipboard",
   "newLink": "Generate new link",
-  "join-success":"Successfully joined new board. Redirecting."
+  "join-success":"Successfully joined new board. Redirecting.",
+  "memberList": "Member list",
+  "owner": "Owner"
 }

@@ -5,8 +5,8 @@ import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @Getter @Setter
-@ConfigurationProperties("auth-service")
-public class AuthServiceProperties {
+@ConfigurationProperties("basic-auth")
+public class AuthProperties {
 
     private String username;
     private String password;
