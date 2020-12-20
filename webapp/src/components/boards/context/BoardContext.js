@@ -48,7 +48,7 @@ function BoardProvider({ children }) {
     favourite: false,
     color: '#ff7f50',
     token: '',
-    members: [{ name: '', role: '' }]
+    members: [{ name: '', username: '', role: '' }]
   });
   return (
     <BoardStateContext.Provider value={state}>

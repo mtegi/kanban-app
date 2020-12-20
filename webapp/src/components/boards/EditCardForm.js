@@ -13,19 +13,23 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAsync } from 'react-async-hook';
-import { Tooltip } from '@material-ui/core';
+import { Chip, MenuItem, Tooltip } from '@material-ui/core';
 import { DialogContentWrapper } from './main/custom/styled';
 import FormControl from '../forms/FormControl';
 import FormControlColor from '../forms/FormControlColor';
 import FormControlDateTime from '../forms/FormControlDateTime';
 import { setEditOpen } from '../../redux/reducers/actions/editCardActions';
 import BoardApi from '../../api/BoardApi';
+import { useBoardState } from './context/BoardContext';
+import FormControlSelect from '../forms/FormControlSelect';
+import { ChipWrapper, StyledChip } from './manager/styled';
 
 const EditCardForm = ({ onEdit }) => {
   const { t } = useTranslation(['boards', 'common', 'error']);
   const dispatch = useDispatch();
   const open = useSelector((state) => state.editCard.open);
   const cardId = useSelector((state) => state.editCard.cardId);
+  const { members } = useBoardState();
   const data = useAsync(BoardApi.getCardDetails, [cardId]);
 
   const handleClose = () => {
@@ -33,12 +37,13 @@ const EditCardForm = ({ onEdit }) => {
   };
 
   const handleSubmit = (values) => {
-    const body = { ...values, id: cardId };
+    const body = { ...values, id: cardId, members: values.members.map((m) => m.username) };
     if (body.description === '') {
       delete body.lastName;
     }
-    onEdit(body);
-    handleClose();
+    console.log(body);
+    // onEdit(body);
+    // handleClose();
   };
 
   const validationSchema = yup.object().shape({
@@ -63,10 +68,10 @@ const EditCardForm = ({ onEdit }) => {
             description: data.result.description,
             deadline: data.result.deadline,
             color: data.result.color,
+            members: [],
           }}
-          validationSchema={validationSchema}
         >
-          {({ submitForm, errors }) => (
+          {({ submitForm, errors, setFieldValue, values }) => (
             <Form onSubmit={handleSubmit} successText="register:form.success">
               <DialogContentWrapper>
                 <Row>
@@ -97,6 +102,37 @@ const EditCardForm = ({ onEdit }) => {
                       name="deadline"
                       minDate={new Date()}
                     />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    <FormControlSelect
+                      label={t('card.members')}
+                      name="members"
+                      multiple
+                      onChange={(event) => {
+                        const value = values.members;
+                        event.target.value.forEach((val) => {
+                          if (!value.find((v) => v.username === val.username)) {
+                            value.push(val);
+                          }
+                        });
+                      }}
+                      onReset={() => setFieldValue('members', [])}
+                      renderValue={(selected) => (
+                        <ChipWrapper>
+                          {selected.map((value) => (
+                            <StyledChip key={value.username} label={value.name} />
+                          ))}
+                        </ChipWrapper>
+                      )}
+                    >
+                      {members.map((m) => (
+                        <MenuItem key={m.username} value={{ username: m.username, name: m.name }}>
+                          {m.name}
+                        </MenuItem>
+                      ))}
+                    </FormControlSelect>
                   </Col>
                 </Row>
               </DialogContentWrapper>

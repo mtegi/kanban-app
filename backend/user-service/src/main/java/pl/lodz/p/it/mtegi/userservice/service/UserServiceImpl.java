@@ -97,6 +97,7 @@ public class UserServiceImpl implements UserService {
             } else {
                 dto.setName(user.getUsername());
             }
+            dto.setUsername(user.getUsername());
             Optional<Role> roleOptional = user.getRoles().stream().filter(role -> role.getBoardId().equals(boardId)).findFirst();
             roleOptional.ifPresent(role -> dto.setRole(role.getRole().name()));
             return dto;

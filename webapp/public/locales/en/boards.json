@@ -24,7 +24,8 @@
     "description": "Description",
     "deadline": "Deadline",
     "color": "Color",
-    "edit": "Edit card"
+    "edit": "Edit card",
+    "members": "Assigned members"
   },
   "share": "Share",
   "copy": "Copy to clipboard",

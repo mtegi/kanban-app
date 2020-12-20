@@ -3,9 +3,11 @@ package pl.lodz.p.it.mtegi.boardservice.model;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Table(name = "cards")
@@ -38,5 +40,9 @@ public class Card {
     @ManyToOne
     @JoinColumn(name="lane_id", nullable = false)
     private Lane lane;
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "card")
+    private Set<AssignedCard> members;
 
 }

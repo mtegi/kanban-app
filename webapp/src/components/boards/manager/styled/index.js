@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FolderIcon from '@material-ui/icons/Folder';
+import { Chip } from '@material-ui/core';
 
 const iconStyle = css`
   font-size: 75% !important;
@@ -56,4 +57,14 @@ export const BoardManagerContainer = styled.div`
   transform: translateX(-50%);
   margin-top: 1rem;
   border: 3px ${(props) => props.theme.palette.secondary.main} solid;
+`;
+
+export const ChipWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+export const StyledChip = styled(Chip)`
+  margin: 2px;
+  background-color: ${(props) => props.theme.palette.primary.main}!important;
 `;

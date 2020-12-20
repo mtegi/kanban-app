@@ -9,5 +9,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class BoardMemberDetailsDto {
     private String name;
+    private String username;
     private String role;
 }

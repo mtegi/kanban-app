@@ -24,7 +24,8 @@
     "description": "Opis",
     "deadline": "Termin",
     "color": "Kolor",
-    "edit": "Edytuj kartę"
+    "edit": "Edytuj kartę",
+    "members": "Przypisane osoby"
   },
   "share": "Udostępnij",
   "copy": "Kopiuj do schowka",

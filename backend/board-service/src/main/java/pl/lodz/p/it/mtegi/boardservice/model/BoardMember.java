@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Table(name = "board_members")
@@ -29,6 +30,10 @@ public class BoardMember {
 
     @Column(nullable = false)
     private boolean favourite;
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "member")
+    private Set<AssignedCard> assignedCards;
 
     @Builder
     public BoardMember(String username, Board board) {
