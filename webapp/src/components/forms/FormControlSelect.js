@@ -75,7 +75,7 @@ FormControlSelect.propTypes = {
   children: PropTypes.node.isRequired,
   onChange: PropTypes.func.isRequired,
   onReset: PropTypes.func.isRequired,
-  renderValue: PropTypes.node.isRequired,
+  renderValue: PropTypes.func.isRequired,
 };
 
 FormControlSelect.defaultProps = {

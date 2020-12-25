@@ -1,11 +1,13 @@
 package pl.lodz.p.it.mtegi.boardservice.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Data
+@NoArgsConstructor
 public class AssignedCard {
     @EmbeddedId
     private CardMemberKey id;
@@ -19,4 +21,10 @@ public class AssignedCard {
     @MapsId("memberId")
     @JoinColumn(name = "member_id")
     private BoardMember member;
+
+    public AssignedCard(Card card, BoardMember member){
+        setId(new CardMemberKey(card.getId(), member.getId()));
+        setCard(card);
+        setMember(member);
+    }
 }

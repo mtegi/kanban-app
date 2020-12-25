@@ -42,7 +42,6 @@ const useEventHandler = (boardId) => {
   };
 
   const onNameUpdate = (name) => {
-    console.log(name);
     ws.send(`/${boardId}/board/name`, { name });
   };
 

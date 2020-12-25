@@ -35,14 +35,19 @@ const StyledBadge = withStyles((theme) => ({
   },
 }))(Badge);
 
-const BoardAvatar = ({ username }) => (
-  <Avatar alt={username}>
+const BoardAvatar = ({ username, className }) => (
+  <Avatar alt={username} className={className}>
     <PersonIcon />
   </Avatar>
 );
 
 BoardAvatar.propTypes = {
   username: PropTypes.string.isRequired,
+  className: PropTypes.string
+};
+
+BoardAvatar.defaultProps = {
+  className: undefined
 };
 
 export default BoardAvatar;

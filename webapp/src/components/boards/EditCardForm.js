@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -6,14 +6,14 @@ import DialogActions from '@material-ui/core/DialogActions';
 import { useTranslation } from 'react-i18next';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { Form, Formik } from 'formik';
+import { Formik } from 'formik';
 import * as yup from 'yup';
 import IconButton from '@material-ui/core/IconButton';
 import CancelIcon from '@material-ui/icons/Cancel';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAsync } from 'react-async-hook';
-import { Chip, MenuItem, Tooltip } from '@material-ui/core';
+import { MenuItem, Tooltip } from '@material-ui/core';
 import { DialogContentWrapper } from './main/custom/styled';
 import FormControl from '../forms/FormControl';
 import FormControlColor from '../forms/FormControlColor';
@@ -23,6 +23,7 @@ import BoardApi from '../../api/BoardApi';
 import { useBoardState } from './context/BoardContext';
 import FormControlSelect from '../forms/FormControlSelect';
 import { ChipWrapper, StyledChip } from './manager/styled';
+import Form from '../forms/Form';
 
 const EditCardForm = ({ onEdit }) => {
   const { t } = useTranslation(['boards', 'common', 'error']);
@@ -36,20 +37,19 @@ const EditCardForm = ({ onEdit }) => {
     dispatch(setEditOpen(false));
   };
 
+  useEffect(() => {
+    data.execute([cardId]);
+  }, [open]);
+
   const handleSubmit = (values) => {
     const body = { ...values, id: cardId, members: values.members.map((m) => m.username) };
-    if (body.description === '') {
-      delete body.lastName;
-    }
-    console.log(body);
-    // onEdit(body);
-    // handleClose();
+    onEdit(body);
+    handleClose();
   };
 
   const validationSchema = yup.object().shape({
     title: yup.string().trim().required(t('error:form.required')),
     description: yup.string().trim(),
-    prop: yup.string().trim(),
   });
 
   return (
@@ -61,6 +61,7 @@ const EditCardForm = ({ onEdit }) => {
       <DialogTitle id="form-dialog-title">{t('card.edit')}</DialogTitle>
       {data.result && (
         <Formik
+          validationSchema={validationSchema}
           enableReinitialize
           onSubmit={handleSubmit}
           initialValues={{
@@ -68,11 +69,13 @@ const EditCardForm = ({ onEdit }) => {
             description: data.result.description,
             deadline: data.result.deadline,
             color: data.result.color,
-            members: [],
+            members: members
+              .filter((m) => data.result.members
+                .find((dataMember) => dataMember === m.username)),
           }}
         >
           {({ submitForm, errors, setFieldValue, values }) => (
-            <Form onSubmit={handleSubmit} successText="register:form.success">
+            <Form onSubmit={handleSubmit}>
               <DialogContentWrapper>
                 <Row>
                   <Col>

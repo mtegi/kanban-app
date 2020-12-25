@@ -11,24 +11,24 @@ import * as yup from 'yup';
 import IconButton from '@material-ui/core/IconButton';
 import CancelIcon from '@material-ui/icons/Cancel';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-import { Tooltip } from '@material-ui/core';
+import { MenuItem, Tooltip } from '@material-ui/core';
 import Form from '../../../forms/Form';
 import FormControl from '../../../forms/FormControl';
 import { DialogContentWrapper } from './styled';
 import FormControlDateTime from '../../../forms/FormControlDateTime';
 import FormControlColor from '../../../forms/FormControlColor';
+import FormControlSelect from '../../../forms/FormControlSelect';
+import { ChipWrapper, StyledChip } from '../../manager/styled';
+import { useBoardState } from '../../context/BoardContext';
 
 const NewCardForm = ({ onCancel, onAdd }) => {
   const [open, setOpen] = React.useState(true);
+  const { members } = useBoardState();
 
   const { t } = useTranslation(['boards', 'common', 'error']);
 
   const handleSubmit = (values) => {
-    const body = { ...values };
-    if (body.description === '') {
-      delete body.lastName;
-    }
-    console.log(body);
+    const body = { ...values, members: values.members.map((m) => m.username) };
     onAdd(body);
   };
 
@@ -59,11 +59,12 @@ const NewCardForm = ({ onCancel, onAdd }) => {
           description: '',
           deadline: null,
           color: '#ffffff',
+          members: []
         }}
         validationSchema={validationSchema}
       >
-        {({ submitForm, errors }) => (
-          <Form onSubmit={handleSubmit} successText="register:form.success">
+        {({ submitForm, errors, setFieldValue, values }) => (
+          <Form onSubmit={handleSubmit}>
             <DialogContentWrapper>
               <Row>
                 <Col>
@@ -89,6 +90,37 @@ const NewCardForm = ({ onCancel, onAdd }) => {
                     name="deadline"
                     minDate={new Date()}
                   />
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <FormControlSelect
+                    label={t('card.members')}
+                    name="members"
+                    multiple
+                    onChange={(event) => {
+                      const value = values.members;
+                      event.target.value.forEach((val) => {
+                        if (!value.find((v) => v.username === val.username)) {
+                          value.push(val);
+                        }
+                      });
+                    }}
+                    onReset={() => setFieldValue('members', [])}
+                    renderValue={(selected) => (
+                      <ChipWrapper>
+                        {selected.map((value) => (
+                          <StyledChip key={value.username} label={value.name} />
+                        ))}
+                      </ChipWrapper>
+                    )}
+                  >
+                    {members.map((m) => (
+                      <MenuItem key={m.username} value={{ username: m.username, name: m.name }}>
+                        {m.name}
+                      </MenuItem>
+                    ))}
+                  </FormControlSelect>
                 </Col>
               </Row>
             </DialogContentWrapper>

@@ -1,8 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { AvatarGroup } from '@material-ui/lab';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import { Tooltip } from '@material-ui/core';
 import { CardHeader, CardRightContent, CardTitle, Detail, MovableCardWrapper } from './styled';
 import DeleteButton from './DeleteButton';
 import { parseDate } from '../../../../utils/date-utils';
+import BoardAvatar from '../../AvatarGroup/Avatar';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    marginTop: theme.spacing(1),
+    display: 'flex',
+    justifyContent: 'flex-end',
+    zIndex: 999,
+  },
+  small: {
+    width: theme.spacing(3),
+    height: theme.spacing(3),
+  },
+}));
 
 const Card = ({
   showDeleteButton,
@@ -14,6 +31,7 @@ const Card = ({
   deadline,
   description,
   color,
+  members
 }) => {
   const handleDelete = (e) => {
     onDelete();
@@ -29,6 +47,8 @@ const Card = ({
     return '';
   };
 
+  const classes = useStyles();
+
   return (
     <MovableCardWrapper
       data-id={id}
@@ -42,6 +62,12 @@ const Card = ({
         {showDeleteButton && <DeleteButton onClick={handleDelete} />}
       </CardHeader>
       <Detail>{description}</Detail>
+      <AvatarGroup max={4} className={classes.root}>
+        {members && members.map((m) =>
+          <Tooltip title={m.name} placement="top">
+            <BoardAvatar username={m.username} className={classes.small} />
+          </Tooltip>)}
+      </AvatarGroup>
     </MovableCardWrapper>
   );
 };
@@ -56,6 +82,8 @@ Card.propTypes = {
   deadline: PropTypes.oneOf([PropTypes.string, PropTypes.instanceOf(Date)]),
   description: PropTypes.string,
   color: PropTypes.string,
+  // eslint-disable-next-line
+  members: PropTypes.arrayOf<PropTypes.shape>({ username: PropTypes.string.isRequired, name: PropTypes.string.isRequired })
 };
 
 Card.defaultProps = {
@@ -66,6 +94,7 @@ Card.defaultProps = {
   deadline: null,
   color: '#ffffff',
   className: '',
+  members: []
 };
 
 export default Card;

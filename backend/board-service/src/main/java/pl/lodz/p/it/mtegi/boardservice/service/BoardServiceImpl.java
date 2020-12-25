@@ -16,6 +16,7 @@ import pl.lodz.p.it.mtegi.boardservice.feign.UserServiceClient;
 import pl.lodz.p.it.mtegi.boardservice.model.Board;
 import pl.lodz.p.it.mtegi.boardservice.model.BoardMember;
 import pl.lodz.p.it.mtegi.boardservice.model.InviteToken;
+import pl.lodz.p.it.mtegi.boardservice.repository.AssignedCardRepository;
 import pl.lodz.p.it.mtegi.boardservice.repository.BoardMemberRepository;
 import pl.lodz.p.it.mtegi.boardservice.repository.BoardRepository;
 import pl.lodz.p.it.mtegi.boardservice.repository.InviteTokenRepository;
@@ -44,6 +45,7 @@ public class BoardServiceImpl implements BoardService {
     private final BoardFactory boardFactory;
     private final InviteTokenRepository inviteTokenRepository;
     private final BoardMemberRepository memberRepository;
+    private final AssignedCardRepository assignedCardRepository;
     private final UserServiceClient userService;
     private final InviteTokenFactory inviteTokenFactory;
 
@@ -81,6 +83,9 @@ public class BoardServiceImpl implements BoardService {
         BoardDetailsDto dto = new BoardDetailsDto();
         dto.fillProperties(findByUsernameAndBoard(username, id));
         dto.setMembers(getBoardMemberDetails(id));
+        dto.getLanes().forEach(lane -> lane.getCards().forEach(cardDto -> {
+            cardDto.setMembers(assignedCardRepository.findByIdCardId(cardDto.getId()).stream().map(card -> card.getMember().getUsername()).collect(Collectors.toList()));
+        }));
         return dto;
     }
 

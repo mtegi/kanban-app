@@ -5,18 +5,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.lodz.p.it.mtegi.boardservice.dto.details.CardDetailsDto;
 import pl.lodz.p.it.mtegi.boardservice.dto.events.*;
-import pl.lodz.p.it.mtegi.boardservice.model.Board;
-import pl.lodz.p.it.mtegi.boardservice.model.Card;
-import pl.lodz.p.it.mtegi.boardservice.model.Lane;
-import pl.lodz.p.it.mtegi.boardservice.repository.BoardRepository;
-import pl.lodz.p.it.mtegi.boardservice.repository.CardRepository;
-import pl.lodz.p.it.mtegi.boardservice.repository.LaneRepository;
+import pl.lodz.p.it.mtegi.boardservice.exception.BoardError;
+import pl.lodz.p.it.mtegi.boardservice.model.*;
+import pl.lodz.p.it.mtegi.boardservice.repository.*;
 import pl.lodz.p.it.mtegi.boardservice.utils.LaneUtils;
 import pl.lodz.p.it.mtegi.common.exception.ApplicationException;
 import pl.lodz.p.it.mtegi.common.exception.CommonError;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -26,6 +25,8 @@ public class LaneServiceImpl implements LaneService {
     private final LaneRepository laneRepository;
     private final CardRepository cardRepository;
     private final BoardRepository boardRepository;
+    private final AssignedCardRepository assignedCardRepository;
+    private final BoardMemberRepository memberRepository;
 
     @Override
     public CardAddedDto addCardToLane(CardAddedDto dto) {
@@ -35,6 +36,9 @@ public class LaneServiceImpl implements LaneService {
         card.setIndex(lane.getCards().size());
         card.setLane(lane);
         cardRepository.save(card);
+        if(!dto.getCard().getMembers().isEmpty()){
+            setMembers(card.getId(), dto.getCard().getMembers());
+        }
         dto.getCard().fillProperties(card);
         return dto;
     }
@@ -130,6 +134,7 @@ public class LaneServiceImpl implements LaneService {
     public CardDetailsDto getCardDetails(String id) {
         CardDetailsDto dto = new CardDetailsDto();
         dto.fillProperties(findCardById(id));
+        dto.setMembers(assignedCardRepository.findByIdCardId(id).stream().map(card -> card.getMember().getUsername()).collect(Collectors.toList()));
         return dto;
     }
 
@@ -139,6 +144,7 @@ public class LaneServiceImpl implements LaneService {
         dto.getCard().setIndex(card.getIndex());
         dto.getCard().putProperties(card);
         dto.setLaneId(card.getLane().getId());
+        setMembers(card.getId(), dto.getCard().getMembers());
         cardRepository.save(card);
         dto.getCard().fillProperties(card);
         return dto;
@@ -150,5 +156,18 @@ public class LaneServiceImpl implements LaneService {
 
     public Card findCardById(String id) {
         return cardRepository.findById(id).orElseThrow(() -> new ApplicationException(CommonError.NOT_FOUND));
+    }
+
+    private void setMembers(String cardId, List<String> usernames) {
+        List<AssignedCard> assignedCards = assignedCardRepository.findByIdCardId(cardId);
+        assignedCardRepository.deleteAll(assignedCards.stream().filter(assignedCard -> !usernames.contains(assignedCard.getMember().getUsername())).collect(Collectors.toList()));
+        usernames.forEach(username -> {
+            Optional<AssignedCard> assignedCardOptional = assignedCards.stream().filter(assignedCard -> username.equals(assignedCard.getMember().getUsername())).findAny();
+            if(assignedCardOptional.isEmpty()){
+                Card card = cardRepository.getOne(cardId);
+                BoardMember member = memberRepository.findFirstByUsernameAndBoard_Id(username, card.getLane().getBoard().getId()).orElseThrow(() -> new ApplicationException(BoardError.NOT_FOUND));
+                assignedCardRepository.save(new AssignedCard(card, member));
+            }
+        });
     }
 }
