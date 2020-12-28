@@ -5,12 +5,16 @@ import store from '../redux/store';
 const prefix = 'boards';
 
 const BoardApi = {
-  getBoardsForManager: async () => {
+  getBoardsForManager: async (value) => {
     let response;
+    const name = value || null;
+    const body = { name };
+    console.log(body);
     try {
       const { Authorization } = store.store.getState().auth;
-      response = await axios.get(
+      response = await axios.post(
         `${axios.defaults.baseURL}/${prefix}/manager`,
+        body,
         {
           headers: {
             Authorization,

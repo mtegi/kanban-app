@@ -15,6 +15,7 @@ import pl.lodz.p.it.mtegi.boardservice.service.BoardService;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/boards")
@@ -25,11 +26,6 @@ public class BoardController {
     private final BoardWsController wsController;
     private final UriComponentsBuilder uriBuilder;
 
-    @GetMapping
-    public List<Board> getAll() {
-        return boardService.findAll();
-    }
-
     @PreAuthorize("isAuthenticated()")
     @PostMapping
     public ResponseEntity<?> createFromTemplate(@Valid @RequestBody CreateBoardDto dto, Authentication authentication){
@@ -39,9 +35,9 @@ public class BoardController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @GetMapping("/manager")
-    public List<UsersBoardListDto> getUsersBoardsForManager(Authentication authentication) {
-        return boardService.getUsersBoardsForManager(authentication.getName());
+    @PostMapping("/manager")
+    public List<UsersBoardListDto> getUsersBoardsForManager(Authentication authentication, @RequestBody Map<String, String> body) {
+        return boardService.getUsersBoardsForManager(authentication.getName(), body.get("name"));
     }
 
     @PreAuthorize("isAuthenticated()")

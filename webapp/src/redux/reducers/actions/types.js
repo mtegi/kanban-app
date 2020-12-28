@@ -3,3 +3,7 @@ export const CLEAR_AUTH = 'CLEAR_AUTH';
 export const SET_NAME = 'SET_NAME';
 export const SET_EDIT_CARD = 'SET_EDIT_CARD';
 export const SET_EDIT_CARD_OPEN = 'SET_EDIT_CARD_OPEN';
+export const SET_BOARDS = 'SET_BOARDS';
+export const SET_SEARCH_INPUT = 'SET_SEARCH_INPUT';
+export const SET_MANAGER_LOADING = 'SET_MANAGER_LOADING';
+export const SET_MANAGER_ERROR = 'SET_MANAGER_ERROR';

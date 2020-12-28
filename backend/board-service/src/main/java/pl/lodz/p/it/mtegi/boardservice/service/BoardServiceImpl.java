@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @Transactional
@@ -70,12 +71,18 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public List<UsersBoardListDto> getUsersBoardsForManager(String username) {
-        return memberRepository.findAllByUsername(username).stream().map(member -> {
+    public List<UsersBoardListDto> getUsersBoardsForManager(String username, String name) {
+        Stream<UsersBoardListDto> dtoStream = memberRepository.findAllByUsername(username).stream().map(member -> {
             UsersBoardListDto dto = new UsersBoardListDto();
             dto.fillProperties(member);
             return dto;
-        }).sorted(Comparator.comparing(UsersBoardListDto::getLastOpened).reversed()).collect(Collectors.toList());
+        });
+        if(name != null){
+            dtoStream = dtoStream.filter(dto -> dto.getName().toLowerCase().contains(name.toLowerCase()));
+        }
+        return dtoStream
+                .sorted(Comparator.comparing(UsersBoardListDto::getLastOpened).reversed())
+                .collect(Collectors.toList());
     }
 
     @Override
