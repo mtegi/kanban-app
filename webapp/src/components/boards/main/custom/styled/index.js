@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import DialogContent from '@material-ui/core/DialogContent';
 
 export const DialogContentWrapper = styled(DialogContent)`
@@ -111,5 +111,35 @@ export const DelButton = styled.button`
   opacity: 0;
   ${MovableCardWrapper}:hover & {
     opacity: 1;
+  }
+`;
+
+export const InlineInputNumber = styled.input`
+  overflow-x: hidden; /* for Firefox (issue #5) */
+  word-wrap: break-word;
+  min-height: 18px;
+  max-height: 112px; /* optional, but recommended */
+  resize: none;
+  width: 100%;
+  height: 18px;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  text-align: inherit;
+  background-color: transparent;
+  box-shadow: none;
+  box-sizing: border-box;
+  border-radius: 3px;
+  border: 0;
+  padding: 0 8px;
+  outline: 0;
+  ${(props) =>
+    props.border
+  && css`
+      &:focus {
+        box-shadow: inset 0 0 0 2px #0079bf;
+      }
+    `} &:focus {
+    background-color: white;
   }
 `;

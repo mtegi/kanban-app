@@ -12,12 +12,7 @@ import PopUp from '../../misc/PopUp';
 import useEventHandler from './useEventHandler';
 import NewCardForm from './custom/NewCardForm';
 import Card from './custom/Card';
-import {
-  BoardActions,
-  isBoardAction,
-  isUpdateAction,
-  useBoardDispatch,
-} from '../context/BoardContext';
+import { isBoardAction, isUpdateAction, useBoardDispatch } from '../context/BoardContext';
 import EditCardForm from '../EditCardForm';
 import { setEditCard } from '../../../redux/reducers/actions/editCardActions';
 
@@ -59,7 +54,7 @@ const MainBoardView = () => {
 
   const components = {
     NewCardForm,
-    Card,
+    Card
   };
 
   return (

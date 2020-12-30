@@ -9,7 +9,7 @@ const BoardApi = {
     let response;
     const name = value || null;
     const body = { name };
-    console.log(body);
+
     try {
       const { Authorization } = store.store.getState().auth;
       response = await axios.post(
