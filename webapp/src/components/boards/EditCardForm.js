@@ -38,7 +38,9 @@ const EditCardForm = ({ onEdit }) => {
   };
 
   useEffect(() => {
-    data.execute([cardId]);
+    if (cardId) {
+      data.execute([cardId]);
+    }
   }, [open]);
 
   const handleSubmit = (values) => {

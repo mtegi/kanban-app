@@ -1,6 +1,6 @@
 import useWebSockets from '../../../api/useWebSockets';
 
-const useEventHandler = (boardId) => {
+const useEventHandler = (boardId, username) => {
   const ws = useWebSockets();
 
   const onCardAdd = (card, laneId) => {
@@ -51,6 +51,8 @@ const useEventHandler = (boardId) => {
     }
   };
 
+  const subscribeToUser = (handleMessage) => ws.subscribe('/user/queue', handleMessage);
+
   const onLaneAdd = (data) => {
     ws.send(`/${boardId}/lane/add`, data);
   };
@@ -77,9 +79,14 @@ const useEventHandler = (boardId) => {
     });
   };
 
+  const onLaneEdit = (body) => {
+    ws.send(`/${boardId}/lane/update/details`, body);
+  };
+
   return {
     onCardAdd,
     subscribe,
+    subscribeToUser,
     onCardMoveAcrossLanes,
     onCardDelete,
     onLaneUpdate,
@@ -91,6 +98,7 @@ const useEventHandler = (boardId) => {
     onLaneDragEnd,
     onCardEdit,
     onInviteLinkUpdate,
+    onLaneEdit,
   };
 };
 

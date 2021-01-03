@@ -46,7 +46,7 @@ export const Title = styled.span`
 export const RightContent = styled.span`
   width: 30%;
   text-align: right;
-  padding-right: 10px;
+  padding-right: 15px;
   font-size: 13px;
 `;
 export const CardWrapper = styled.article`

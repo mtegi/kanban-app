@@ -49,7 +49,7 @@ public class BoardController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/join")
     public ResponseEntity<?> joinBoard(@RequestParam String token, Authentication authentication){
-        wsController.onMemberUpdate(boardService.joinBoard(token, authentication));
+        wsController.onMemberUpdate(boardService.joinBoard(token, authentication), authentication);
         return ResponseEntity.ok().build();
     }
 }

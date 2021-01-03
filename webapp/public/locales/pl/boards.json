@@ -12,6 +12,7 @@
   "Add another lane": "+ Dodaj listę",
   "Click to add card": "Nowa karta",
   "Delete lane": "Usuń listę",
+  "Edit lane": "Edytuj listę",
   "Lane actions": "Akcja",
   "button": {
     "Add lane": "Dodaj listę",
@@ -26,6 +27,9 @@
     "color": "Kolor",
     "edit": "Edytuj kartę",
     "members": "Przypisane osoby"
+  },
+  "lane": {
+    "taskLimit": "Limit zadań"
   },
   "share": "Udostępnij",
   "copy": "Kopiuj do schowka",

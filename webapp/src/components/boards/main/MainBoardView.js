@@ -15,6 +15,13 @@ import Card from './custom/Card';
 import { isBoardAction, isUpdateAction, useBoardDispatch } from '../context/BoardContext';
 import EditCardForm from '../EditCardForm';
 import { setEditCard } from '../../../redux/reducers/actions/editCardActions';
+import LaneHeaderComponent from './custom/LaneHeader';
+import EditLaneForm from '../EditLaneForm';
+import ControlledPopUp from '../../misc/ControlledPopUp';
+import {
+  setBoardError,
+  setBoardErrorOpen,
+} from '../../../redux/reducers/actions/boardErrorActions';
 
 const MainBoardView = () => {
   const { t } = useTranslation(['boards', 'common', 'error']);
@@ -23,17 +30,27 @@ const MainBoardView = () => {
   const data = useAsync(BoardApi.getBoardDetails, [boardId]);
   const I18nBoard = withTranslation('boards')(Board);
   const username = useSelector((state) => state.auth.token.user_name);
-  const handler = useEventHandler(boardId);
+  const boardError = useSelector((state) => state.boardError);
+  const handler = useEventHandler(boardId, username);
   const boardDispatch = useBoardDispatch();
   const dispatch = useDispatch();
 
   let handleMessage = () => {};
+
+  const handleUserMessage = (message) => {
+    const body = JSON.parse(message.body);
+    if (body.type === 'ERROR') {
+      data.execute(boardId);
+      dispatch(setBoardError(true, body.message));
+    }
+  };
 
   useEffect(() => {
     handler.subscribe(handleMessage);
   }, [handleMessage]);
 
   useEffect(() => {
+    handler.subscribeToUser(handleUserMessage);
     setTimeout(handler.onBoardOpen, 1000);
   }, []);
 
@@ -54,7 +71,8 @@ const MainBoardView = () => {
 
   const components = {
     NewCardForm,
-    Card
+    Card,
+    LaneHeader: LaneHeaderComponent
   };
 
   return (
@@ -63,6 +81,8 @@ const MainBoardView = () => {
       {data.error && <PopUp text={t(data.error.message)} />}
       {data.status === AsyncStatus.SUCCESS && (
         <>
+          <ControlledPopUp open={boardError.open} text={t(boardError.message)} severity="error" setOpen={(open) => dispatch(setBoardErrorOpen(open))} />
+          <EditLaneForm onEdit={handler.onLaneEdit} />
           <EditCardForm onEdit={handler.onCardEdit} />
           <MainBoardMenu handler={handler} />
           <I18nBoard

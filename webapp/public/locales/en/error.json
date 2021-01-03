@@ -14,7 +14,13 @@
     },
     "username": {
       "taken": "Username is already taken."
+    },
+    "taskLimit": {
+      "cardCount": "Please remove existing tasks from lane."
     }
+  },
+  "lane": {
+    "taskLimit": "Task limit reached."
   },
   "login": {
     "notActive": "Account is not active.",

@@ -9,7 +9,7 @@ export const BoardActions = {
   SET_ALL: 'SET_ALL',
   UPDATE_MEMBERS: 'UPDATE_MEMBERS',
   TOGGLE_FAVOURITE: 'TOGGLE_FAVOURITE',
-  UPDATE_CARD: 'UPDATE_CARD'
+  UPDATE_CARD: 'UPDATE_CARD',
 };
 
 export const isBoardAction = (type) => !!BoardActions[type];

@@ -4,6 +4,21 @@ import store from '../redux/store';
 
 const prefix = 'boards';
 
+const get = async (url) => {
+  let response;
+  try {
+    const { Authorization } = store.store.getState().auth;
+    response = await axios.get(url, {
+      headers: {
+        Authorization,
+      },
+    });
+  } catch (e) {
+    handleError(e);
+  }
+  return response.data;
+};
+
 const BoardApi = {
   getBoardsForManager: async (value) => {
     let response;
@@ -41,35 +56,11 @@ const BoardApi = {
     }
   },
 
-  getBoardDetails: async (id) => {
-    let response;
-    try {
-      const { Authorization } = store.store.getState().auth;
-      response = await axios.get(`${axios.defaults.baseURL}/${prefix}/${id}`, {
-        headers: {
-          Authorization,
-        },
-      });
-    } catch (e) {
-      handleError(e);
-    }
-    return response.data;
-  },
+  getBoardDetails: async (id) => get(`${axios.defaults.baseURL}/${prefix}/${id}`),
 
-  getCardDetails: async (id) => {
-    let response;
-    try {
-      const { Authorization } = store.store.getState().auth;
-      response = await axios.get(`${axios.defaults.baseURL}/cards/${id}`, {
-        headers: {
-          Authorization,
-        },
-      });
-    } catch (e) {
-      handleError(e);
-    }
-    return response.data;
-  },
+  getCardDetails: async (id) => get(`${axios.defaults.baseURL}/cards/${id}`),
+
+  getLaneDetails: async (id) => get(`${axios.defaults.baseURL}/lanes/${id}`),
 
   joinBoard: async (search) => {
     try {

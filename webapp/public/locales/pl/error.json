@@ -14,7 +14,13 @@
     },
     "username": {
       "taken": "Nazwa użytkownika jest już zajęta."
+    },
+    "taskLimit": {
+      "cardCount": "Usuń najpierw istniejące zadania z listy."
     }
+  },
+  "lane": {
+    "taskLimit": "Osiągnięto limit zadań dla listy."
   },
   "login": {
     "notActive": "Konto nieaktywne.",

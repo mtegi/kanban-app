@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.lodz.p.it.mtegi.boardservice.dto.details.CardDetailsDto;
+import pl.lodz.p.it.mtegi.boardservice.dto.details.LaneEditDetailsDto;
 import pl.lodz.p.it.mtegi.boardservice.dto.events.*;
 import pl.lodz.p.it.mtegi.boardservice.exception.BoardError;
 import pl.lodz.p.it.mtegi.boardservice.model.*;
@@ -30,9 +31,12 @@ public class LaneServiceImpl implements LaneService {
 
     @Override
     public CardAddedDto addCardToLane(CardAddedDto dto) {
+        Lane lane = findById(dto.getLaneId());
+        if(lane.getTaskLimit() != null && lane.getCards().size() + 1 > lane.getTaskLimit()) {
+            throw new ApplicationException(BoardError.TASK_LIMIT_REACHED);
+        }
         Card card = new Card();
         dto.getCard().putProperties(card);
-        Lane lane = findById(dto.getLaneId());
         card.setIndex(lane.getCards().size());
         card.setLane(lane);
         cardRepository.save(card);
@@ -47,8 +51,11 @@ public class LaneServiceImpl implements LaneService {
     public CardMovedDto moveCardAcrossLanes(CardMovedDto movedDto) {
         Card card = findCardById(movedDto.getCardId());
         Lane toLane = findById(movedDto.getToLaneId());
-        List<Card> fromCards = findById(movedDto.getFromLaneId()).getCards();
         List<Card> toCards = toLane.getCards();
+        if(toLane.getTaskLimit() != null && toCards.size() + 1 > toLane.getTaskLimit()) {
+            throw new ApplicationException(BoardError.TASK_LIMIT_REACHED);
+        }
+        List<Card> fromCards = findById(movedDto.getFromLaneId()).getCards();
         fromCards.remove(card);
         toCards.add(card);
         fromCards.forEach(c -> {
@@ -148,6 +155,24 @@ public class LaneServiceImpl implements LaneService {
         cardRepository.save(card);
         dto.getCard().fillProperties(card);
         return dto;
+    }
+
+    @Override
+    public LaneEditDetailsDto getLaneEditDetails(Long id) {
+        LaneEditDetailsDto dto = new LaneEditDetailsDto();
+        dto.fillProperties(findById(id));
+        return dto;
+    }
+
+    @Override
+    public LaneUpdateDto updateLaneDetails(LaneEditDetailsDto dto) {
+        Lane lane = findById(dto.getId());
+        dto.putProperties(lane);
+        laneRepository.save(lane);
+        LaneUpdateDto updateDto = new LaneUpdateDto();
+        updateDto.setLanes(LaneUtils.mapToDto(lane.getBoard().getLanes()));
+        LaneUtils.sort(updateDto.getLanes());
+        return updateDto;
     }
 
     public Lane findById(Long id) {

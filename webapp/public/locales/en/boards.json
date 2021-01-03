@@ -12,6 +12,7 @@
   "Add another lane": "+ Add another lane",
   "Click to add card": "Click to add card",
   "Delete lane": "Delete lane",
+  "Edit lane": "Edit lane",
   "Lane actions": "Lane actions",
   "button": {
     "Add lane": "Add lane",
@@ -26,6 +27,9 @@
     "color": "Color",
     "edit": "Edit card",
     "members": "Assigned members"
+  },
+  "lane": {
+    "taskLimit": "Task limit"
   },
   "share": "Share",
   "copy": "Copy to clipboard",

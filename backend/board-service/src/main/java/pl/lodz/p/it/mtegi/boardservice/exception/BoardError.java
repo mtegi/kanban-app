@@ -9,7 +9,8 @@ import pl.lodz.p.it.mtegi.common.exception.ErrorWithMessageAndStatus;
 public enum BoardError implements ErrorWithMessageAndStatus {
     NOT_FOUND("error:account.notfound", HttpStatus.NOT_FOUND),
     INVALID_INVITE_TOKEN("error:inviteToken.invalid", HttpStatus.BAD_REQUEST),
-    USER_ALREADY_INVITED("error:inviteToken.invited", HttpStatus.BAD_REQUEST);
+    USER_ALREADY_INVITED("error:inviteToken.invited", HttpStatus.BAD_REQUEST),
+    TASK_LIMIT_REACHED("error:lane.taskLimit", HttpStatus.BAD_REQUEST);
 
     @Getter
     private final String message;
