@@ -8,7 +8,6 @@ import BoardSection from './BoardSection';
 import NewBoardButton from './NewBoardButton';
 import routes from '../../../router/routes.json';
 import ProgressBar from '../../misc/ProgressBar';
-import PopUp from '../../misc/PopUp';
 import {
   BoardManagerContainer,
   BoardManagerMenu,
@@ -57,7 +56,6 @@ const BoardManager = () => {
           icon={<StyledFolderIcon />}
         />
       </BoardManagerContainer>
-      {data.error && <PopUp text={t(data.error.message)} severity="error" />}
     </>
   );
 };

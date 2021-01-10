@@ -26,10 +26,21 @@
     "deadline": "Deadline",
     "color": "Color",
     "edit": "Edit card",
-    "members": "Assigned members"
+    "members": "Assigned members",
+    "notfound": "Card not found."
   },
   "lane": {
     "taskLimit": "Task limit"
+  },
+  "time": {
+    "history": "Work history",
+    "log": "Log time",
+    "from": "From",
+    "to": "To",
+    "dateError": "Second date must be after first one."
+  },
+  "member": {
+    "notfound": "Board member not found"
   },
   "share": "Share",
   "copy": "Copy to clipboard",

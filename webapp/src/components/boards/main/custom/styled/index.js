@@ -143,3 +143,30 @@ export const InlineInputNumber = styled.input`
     background-color: white;
   }
 `;
+
+export const LogTimeWrapper = styled.div`
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  left: 8px;
+  cursor: pointer;
+`;
+
+export const TimeButton = styled.button`
+  transition: all 0.5s ease;
+  display: inline-block;
+  border: none;
+  font-size: 13px;
+  height: 20px;
+  line-height: 1px;
+  margin: 0 0 13px;
+  padding: 0;
+  text-align: center;
+  width: 20px;
+  background: inherit;
+  cursor: pointer;
+  opacity: 0;
+  ${MovableCardWrapper}:hover & {
+    opacity: 1;
+  }
+`;

@@ -9,6 +9,7 @@ import routes from '../../../../router/routes.json';
 import { useBoardDispatch, useBoardState } from '../../context/BoardContext';
 import InviteManager from '../../InviteManager';
 import BoardAvatarGroup from '../../AvatarGroup';
+import TimeEntryManager from '../../TimeEntryManager';
 
 const Wrapper = styled.div`
   display: flex;
@@ -50,6 +51,7 @@ const MainBoardMenu = ({ handler }) => {
         onClick={handleFavourite}
       />
       <InviteManager onInviteLinkUpdate={handler.onInviteLinkUpdate} />
+      <TimeEntryManager />
       <NavButton to={routes.dashboard.uri}>{t('dashboard')}</NavButton>
       <BoardAvatarGroup />
     </Wrapper>

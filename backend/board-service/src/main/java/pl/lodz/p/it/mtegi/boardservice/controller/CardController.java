@@ -22,4 +22,6 @@ public class CardController {
         return laneService.getCardDetails(id);
     }
 
+
+
 }

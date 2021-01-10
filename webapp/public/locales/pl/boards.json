@@ -26,10 +26,21 @@
     "deadline": "Termin",
     "color": "Kolor",
     "edit": "Edytuj kartę",
-    "members": "Przypisane osoby"
+    "members": "Przypisane osoby",
+    "notfound": "Karta nie znaleziona"
   },
   "lane": {
     "taskLimit": "Limit zadań"
+  },
+  "time": {
+    "history": "Historia pracy",
+    "log": "Zapisz czas",
+    "from": "Od",
+    "to": "Do",
+    "dateError": "Data rozpoczęcia musi być przed datą zakończenia."
+  },
+  "member": {
+    "notfound": "Użytkownik nie znaleziony"
   },
   "share": "Udostępnij",
   "copy": "Kopiuj do schowka",

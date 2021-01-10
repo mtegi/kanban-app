@@ -22,6 +22,7 @@ import {
   setBoardError,
   setBoardErrorOpen,
 } from '../../../redux/reducers/actions/boardErrorActions';
+import EditTimeForm from '../EditTimeForm';
 
 const MainBoardView = () => {
   const { t } = useTranslation(['boards', 'common', 'error']);
@@ -84,6 +85,7 @@ const MainBoardView = () => {
           <ControlledPopUp open={boardError.open} text={t(boardError.message)} severity="error" setOpen={(open) => dispatch(setBoardErrorOpen(open))} />
           <EditLaneForm onEdit={handler.onLaneEdit} />
           <EditCardForm onEdit={handler.onCardEdit} />
+          <EditTimeForm />
           <MainBoardMenu handler={handler} />
           <I18nBoard
             canAddLanes

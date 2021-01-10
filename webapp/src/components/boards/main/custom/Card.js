@@ -3,10 +3,13 @@ import PropTypes from 'prop-types';
 import { AvatarGroup } from '@material-ui/lab';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Tooltip } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
 import { CardHeader, CardRightContent, CardTitle, Detail, MovableCardWrapper } from './styled';
 import DeleteButton from './DeleteButton';
 import { parseDate } from '../../../../utils/date-utils';
 import BoardAvatar from '../../AvatarGroup/Avatar';
+import LogTimeButton from './LogTimeButton';
+import { setLogTime } from '../../../../redux/reducers/actions/logTimeActions';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,6 +51,12 @@ const Card = ({
   };
 
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  const onLogTimeClick = (e) => {
+    dispatch(setLogTime(true, id));
+    e.stopPropagation();
+  };
 
   return (
     <MovableCardWrapper
@@ -60,6 +69,7 @@ const Card = ({
         <CardTitle draggable>{title}</CardTitle>
         {deadline && <CardRightContent>{parseDeadline()}</CardRightContent>}
         {showDeleteButton && <DeleteButton onClick={handleDelete} />}
+        <LogTimeButton onClick={onLogTimeClick} />
       </CardHeader>
       <Detail>{description}</Detail>
       <AvatarGroup max={4} className={classes.root}>
