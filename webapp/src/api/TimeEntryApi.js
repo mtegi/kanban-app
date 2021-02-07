@@ -1,6 +1,6 @@
-import axios from "axios";
-import store from "../redux/store";
-import handleError from "./errorHandler";
+import axios from 'axios';
+import store from '../redux/store';
+import handleError from './errorHandler';
 
 const prefix = 'time-entries';
 

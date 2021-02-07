@@ -1,26 +1,26 @@
-import React, { useEffect } from "react";
-import { useTranslation } from "react-i18next";
-import { Tooltip } from "@material-ui/core";
-import HistoryIcon from "@material-ui/icons/History";
-import Popper from "@material-ui/core/Popper";
-import IconButton from "@material-ui/core/IconButton";
-import Fade from "@material-ui/core/Fade";
-import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import { useDispatch, useSelector } from "react-redux";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import { format } from "date-fns";
-import { Delete } from "@material-ui/icons";
+import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Tooltip } from '@material-ui/core';
+import HistoryIcon from '@material-ui/icons/History';
+import Popper from '@material-ui/core/Popper';
+import IconButton from '@material-ui/core/IconButton';
+import Fade from '@material-ui/core/Fade';
+import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import { useDispatch, useSelector } from 'react-redux';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import { format } from 'date-fns';
+import { Delete } from '@material-ui/icons';
 import {
   deleteLogTimeDetails,
   fetchLogTimeDetails
-} from "../../../redux/reducers/actions/logTimeActions";
-import { StyledIconButton } from "../main/menu/styled";
+} from '../../../redux/reducers/actions/logTimeActions';
+import { StyledIconButton } from '../main/menu/styled';
 
 const useStyles = makeStyles({
   table: {

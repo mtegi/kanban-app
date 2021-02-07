@@ -1,5 +1,5 @@
-import { SET_LOG_TIME, SET_LOG_TIME_DETAILS, SET_LOG_TIME_OPEN } from "./types";
-import TimeEntryApi from "../../../api/TimeEntryApi";
+import { SET_LOG_TIME, SET_LOG_TIME_DETAILS, SET_LOG_TIME_OPEN } from './types';
+import TimeEntryApi from '../../../api/TimeEntryApi';
 
 export const setLogTime = (open, cardId) => ({
   type: SET_LOG_TIME,
