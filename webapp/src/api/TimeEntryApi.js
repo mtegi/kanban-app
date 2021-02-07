@@ -1,6 +1,6 @@
-import axios from 'axios';
-import store from '../redux/store';
-import handleError from './errorHandler';
+import axios from "axios";
+import store from "../redux/store";
+import handleError from "./errorHandler";
 
 const prefix = 'time-entries';
 
@@ -9,6 +9,18 @@ const TimeEntryApi = {
     try {
       const { Authorization } = store.store.getState().auth;
       await axios.post(`${axios.defaults.baseURL}/${prefix}`, data, {
+        headers: {
+          Authorization,
+        },
+      });
+    } catch (e) {
+      handleError(e);
+    }
+  },
+  delete: async (id) => {
+    try {
+      const { Authorization } = store.store.getState().auth;
+      await axios.delete(`${axios.defaults.baseURL}/${prefix}/${id}`, {
         headers: {
           Authorization,
         },

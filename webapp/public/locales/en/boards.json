@@ -37,6 +37,8 @@
     "log": "Log time",
     "from": "From",
     "to": "To",
+    "card": "Card",
+    "action": "Action",
     "dateError": "Second date must be after first one."
   },
   "member": {

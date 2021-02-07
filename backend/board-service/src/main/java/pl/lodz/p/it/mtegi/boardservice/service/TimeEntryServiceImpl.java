@@ -41,10 +41,22 @@ public class TimeEntryServiceImpl implements TimeEntryService {
     public List<TimeEntryDetailsDto> getAllForUser(String name) {
         return timeEntryRepository.findAllByMember_Username(name).stream().map(timeEntry -> {
             TimeEntryDetailsDto dto = new TimeEntryDetailsDto();
-            dto.fillProperties(timeEntry);
             Card card = cardRepository.findById(timeEntry.getCard().getId()).orElseThrow(() -> new ApplicationException(BoardError.CARD_NOT_FOUND));
+            dto.setId(timeEntry.getId());
             dto.setTitle(card.getTitle());
+            dto.setFrom(timeEntry.getFromDate());
+            dto.setTo(timeEntry.getToDate());
             return dto;
         }).collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteById(Long id, String username) {
+        TimeEntry entry = timeEntryRepository.getOne(id);
+        if(entry.getMember().getUsername().equals(username)){
+            timeEntryRepository.deleteById(id);
+        } else {
+            throw new ApplicationException(BoardError.TIME_ENTRY_CANNOT_DELETE);
+        }
     }
 }

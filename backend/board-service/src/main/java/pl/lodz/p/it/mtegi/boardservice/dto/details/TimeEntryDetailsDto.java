@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 public class TimeEntryDetailsDto extends CommonResponseDto<TimeEntry> {
+    private Long id;
     private String title;
     private LocalDateTime from;
     private LocalDateTime to;
