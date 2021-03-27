@@ -30,4 +30,10 @@ public class TimeEntryController {
     public List<TimeEntryDetailsDto> getAllForUser(Authentication authentication) {
         return timeEntryService.getAllForUser(authentication.getName());
     }
+
+    @PreAuthorize("isAuthenticated()")
+    @DeleteMapping("/{id}")
+    public void getDeleteById(@PathVariable Long id, Authentication authentication) {
+        timeEntryService.deleteById(id, authentication.getName());
+    }
 }

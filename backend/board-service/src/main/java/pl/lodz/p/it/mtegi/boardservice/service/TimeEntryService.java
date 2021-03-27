@@ -8,4 +8,5 @@ import java.util.List;
 public interface TimeEntryService {
     void createTimeEntry(TimeEntryDto dto);
     List<TimeEntryDetailsDto> getAllForUser(String name);
+    void deleteById(Long id, String username);
 }

@@ -13,7 +13,8 @@ public enum BoardError implements ErrorWithMessageAndStatus {
     INVALID_INVITE_TOKEN("error:inviteToken.invalid", HttpStatus.BAD_REQUEST),
     USER_ALREADY_INVITED("error:inviteToken.invited", HttpStatus.BAD_REQUEST),
     TASK_LIMIT_REACHED("error:lane.taskLimit", HttpStatus.BAD_REQUEST),
-    TIME_ENTRY_DATE_ERROR("error:time.dateError", HttpStatus.BAD_REQUEST);
+    TIME_ENTRY_DATE_ERROR("error:time.dateError", HttpStatus.BAD_REQUEST),
+    TIME_ENTRY_CANNOT_DELETE("error:time.delete", HttpStatus.BAD_REQUEST);
 
     @Getter
     private final String message;
