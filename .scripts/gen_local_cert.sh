@@ -1,0 +1,1 @@
+mkcert -pkcs12 -p12-file cert.p12 localhost 127.0.0.1 ::1
