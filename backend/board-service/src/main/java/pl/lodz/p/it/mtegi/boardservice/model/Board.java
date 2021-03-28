@@ -1,9 +1,6 @@
 package pl.lodz.p.it.mtegi.boardservice.model;
 
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -32,6 +29,7 @@ public class Board {
     @Column(nullable = false)
     private String color;
 
+    @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "board", optional = false)
     private InviteToken inviteToken;

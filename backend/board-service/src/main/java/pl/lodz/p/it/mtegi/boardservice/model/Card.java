@@ -1,9 +1,6 @@
 package pl.lodz.p.it.mtegi.boardservice.model;
 
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -41,6 +38,7 @@ public class Card {
     @JoinColumn(name="lane_id", nullable = false)
     private Lane lane;
 
+    @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @OneToMany(mappedBy = "card")
     private Set<AssignedCard> members;

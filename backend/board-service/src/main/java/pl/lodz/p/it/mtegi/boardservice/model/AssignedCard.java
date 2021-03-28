@@ -2,6 +2,7 @@ package pl.lodz.p.it.mtegi.boardservice.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 

@@ -31,6 +31,7 @@ public class BoardMember {
     @Column(nullable = false)
     private boolean favourite;
 
+    @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @OneToMany(mappedBy = "member")
     private Set<AssignedCard> assignedCards;
