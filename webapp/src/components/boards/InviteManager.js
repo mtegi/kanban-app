@@ -28,7 +28,7 @@ const InviteManager = ({ onInviteLinkUpdate }) => {
 
   return (
     <>
-      <Tooltip title={t('share')} placement="top-center">
+      <Tooltip title={t('share')} placement="top">
         <StyledIconButton color="secondary" onClick={handleClick}>
           <ShareIcon />
         </StyledIconButton>
@@ -52,10 +52,7 @@ const InviteManager = ({ onInviteLinkUpdate }) => {
                 </StyledIconButton>
               </Tooltip>
               <Tooltip title={t('newLink')} placement="bottom">
-                <StyledIconButton
-                  color="secondary"
-                  onClick={onInviteLinkUpdate}
-                >
+                <StyledIconButton color="secondary" onClick={onInviteLinkUpdate}>
                   <RefreshIcon />
                 </StyledIconButton>
               </Tooltip>

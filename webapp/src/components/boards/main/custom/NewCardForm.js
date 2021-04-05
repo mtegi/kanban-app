@@ -59,7 +59,7 @@ const NewCardForm = ({ onCancel, onAdd }) => {
           description: '',
           deadline: null,
           color: '#ffffff',
-          members: []
+          members: [],
         }}
         validationSchema={validationSchema}
       >
@@ -76,11 +76,7 @@ const NewCardForm = ({ onCancel, onAdd }) => {
               </Row>
               <Row>
                 <Col>
-                  <FormControl
-                    label={t('card.description')}
-                    name="description"
-                    multiline
-                  />
+                  <FormControl label={t('card.description')} name="description" multiline />
                 </Col>
               </Row>
               <Row>
@@ -126,11 +122,7 @@ const NewCardForm = ({ onCancel, onAdd }) => {
             </DialogContentWrapper>
             <DialogActions>
               <Tooltip title={t('button.Cancel')}>
-                <IconButton
-                  aria-label={t('button.Cancel')}
-                  onClick={handleClose}
-                  color="primary"
-                >
+                <IconButton aria-label={t('button.Cancel')} onClick={handleClose} color="primary">
                   <CancelIcon fontSize="large" />
                 </IconButton>
               </Tooltip>

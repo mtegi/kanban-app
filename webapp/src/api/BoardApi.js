@@ -27,15 +27,11 @@ const BoardApi = {
 
     try {
       const { Authorization } = store.store.getState().auth;
-      response = await axios.post(
-        `${axios.defaults.baseURL}/${prefix}/manager`,
-        body,
-        {
-          headers: {
-            Authorization,
-          },
-        }
-      );
+      response = await axios.post(`${axios.defaults.baseURL}/${prefix}/manager`, body, {
+        headers: {
+          Authorization,
+        },
+      });
     } catch (e) {
       handleError(e);
     }
@@ -65,15 +61,19 @@ const BoardApi = {
   joinBoard: async (search) => {
     try {
       const { Authorization } = store.store.getState().auth;
-      await axios.post(`${axios.defaults.baseURL}/${prefix}/join${search}`, {}, {
-        headers: {
-          Authorization,
-        },
-      });
+      await axios.post(
+        `${axios.defaults.baseURL}/${prefix}/join${search}`,
+        {},
+        {
+          headers: {
+            Authorization,
+          },
+        }
+      );
     } catch (e) {
       handleError(e);
     }
-  }
+  },
 };
 
 export default BoardApi;

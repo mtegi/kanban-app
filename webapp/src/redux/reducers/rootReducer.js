@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
   editLane: editLaneReducer,
   boardError: boardErrorReducer,
   boardManager: boardMangerReducer,
-  logTime: logTimeReducer
+  logTime: logTimeReducer,
 });
 
 export default rootReducer;

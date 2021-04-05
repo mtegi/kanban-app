@@ -33,9 +33,7 @@ const BoardManager = () => {
       <BoardManagerContainer>
         <BoardManagerMenu>
           <SearchInput />
-          <NewBoardButton
-            onClick={() => navigate(routes.boards.create.uri)}
-          />
+          <NewBoardButton onClick={() => navigate(routes.boards.create.uri)} />
         </BoardManagerMenu>
         <Divider />
         <BoardSection
@@ -50,11 +48,7 @@ const BoardManager = () => {
           icon={<StyledFavoriteIcon />}
         />
         <Divider />
-        <BoardSection
-          label={t('all-boards')}
-          boards={data.boards}
-          icon={<StyledFolderIcon />}
-        />
+        <BoardSection label={t('all-boards')} boards={data.boards} icon={<StyledFolderIcon />} />
       </BoardManagerContainer>
     </>
   );

@@ -18,10 +18,7 @@ const AccountApi = {
       delete body.firstName;
     }
     try {
-      response = await axios.post(
-        `${axios.defaults.baseURL}/${prefix}/register`,
-        body
-      );
+      response = await axios.post(`${axios.defaults.baseURL}/${prefix}/register`, body);
     } catch (e) {
       handleError(e);
     }
@@ -54,15 +51,11 @@ const AccountApi = {
     }
     try {
       const { Authorization } = store.store.getState().auth;
-      response = await axios.put(
-        `${axios.defaults.baseURL}/${prefix}/me`,
-        body,
-        {
-          headers: {
-            Authorization,
-          },
-        }
-      );
+      response = await axios.put(`${axios.defaults.baseURL}/${prefix}/me`, body, {
+        headers: {
+          Authorization,
+        },
+      });
       store.store.dispatch(setName(response.data));
     } catch (e) {
       handleError(e);

@@ -61,19 +61,10 @@ const Register = () => {
           >
             <Row>
               <Col>
-                <FormControl
-                  label={t('form.username')}
-                  name="username"
-                  required
-                />
+                <FormControl label={t('form.username')} name="username" required />
               </Col>
               <Col>
-                <FormControl
-                  label={t('form.email')}
-                  name="email"
-                  type="email"
-                  required
-                />
+                <FormControl label={t('form.email')} name="email" type="email" required />
               </Col>
             </Row>
             <Row>
@@ -86,11 +77,7 @@ const Register = () => {
             </Row>
             <Row>
               <Col>
-                <FormControlPassword
-                  label={t('form.password')}
-                  name="password"
-                  required
-                />
+                <FormControlPassword label={t('form.password')} name="password" required />
               </Col>
             </Row>
             <Row>

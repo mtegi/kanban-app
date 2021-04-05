@@ -43,11 +43,7 @@ const MyAccount = () => {
 
   const FormSkeleton = () => (
     <FormSkeletonContainer>
-      <EditModeController
-        title={t('common:my-account')}
-        edit={edit}
-        setEdit={setEdit}
-      />
+      <EditModeController title={t('common:my-account')} edit={edit} setEdit={setEdit} />
       <Row>
         <Col>
           <FormControlSkeleton />
@@ -73,11 +69,7 @@ const MyAccount = () => {
   );
 
   return (
-    <BasicFormContainer
-      error={data.error}
-      loading={data.loading}
-      skeleton={<FormSkeleton />}
-    >
+    <BasicFormContainer error={data.error} loading={data.loading} skeleton={<FormSkeleton />}>
       {data.result && (
         <Formik
           enableReinitialize
@@ -91,24 +83,11 @@ const MyAccount = () => {
           validationSchema={validationSchema}
         >
           {({ submitForm, isSubmitting, errors }) => (
-            <Form
-              onSubmit={handleSubmit}
-              error={status.error}
-              success={status.success}
-            >
-              <EditModeController
-                title={t('common:my-account')}
-                edit={edit}
-                setEdit={setEdit}
-              />
+            <Form onSubmit={handleSubmit} error={status.error} success={status.success}>
+              <EditModeController title={t('common:my-account')} edit={edit} setEdit={setEdit} />
               <Row>
                 <Col>
-                  <FormControl
-                    label={t('form.username')}
-                    name="username"
-                    required
-                    disabled
-                  />
+                  <FormControl label={t('form.username')} name="username" required disabled />
                 </Col>
                 <Col>
                   <FormControl
@@ -122,18 +101,10 @@ const MyAccount = () => {
               </Row>
               <Row>
                 <Col>
-                  <FormControl
-                    label={t('form.firstName')}
-                    name="firstName"
-                    disabled={!edit}
-                  />
+                  <FormControl label={t('form.firstName')} name="firstName" disabled={!edit} />
                 </Col>
                 <Col>
-                  <FormControl
-                    label={t('form.lastName')}
-                    name="lastName"
-                    disabled={!edit}
-                  />
+                  <FormControl label={t('form.lastName')} name="lastName" disabled={!edit} />
                 </Col>
               </Row>
               <Row>

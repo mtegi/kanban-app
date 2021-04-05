@@ -23,5 +23,5 @@ export const MemberWrapper = styled(Row)`
 export const MemberName = styled.span`
   font-size: 1.5rem;
   font-weight: bold;
-  color: ${(props) => props.theme.palette.secondary.main};;
+  color: ${(props) => props.theme.palette.secondary.main}; ;
 `;

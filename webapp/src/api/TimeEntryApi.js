@@ -42,7 +42,7 @@ const TimeEntryApi = {
       handleError(e);
     }
     return null;
-  }
+  },
 };
 
 export default TimeEntryApi;

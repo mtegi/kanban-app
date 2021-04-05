@@ -7,7 +7,9 @@ const MemberList = () => {
   const { members } = useBoardState();
   return (
     <MemberListWrapper>
-      {members.map((m) => <MemberCard key={m.username} member={m} />)}
+      {members.map((m) => (
+        <MemberCard key={m.username} member={m} />
+      ))}
     </MemberListWrapper>
   );
 };

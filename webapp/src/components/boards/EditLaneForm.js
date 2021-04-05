@@ -45,15 +45,15 @@ const EditLaneForm = ({ onEdit }) => {
   };
 
   const validationSchema = yup.object().shape({
-    taskLimit: yup.number().positive(t('error:form.validation')).min(cardCount, t('error:form.taskLimit.cardCount')).nullable(),
+    taskLimit: yup
+      .number()
+      .positive(t('error:form.validation'))
+      .min(cardCount, t('error:form.taskLimit.cardCount'))
+      .nullable(),
   });
 
   return (
-    <Dialog
-      open={open}
-      onClose={handleClose}
-      aria-labelledby="form-dialog-title"
-    >
+    <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title">{t('Edit lane')}</DialogTitle>
       {data.result && (
         <Formik
@@ -69,21 +69,13 @@ const EditLaneForm = ({ onEdit }) => {
               <DialogContentWrapper>
                 <Row>
                   <Col>
-                    <FormControl
-                      label={t('lane.taskLimit')}
-                      name="taskLimit"
-                      type="number"
-                    />
+                    <FormControl label={t('lane.taskLimit')} name="taskLimit" type="number" />
                   </Col>
                 </Row>
               </DialogContentWrapper>
               <DialogActions>
                 <Tooltip title={t('button.Cancel')}>
-                  <IconButton
-                    aria-label={t('button.Cancel')}
-                    onClick={handleClose}
-                    color="primary"
-                  >
+                  <IconButton aria-label={t('button.Cancel')} onClick={handleClose} color="primary">
                     <CancelIcon fontSize="large" />
                   </IconButton>
                 </Tooltip>

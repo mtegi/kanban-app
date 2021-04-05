@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     cursor: 'pointer',
     '&:hover': {
       filter: 'brightness(0.8)',
-    }
+    },
   },
 }));
 
@@ -29,11 +29,7 @@ const BoardAvatarGroup = () => {
   const { t } = useTranslation('boards');
   return (
     <>
-      <Dialog
-        open={open}
-        onClose={() => setOpen(false)}
-        aria-labelledby="form-dialog-title"
-      >
+      <Dialog open={open} onClose={() => setOpen(false)} aria-labelledby="form-dialog-title">
         <MemberList />
         <DialogActions>
           <Tooltip title={t('button.Close')}>
@@ -49,7 +45,9 @@ const BoardAvatarGroup = () => {
       </Dialog>
       <Tooltip title={t('memberList')} placement="top-center">
         <AvatarGroup max={4} className={classes.root} onClick={() => setOpen(true)}>
-          {members.map((m) => <BoardAvatar username={m.name} />)}
+          {members.map((m) => (
+            <BoardAvatar username={m.name} />
+          ))}
         </AvatarGroup>
       </Tooltip>
     </>

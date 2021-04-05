@@ -75,11 +75,7 @@ const Login = () => {
             </Row>
             <Row>
               <Col>
-                <FormControlPassword
-                  label={t('form.password')}
-                  name="password"
-                  required
-                />
+                <FormControlPassword label={t('form.password')} name="password" required />
               </Col>
             </Row>
             <Row>
@@ -101,9 +97,7 @@ const Login = () => {
           </LoginLink>
         </Col>
         <Col style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <LoginLink to={routes.register.uri}>
-            {t(`common:${routes.register.title}`)}
-          </LoginLink>
+          <LoginLink to={routes.register.uri}>{t(`common:${routes.register.title}`)}</LoginLink>
         </Col>
       </Row>
     </BasicFormContainer>

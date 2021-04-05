@@ -6,26 +6,42 @@ import LaneMenu from './LaneMenu';
 import { RightContent } from './styled';
 
 const LaneHeaderComponent = ({
-  updateTitle, canAddLanes, onDelete, onDoubleClick, editLaneTitle,
+  updateTitle,
+  canAddLanes,
+  onDelete,
+  onDoubleClick,
+  editLaneTitle,
   // eslint-disable-next-line react/prop-types
-  title, titleStyle, labelStyle, t, laneDraggable, id, taskLimit, cards
+  title,
+  titleStyle,
+  labelStyle,
+  t,
+  laneDraggable,
+  id,
+  taskLimit,
+  cards,
 }) => (
   <LaneHeader onDoubleClick={onDoubleClick} editLaneTitle={editLaneTitle}>
     <Title draggable={laneDraggable} style={titleStyle}>
-      {editLaneTitle
-        ? <InlineInput value={title} border placeholder={t('placeholder.title')} resize="vertical" onSave={updateTitle} />
-        : title
-        }
+      {editLaneTitle ? (
+        <InlineInput
+          value={title}
+          border
+          placeholder={t('placeholder.title')}
+          resize="vertical"
+          onSave={updateTitle}
+        />
+      ) : (
+        title
+      )}
     </Title>
     {taskLimit && (
-    <RightContent>
-      <span style={labelStyle}>
-        {/* eslint-disable-next-line react/prop-types */}
-        {cards.length}
-        /
-        {taskLimit}
-      </span>
-    </RightContent>
+      <RightContent>
+        <span style={labelStyle}>
+          {/* eslint-disable-next-line react/prop-types */}
+          {cards.length}/{taskLimit}
+        </span>
+      </RightContent>
     )}
     {/* eslint-disable-next-line react/prop-types */}
     {canAddLanes && <LaneMenu t={t} onDelete={onDelete} laneId={id} cardCount={cards.length} />}
@@ -42,7 +58,7 @@ LaneHeaderComponent.propTypes = {
   id: PropTypes.number,
   onDelete: PropTypes.func,
   onDoubleClick: PropTypes.func,
-  t: PropTypes.func.isRequired
+  t: PropTypes.func.isRequired,
 };
 
 LaneHeaderComponent.defaultProps = {
@@ -54,7 +70,7 @@ LaneHeaderComponent.defaultProps = {
   title: '',
   id: 0,
   onDelete: () => {},
-  onDoubleClick: () => {}
+  onDoubleClick: () => {},
 };
 
 export default LaneHeaderComponent;

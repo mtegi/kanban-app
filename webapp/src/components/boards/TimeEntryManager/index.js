@@ -18,7 +18,7 @@ import { format } from 'date-fns';
 import { Delete } from '@material-ui/icons';
 import {
   deleteLogTimeDetails,
-  fetchLogTimeDetails
+  fetchLogTimeDetails,
 } from '../../../redux/reducers/actions/logTimeActions';
 import { StyledIconButton } from '../main/menu/styled';
 
@@ -49,7 +49,7 @@ const TimeEntryManager = () => {
 
   return (
     <>
-      <Tooltip title={t('time.history')} placement="top-center">
+      <Tooltip title={t('time.history')} placement="top">
         <StyledIconButton color="secondary" onClick={handleClick}>
           <HistoryIcon />
         </StyledIconButton>
@@ -68,14 +68,23 @@ const TimeEntryManager = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {data && data.map((row) => (
-                    <TableRow key={row.name}>
-                      <TableCell align="left">{row.title}</TableCell>
-                      <TableCell align="left">{format(new Date(row.from), 'dd/MM/yyyy, HH:mm')}</TableCell>
-                      <TableCell align="left">{format(new Date(row.to), 'dd/MM/yyyy, HH:mm')}</TableCell>
-                      <TableCell align="left"><IconButton onClick={() => dispatch(deleteLogTimeDetails(row.id))}><Delete /></IconButton></TableCell>
-                    </TableRow>
-                  ))}
+                  {data &&
+                    data.map((row) => (
+                      <TableRow key={row.name}>
+                        <TableCell align="left">{row.title}</TableCell>
+                        <TableCell align="left">
+                          {format(new Date(row.from), 'dd/MM/yyyy, HH:mm')}
+                        </TableCell>
+                        <TableCell align="left">
+                          {format(new Date(row.to), 'dd/MM/yyyy, HH:mm')}
+                        </TableCell>
+                        <TableCell align="left">
+                          <IconButton onClick={() => dispatch(deleteLogTimeDetails(row.id))}>
+                            <Delete />
+                          </IconButton>
+                        </TableCell>
+                      </TableRow>
+                    ))}
                 </TableBody>
               </Table>
             </TableContainer>

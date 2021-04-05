@@ -5,12 +5,7 @@ import { Field } from 'formik';
 import MuiTextField from '@material-ui/core/TextField';
 
 const CustomTextField = (props) => (
-  <MuiTextField
-    {...fieldToTextField(props)}
-    fullWidth
-    color="secondary"
-    variant="filled"
-  />
+  <MuiTextField {...fieldToTextField(props)} fullWidth color="secondary" variant="filled" />
 );
 
 const FormControl = ({

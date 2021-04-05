@@ -19,7 +19,11 @@ const JoinBoard = () => {
   return (
     <>
       {req.loading && <ProgressBar />}
-      {req.error && <ErrorWrapper><GenericAlert message={t(req.error.message)} severity="error" /></ErrorWrapper>}
+      {req.error && (
+        <ErrorWrapper>
+          <GenericAlert message={t(req.error.message)} severity="error" />
+        </ErrorWrapper>
+      )}
     </>
   );
 };

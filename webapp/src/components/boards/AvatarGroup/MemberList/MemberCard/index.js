@@ -16,15 +16,17 @@ const MemberCard = ({ member }) => {
         <PersonIcon fontSize="large" />
       </Col>
       {member.role !== 'OWNER' && (
-      <Col md="auto">
-        <MemberName>{member.name}</MemberName>
-      </Col>
+        <Col md="auto">
+          <MemberName>{member.name}</MemberName>
+        </Col>
       )}
       {member.role === 'OWNER' && (
-        <Badge badgeContent={
-          <Tooltip title={t('owner')} placement="top">
-            <GradeIcon style={{ color: 'gold' }} />
-          </Tooltip>}
+        <Badge
+          badgeContent={
+            <Tooltip title={t('owner')} placement="top">
+              <GradeIcon style={{ color: 'gold' }} />
+            </Tooltip>
+          }
         >
           <Col md="auto">
             <MemberName>{member.name}</MemberName>
@@ -38,8 +40,8 @@ const MemberCard = ({ member }) => {
 MemberCard.propTypes = {
   member: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    role: PropTypes.string.isRequired
-  }).isRequired
+    role: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default MemberCard;

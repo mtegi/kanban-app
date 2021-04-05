@@ -34,7 +34,7 @@ const Card = ({
   deadline,
   description,
   color,
-  members
+  members,
 }) => {
   const handleDelete = (e) => {
     onDelete();
@@ -59,12 +59,7 @@ const Card = ({
   };
 
   return (
-    <MovableCardWrapper
-      data-id={id}
-      onClick={onClick}
-      className={className}
-      color={color}
-    >
+    <MovableCardWrapper data-id={id} onClick={onClick} className={className} color={color}>
       <CardHeader>
         <CardTitle draggable>{title}</CardTitle>
         {deadline && <CardRightContent>{parseDeadline()}</CardRightContent>}
@@ -73,10 +68,12 @@ const Card = ({
       </CardHeader>
       <Detail>{description}</Detail>
       <AvatarGroup max={4} className={classes.root}>
-        {members && members.map((m) =>
-          <Tooltip title={m.name} placement="top">
-            <BoardAvatar username={m.username} className={classes.small} />
-          </Tooltip>)}
+        {members &&
+          members.map((m) => (
+            <Tooltip title={m.name} placement="top">
+              <BoardAvatar username={m.username} className={classes.small} />
+            </Tooltip>
+          ))}
       </AvatarGroup>
     </MovableCardWrapper>
   );
@@ -104,7 +101,7 @@ Card.defaultProps = {
   deadline: null,
   color: '#ffffff',
   className: '',
-  members: []
+  members: [],
 };
 
 export default Card;

@@ -3,8 +3,15 @@ import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
 import PropTypes from 'prop-types';
 
-const ControlledPopUp = ({ severity, text, autoHideDuration,
-  vertical, horizontal, open, setOpen }) => {
+const ControlledPopUp = ({
+  severity,
+  text,
+  autoHideDuration,
+  vertical,
+  horizontal,
+  open,
+  setOpen,
+}) => {
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;

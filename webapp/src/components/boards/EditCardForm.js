@@ -55,11 +55,7 @@ const EditCardForm = ({ onEdit }) => {
   });
 
   return (
-    <Dialog
-      open={open}
-      onClose={handleClose}
-      aria-labelledby="form-dialog-title"
-    >
+    <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title">{t('card.edit')}</DialogTitle>
       {data.result && (
         <Formik
@@ -71,9 +67,9 @@ const EditCardForm = ({ onEdit }) => {
             description: data.result.description,
             deadline: data.result.deadline,
             color: data.result.color,
-            members: members
-              .filter((m) => data.result.members
-                .find((dataMember) => dataMember === m.username)),
+            members: members.filter((m) =>
+              data.result.members.find((dataMember) => dataMember === m.username)
+            ),
           }}
         >
           {({ submitForm, errors, setFieldValue, values }) => (
@@ -81,11 +77,7 @@ const EditCardForm = ({ onEdit }) => {
               <DialogContentWrapper>
                 <Row>
                   <Col>
-                    <FormControl
-                      label={t('card.title')}
-                      name="title"
-                      required
-                    />
+                    <FormControl label={t('card.title')} name="title" required />
                   </Col>
                   <Col md="auto">
                     <FormControlColor label={t('card.color')} name="color" />
@@ -93,11 +85,7 @@ const EditCardForm = ({ onEdit }) => {
                 </Row>
                 <Row>
                   <Col>
-                    <FormControl
-                      label={t('card.description')}
-                      name="description"
-                      multiline
-                    />
+                    <FormControl label={t('card.description')} name="description" multiline />
                   </Col>
                 </Row>
                 <Row>
@@ -143,11 +131,7 @@ const EditCardForm = ({ onEdit }) => {
               </DialogContentWrapper>
               <DialogActions>
                 <Tooltip title={t('button.Cancel')}>
-                  <IconButton
-                    aria-label={t('button.Cancel')}
-                    onClick={handleClose}
-                    color="primary"
-                  >
+                  <IconButton aria-label={t('button.Cancel')} onClick={handleClose} color="primary">
                     <CancelIcon fontSize="large" />
                   </IconButton>
                 </Tooltip>

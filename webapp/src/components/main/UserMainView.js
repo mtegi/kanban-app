@@ -10,25 +10,25 @@ import MainBoardView from '../boards/main/MainBoardView';
 import BoardCreator from '../boards/creator/BoardCreator';
 import { BoardProvider } from '../boards/context/BoardContext';
 import JoinBoard from '../boards/join/JoinBoard';
+import { AppContextProvider } from '../../utils/AppContext';
+import Dashboard from '../Dashboard/Dashboard';
 
 const UserMainView = () => (
-  <Layout menu={<UserMenu />}>
-    <SEO />
-    <Routes>
-      <Route path={routes.boards.uri} element={<BoardManager />} />
-      <Route
-        path={`${routes.boards.uri}/:id`}
-        element={
-          <BoardProvider>
-            <MainBoardView />
-          </BoardProvider>
-        }
-      />
-      <Route path={routes.myAccount.uri} element={<MyAccount />} />
-      <Route path={routes.boards.create.uri} element={<BoardCreator />} />
-      <Route path={routes.boards.join.uri} element={<JoinBoard />} />
-    </Routes>
-  </Layout>
+  <AppContextProvider>
+    <BoardProvider>
+      <Layout menu={<UserMenu />}>
+        <SEO />
+        <Routes>
+          <Route path={routes.boards.uri} element={<BoardManager />} />
+          <Route path={`${routes.boards.uri}/:id`} element={<MainBoardView />} />
+          <Route path={routes.myAccount.uri} element={<MyAccount />} />
+          <Route path={routes.boards.create.uri} element={<BoardCreator />} />
+          <Route path={routes.boards.join.uri} element={<JoinBoard />} />
+          <Route path={routes.dashboard.uri} element={<Dashboard />} />
+        </Routes>
+      </Layout>
+    </BoardProvider>
+  </AppContextProvider>
 );
 
 export default UserMainView;

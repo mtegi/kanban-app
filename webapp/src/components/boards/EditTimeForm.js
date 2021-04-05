@@ -46,10 +46,7 @@ const EditTimeForm = () => {
 
   const validationSchema = yup.object().shape({
     from: yup.date().required(t('error:form.required')),
-    to: yup.date().min(
-      yup.ref('from'),
-      t('time.dateError')
-    ).required(t('error:form.required'))
+    to: yup.date().min(yup.ref('from'), t('time.dateError')).required(t('error:form.required')),
   });
 
   return (
@@ -66,7 +63,7 @@ const EditTimeForm = () => {
         onSubmit={handleSubmit}
         initialValues={{
           from: null,
-          to: null
+          to: null,
         }}
       >
         {({ submitForm, errors }) => (
@@ -74,26 +71,16 @@ const EditTimeForm = () => {
             <DialogContentWrapper>
               <Row>
                 <Col>
-                  <FormControlDateTime
-                    label={t('time.from')}
-                    name="from"
-                  />
+                  <FormControlDateTime label={t('time.from')} name="from" />
                 </Col>
                 <Col>
-                  <FormControlDateTime
-                    label={t('time.to')}
-                    name="to"
-                  />
+                  <FormControlDateTime label={t('time.to')} name="to" />
                 </Col>
               </Row>
             </DialogContentWrapper>
             <DialogActions>
               <Tooltip title={t('button.Cancel')}>
-                <IconButton
-                  aria-label={t('button.Cancel')}
-                  onClick={handleClose}
-                  color="primary"
-                >
+                <IconButton aria-label={t('button.Cancel')} onClick={handleClose} color="primary">
                   <CancelIcon fontSize="large" />
                 </IconButton>
               </Tooltip>

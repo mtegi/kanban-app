@@ -36,9 +36,7 @@ const BoardSection = ({ label, boards, icon }) => {
 BoardSection.propTypes = {
   label: PropTypes.string,
   icon: PropTypes.element.isRequired,
-  boards: PropTypes.arrayOf(
-    PropTypes.shape({ title: PropTypes.string, id: PropTypes.number })
-  ),
+  boards: PropTypes.arrayOf(PropTypes.shape({ title: PropTypes.string, id: PropTypes.number })),
 };
 
 BoardSection.defaultProps = {

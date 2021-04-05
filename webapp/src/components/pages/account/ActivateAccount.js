@@ -31,11 +31,7 @@ const ActivateAccount = () => {
       <BasicFormContainer loading={loading} error={status.error}>
         <Row>
           <Col>
-            <NavButton
-              disabled={!status.success}
-              to={routes.login.uri}
-              fullWidth
-            >
+            <NavButton disabled={!status.success} to={routes.login.uri} fullWidth>
               {t('goToLogin')}
             </NavButton>
           </Col>

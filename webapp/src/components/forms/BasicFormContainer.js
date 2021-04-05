@@ -20,13 +20,7 @@ const StyledContainer = styled.div`
   background-color: white;
 `;
 
-const BasicFormContainer = ({
-  loading,
-  error,
-  children,
-  noProgressBar,
-  skeleton,
-}) => {
+const BasicFormContainer = ({ loading, error, children, noProgressBar, skeleton }) => {
   const { t } = useTranslation();
 
   return (

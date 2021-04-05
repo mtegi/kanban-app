@@ -15,9 +15,9 @@ export const BoardActions = {
 export const isBoardAction = (type) => !!BoardActions[type];
 
 export const isUpdateAction = (type) =>
-  type === BoardActions.UPDATE_BOARD_NAME
-  || type === BoardActions.UPDATE_INVITE_TOKEN
-  || type === BoardActions.UPDATE_MEMBERS;
+  type === BoardActions.UPDATE_BOARD_NAME ||
+  type === BoardActions.UPDATE_INVITE_TOKEN ||
+  type === BoardActions.UPDATE_MEMBERS;
 
 function boardReducer(state, action) {
   switch (action.type) {
@@ -49,13 +49,11 @@ function BoardProvider({ children }) {
     favourite: false,
     color: '#ff7f50',
     token: '',
-    members: [{ name: '', username: '', role: '' }]
+    members: [{ name: '', username: '', role: '' }],
   });
   return (
     <BoardStateContext.Provider value={state}>
-      <BoardDispatchContext.Provider value={dispatch}>
-        {children}
-      </BoardDispatchContext.Provider>
+      <BoardDispatchContext.Provider value={dispatch}>{children}</BoardDispatchContext.Provider>
     </BoardStateContext.Provider>
   );
 }

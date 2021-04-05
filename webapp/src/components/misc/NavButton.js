@@ -14,12 +14,7 @@ const StyledButton = withStyles(() => ({
 
 const NavButton = ({ to, children, disabled, fullWidth }) => (
   <Link to={to} style={{ textDecoration: 'none' }}>
-    <StyledButton
-      disabled={disabled}
-      variant="contained"
-      color="secondary"
-      fullWidth={fullWidth}
-    >
+    <StyledButton disabled={disabled} variant="contained" color="secondary" fullWidth={fullWidth}>
       {children}
     </StyledButton>
   </Link>

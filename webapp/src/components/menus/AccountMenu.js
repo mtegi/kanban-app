@@ -21,8 +21,8 @@ const Wrapper = styled.div`
   background-color: ${(props) => props.theme.palette.primary.dark};
   padding: 0.2rem 0.4rem;
   border-radius: 1rem;
-  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2),
-    0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 5px 0px rgba(0, 0, 0, 0.12);
   &:hover {
     filter: brightness(0.7);
   }

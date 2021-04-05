@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Board from 'react-trello';
 import { useTranslation, withTranslation } from 'react-i18next';
 import { useAsync } from 'react-async-hook';
@@ -23,6 +23,7 @@ import {
   setBoardErrorOpen,
 } from '../../../redux/reducers/actions/boardErrorActions';
 import EditTimeForm from '../EditTimeForm';
+import AppContext from '../../../utils/AppContext';
 
 const MainBoardView = () => {
   const { t } = useTranslation(['boards', 'common', 'error']);
@@ -35,6 +36,7 @@ const MainBoardView = () => {
   const handler = useEventHandler(boardId, username);
   const boardDispatch = useBoardDispatch();
   const dispatch = useDispatch();
+  const { setState } = useContext(AppContext);
 
   let handleMessage = () => {};
 
@@ -51,6 +53,7 @@ const MainBoardView = () => {
   }, [handleMessage]);
 
   useEffect(() => {
+    setState({ boardId });
     handler.subscribeToUser(handleUserMessage);
     setTimeout(handler.onBoardOpen, 1000);
   }, []);
@@ -64,7 +67,7 @@ const MainBoardView = () => {
           name: data.result.name,
           favourite: data.result.favourite,
           token: data.result.token,
-          members: data.result.members
+          members: data.result.members,
         },
       });
     }
@@ -73,7 +76,7 @@ const MainBoardView = () => {
   const components = {
     NewCardForm,
     Card,
-    LaneHeader: LaneHeaderComponent
+    LaneHeader: LaneHeaderComponent,
   };
 
   return (
@@ -82,7 +85,12 @@ const MainBoardView = () => {
       {data.error && <PopUp text={t(data.error.message)} />}
       {data.status === AsyncStatus.SUCCESS && (
         <>
-          <ControlledPopUp open={boardError.open} text={t(boardError.message)} severity="error" setOpen={(open) => dispatch(setBoardErrorOpen(open))} />
+          <ControlledPopUp
+            open={boardError.open}
+            text={t(boardError.message)}
+            severity="error"
+            setOpen={(open) => dispatch(setBoardErrorOpen(open))}
+          />
           <EditLaneForm onEdit={handler.onLaneEdit} />
           <EditCardForm onEdit={handler.onCardEdit} />
           <EditTimeForm />

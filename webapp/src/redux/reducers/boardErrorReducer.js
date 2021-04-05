@@ -2,7 +2,7 @@ import { SET_BOARD_ERROR, SET_BOARD_ERROR_OPEN } from './actions/types';
 
 const initState = {
   open: false,
-  message: ''
+  message: '',
 };
 
 export const boardErrorReducer = (state = initState, action) => {

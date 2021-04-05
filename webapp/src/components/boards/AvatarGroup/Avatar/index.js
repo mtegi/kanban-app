@@ -43,11 +43,11 @@ const BoardAvatar = ({ username, className }) => (
 
 BoardAvatar.propTypes = {
   username: PropTypes.string.isRequired,
-  className: PropTypes.string
+  className: PropTypes.string,
 };
 
 BoardAvatar.defaultProps = {
-  className: undefined
+  className: undefined,
 };
 
 export default BoardAvatar;

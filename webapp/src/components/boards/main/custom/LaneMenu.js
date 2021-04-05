@@ -34,7 +34,9 @@ const LaneMenu = ({ t, onDelete, laneId, cardCount }) => {
         </DeleteWrapper>
       </LaneMenuHeader>
       <LaneMenuContent>
-        <LaneMenuItem onClick={() => dispatch(setEditLane(true, laneId, cardCount))}>{t('Edit lane')}</LaneMenuItem>
+        <LaneMenuItem onClick={() => dispatch(setEditLane(true, laneId, cardCount))}>
+          {t('Edit lane')}
+        </LaneMenuItem>
         <LaneMenuItem onClick={onDelete}>{t('Delete lane')}</LaneMenuItem>
       </LaneMenuContent>
     </Popover>
@@ -45,5 +47,5 @@ export default LaneMenu;
 
 LaneMenu.propTypes = {
   onDelete: PropTypes.func.isRequired,
-  t: PropTypes.func.isRequired
+  t: PropTypes.func.isRequired,
 };

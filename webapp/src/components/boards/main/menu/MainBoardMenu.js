@@ -46,10 +46,7 @@ const MainBoardMenu = ({ handler }) => {
           style: { padding: '10px 12px 10px', fontWeight: 'bold' },
         }}
       />
-      <FavoriteButton
-        isFavourite={boardState.favourite}
-        onClick={handleFavourite}
-      />
+      <FavoriteButton isFavourite={boardState.favourite} onClick={handleFavourite} />
       <InviteManager onInviteLinkUpdate={handler.onInviteLinkUpdate} />
       <TimeEntryManager />
       <NavButton to={routes.dashboard.uri}>{t('dashboard')}</NavButton>

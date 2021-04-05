@@ -4,12 +4,9 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 const useWebSockets = () => {
-  const accessToken = useSelector(
-    (state) => state.auth.Authorization.split(' ')[1]
-  );
+  const accessToken = useSelector((state) => state.auth.Authorization.split(' ')[1]);
   const defaultClient = new Client({
-    webSocketFactory: () =>
-      new SockJS(`https://localhost:8000/ws?access_token=${accessToken}`),
+    webSocketFactory: () => new SockJS(`https://localhost:8000/ws?access_token=${accessToken}`),
     reconnectDelay: 5000,
     debug: (str) => console.log(str),
   });

@@ -22,11 +22,7 @@ const AuthApi = {
       },
     };
     try {
-      response = await axios.post(
-        `${axios.defaults.baseURL}/oauth/token`,
-        form,
-        params
-      );
+      response = await axios.post(`${axios.defaults.baseURL}/oauth/token`, form, params);
       const { data } = response;
       const Authorization = `${data.token_type} ${data.access_token}`;
       const token = JSON.parse(decode(data.access_token.split('.')[1]));

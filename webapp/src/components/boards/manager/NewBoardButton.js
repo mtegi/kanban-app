@@ -16,12 +16,7 @@ const NewBoardButton = ({ onClick }) => {
   const { t } = useTranslation('boards');
   return (
     <Tooltip title={t('create')}>
-      <StyledFab
-        color="secondary"
-        aria-label="add"
-        size="small"
-        onClick={onClick}
-      >
+      <StyledFab color="secondary" aria-label="add" size="small" onClick={onClick}>
         <AddIcon />
       </StyledFab>
     </Tooltip>

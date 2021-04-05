@@ -8,7 +8,7 @@ import rootReducer from './reducers/rootReducer';
 const persistConfig = {
   key: 'root',
   storage: localforage,
-  blacklist: ['editCard', 'editLane', 'boardError']
+  blacklist: ['editCard', 'editLane', 'boardError'],
 };
 
 const middlewares = [thunk, logger];

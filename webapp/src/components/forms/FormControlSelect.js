@@ -35,7 +35,7 @@ const FormControlSelect = ({
   multiple,
   children,
   onChange,
-  onReset
+  onReset,
 }) => (
   <FormControl fullWidth>
     <InputLabel>{label}</InputLabel>
@@ -45,19 +45,17 @@ const FormControlSelect = ({
       required={required}
       disabled={disabled}
       multiple={multiple}
-      input={<Input
-        endAdornment={
-          <InputAdornment position="end" style={{ marginRight: 8 }}>
-            <IconButton
-              style={{ outline: 'none' }}
-              aria-label="reset"
-              onClick={onReset}
-            >
-              <ClearIcon />
-            </IconButton>
-          </InputAdornment>
+      input={
+        <Input
+          endAdornment={
+            <InputAdornment position="end" style={{ marginRight: 8 }}>
+              <IconButton style={{ outline: 'none' }} aria-label="reset" onClick={onReset}>
+                <ClearIcon />
+              </IconButton>
+            </InputAdornment>
+          }
+        />
       }
-      />}
       onChange={onChange}
       renderValue={renderValue}
     >

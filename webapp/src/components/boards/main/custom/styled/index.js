@@ -134,8 +134,8 @@ export const InlineInputNumber = styled.input`
   padding: 0 8px;
   outline: 0;
   ${(props) =>
-    props.border
-  && css`
+    props.border &&
+    css`
       &:focus {
         box-shadow: inset 0 0 0 2px #0079bf;
       }
