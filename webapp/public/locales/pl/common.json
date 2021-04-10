@@ -14,5 +14,8 @@
   "favourite": "Ulubione",
   "all-boards": "Wszystkie tablice",
   "last": "Ostatnie",
-  "dashboard": "Statystyki"
+  "dashboard": "Statystyki",
+  "open": "Otwarte",
+  "closed": "Zakończone",
+  "open-closed-chart": "Status zadań"
 }

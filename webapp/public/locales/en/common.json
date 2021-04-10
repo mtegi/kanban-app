@@ -14,5 +14,8 @@
   "favourite": "Favourite",
   "all-boards": "All boards",
   "last": "Last",
-  "dashboard": "Dashboard"
+  "dashboard": "Dashboard",
+  "open": "Open",
+  "closed": "Done",
+  "open-closed-chart": "Task status"
 }

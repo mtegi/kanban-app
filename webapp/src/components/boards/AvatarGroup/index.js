@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { useBoardState } from '../context/BoardContext';
 import BoardAvatar from './Avatar';
 import MemberList from './MemberList';
+import { v4 } from 'uuid';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,7 +47,7 @@ const BoardAvatarGroup = () => {
       <Tooltip title={t('memberList')} placement="top-center">
         <AvatarGroup max={4} className={classes.root} onClick={() => setOpen(true)}>
           {members.map((m) => (
-            <BoardAvatar username={m.name} />
+            <BoardAvatar key={v4()} username={m.name} />
           ))}
         </AvatarGroup>
       </Tooltip>

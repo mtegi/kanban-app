@@ -58,6 +58,8 @@ const BoardApi = {
 
   getLaneDetails: async (id) => get(`${axios.defaults.baseURL}/lanes/${id}`),
 
+  getReportDetails: async (id) => get(`${axios.defaults.baseURL}/reports/${id}`),
+
   joinBoard: async (search) => {
     try {
       const { Authorization } = store.store.getState().auth;

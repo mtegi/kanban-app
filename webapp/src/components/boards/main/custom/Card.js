@@ -70,7 +70,7 @@ const Card = ({
       <AvatarGroup max={4} className={classes.root}>
         {members &&
           members.map((m) => (
-            <Tooltip title={m.name} placement="top">
+            <Tooltip key={m.username} title={m.name} placement="top">
               <BoardAvatar username={m.username} className={classes.small} />
             </Tooltip>
           ))}
