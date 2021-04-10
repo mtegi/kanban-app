@@ -17,5 +17,7 @@
   "dashboard": "Statystyki",
   "open": "Otwarte",
   "closed": "Zakończone",
-  "open-closed-chart": "Status zadań"
+  "open-closed-chart": "Status zadań",
+  "member-tasks-chart": "Podział zadań",
+  "unassigned": "Nieprzypisane"
 }

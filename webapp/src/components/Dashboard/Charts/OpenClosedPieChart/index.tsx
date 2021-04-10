@@ -1,18 +1,19 @@
 import React from 'react';
-import { ChartData } from '../chartTypes';
 import { Cell, Pie, PieChart } from 'recharts';
 import ChartContainer from '../ChartContainer';
-
-type Props = {
-  label: string;
-  data: Array<ChartData>;
-  width: number;
-  height: number;
-};
+import { ChartProps } from '../chartTypes';
 
 const COLORS = ['#0088FE', '#FF8042'];
 
-const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, name, value }) => {
+export const renderCustomizedLabel = ({
+  cx,
+  cy,
+  midAngle,
+  innerRadius,
+  outerRadius,
+  name,
+  value,
+}) => {
   const RADIAN = Math.PI / 180;
   const radius = innerRadius + (outerRadius - innerRadius) * 0.4;
   const x = cx + radius * Math.cos(-midAngle * RADIAN);
@@ -25,7 +26,7 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, nam
   );
 };
 
-const OpenClosedPieChart = ({ label, width, height, data }: Props) => {
+const OpenClosedPieChart = ({ label, width, height, data }: ChartProps) => {
   return (
     <ChartContainer label={label} width={width} height={height}>
       <PieChart height={height} width={width}>

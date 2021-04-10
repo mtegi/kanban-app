@@ -17,5 +17,7 @@
   "dashboard": "Dashboard",
   "open": "Open",
   "closed": "Done",
-  "open-closed-chart": "Task status"
+  "open-closed-chart": "Task status",
+  "member-tasks-chart": "Task assignment",
+  "unassigned": "Unassigned"
 }

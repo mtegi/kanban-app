@@ -8,7 +8,7 @@ export default styled.div`
     width: 100%;
     text-align: center;
     color: ${({ theme }) => theme.palette.secondary.main};
-    font-size: ${({ width }) => `${width * 0.05}px`};
+    font-size: 1.5rem;
     font-weight: bold;
   }
 `;
