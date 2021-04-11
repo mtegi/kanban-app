@@ -13,4 +13,5 @@ public class BoardReportDto {
     private int open;
     private int closed;
     List<MemberTaskNumberDto> memberTasks;
+    private TaskTimeLineDto taskTimeLine;
 }

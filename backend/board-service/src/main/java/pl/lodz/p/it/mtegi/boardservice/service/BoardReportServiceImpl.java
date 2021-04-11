@@ -6,16 +6,21 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.lodz.p.it.mtegi.boardservice.dto.details.LaneDetailsDto;
 import pl.lodz.p.it.mtegi.boardservice.dto.report.BoardReportDto;
 import pl.lodz.p.it.mtegi.boardservice.dto.report.MemberTaskNumberDto;
+import pl.lodz.p.it.mtegi.boardservice.dto.report.TaskDayDto;
+import pl.lodz.p.it.mtegi.boardservice.dto.report.TaskTimeLineDto;
 import pl.lodz.p.it.mtegi.boardservice.exception.BoardError;
 import pl.lodz.p.it.mtegi.boardservice.feign.UserServiceClient;
-import pl.lodz.p.it.mtegi.boardservice.model.AssignedCard;
-import pl.lodz.p.it.mtegi.boardservice.model.Board;
-import pl.lodz.p.it.mtegi.boardservice.model.BoardMember;
-import pl.lodz.p.it.mtegi.boardservice.model.Lane;
+import pl.lodz.p.it.mtegi.boardservice.model.*;
 import pl.lodz.p.it.mtegi.boardservice.repository.BoardRepository;
+import pl.lodz.p.it.mtegi.boardservice.repository.CardRepository;
 import pl.lodz.p.it.mtegi.common.dto.BoardMemberDetailsDto;
 import pl.lodz.p.it.mtegi.common.exception.ApplicationException;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
@@ -26,6 +31,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class BoardReportServiceImpl implements BoardReportService {
     private final BoardRepository boardRepository;
+    private final CardRepository cardRepository;
     private final UserServiceClient userService;
 
     @Override
@@ -48,7 +54,8 @@ public class BoardReportServiceImpl implements BoardReportService {
         int unassigned = 0;
         for(int i=0; i<board.getLanes().size(); i++){
             for(int j=0; j<board.getLanes().get(i).getCards().size(); j++){
-                Set<AssignedCard> assignedCards = board.getLanes().get(i).getCards().get(j).getMembers();
+                Card card = board.getLanes().get(i).getCards().get(j);
+                Set<AssignedCard> assignedCards = card.getMembers();
                 if(assignedCards == null || assignedCards.isEmpty()){
                     unassigned++;
                 }
@@ -56,6 +63,41 @@ public class BoardReportServiceImpl implements BoardReportService {
         }
         memberTaskNumberDtos.add(new MemberTaskNumberDto("unassigned", unassigned));
         dto.setMemberTasks(memberTaskNumberDtos);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        TaskTimeLineDto taskTimeLineDto = new TaskTimeLineDto(board.getCreatedAt().format(formatter));
+        taskTimeLineDto.setData(new ArrayList<>());
+        List<LocalDateTime> allCards = cardRepository.findAllByLane_Board_Id(boardId).stream().map(Card::getCreatedAt).sorted().collect(Collectors.toList());
+        int i=0;
+        int sum=0;
+        int daySum=0;
+        TaskDayDto taskDayDto = new TaskDayDto();
+
+        while(i<allCards.size()) {
+            LocalDate curr = allCards.get(i).toLocalDate();
+            if (i > 0) {
+                LocalDate prev = allCards.get(i - 1).toLocalDate();
+                if (!curr.isEqual(prev)) {
+                    taskDayDto.setDay(prev.format(formatter));
+                    taskDayDto.setTotalTasks(sum);
+                    taskDayDto.setTasks(daySum);
+                    taskTimeLineDto.getData().add(taskDayDto);
+                    taskDayDto = new TaskDayDto();
+                    daySum = 0;
+                }
+            }
+            sum++;
+            daySum++;
+            if(i == allCards.size() - 1){
+                taskDayDto.setDay(curr.format(formatter));
+                taskDayDto.setTotalTasks(sum);
+                taskDayDto.setTasks(daySum);
+                taskTimeLineDto.getData().add(taskDayDto);
+            }
+            i++;
+        }
+
+        dto.setTaskTimeLine(taskTimeLineDto);
         return dto;
     }
 }

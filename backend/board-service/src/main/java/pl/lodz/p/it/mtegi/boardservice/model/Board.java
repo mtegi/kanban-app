@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +29,9 @@ public class Board {
 
     @Column(nullable = false)
     private String color;
+
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude

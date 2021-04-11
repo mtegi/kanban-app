@@ -31,6 +31,9 @@ public class Card {
     @Column
     private LocalDateTime deadline;
 
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
     @Column
     private String color;
 

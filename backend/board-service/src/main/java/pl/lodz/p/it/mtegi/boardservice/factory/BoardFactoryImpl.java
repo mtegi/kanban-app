@@ -5,6 +5,7 @@ import pl.lodz.p.it.mtegi.boardservice.dto.CreateBoardDto;
 import pl.lodz.p.it.mtegi.boardservice.model.Board;
 import pl.lodz.p.it.mtegi.boardservice.model.Lane;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -27,6 +28,7 @@ public class BoardFactoryImpl implements BoardFactory {
                         Lane.builder().title("done").index(++i).board(board).build()
                 ));
         board.setLanes(lanes);
+        board.setCreatedAt(LocalDateTime.now());
         return board;
     }
 }

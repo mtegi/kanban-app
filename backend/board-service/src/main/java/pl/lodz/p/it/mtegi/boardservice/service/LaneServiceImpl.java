@@ -13,6 +13,7 @@ import pl.lodz.p.it.mtegi.boardservice.utils.LaneUtils;
 import pl.lodz.p.it.mtegi.common.exception.ApplicationException;
 import pl.lodz.p.it.mtegi.common.exception.CommonError;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -39,6 +40,7 @@ public class LaneServiceImpl implements LaneService {
         dto.getCard().putProperties(card);
         card.setIndex(lane.getCards().size());
         card.setLane(lane);
+        card.setCreatedAt(LocalDateTime.now());
         cardRepository.save(card);
         if(!dto.getCard().getMembers().isEmpty()){
             setMembers(card.getId(), dto.getCard().getMembers());
