@@ -11,4 +11,8 @@ public class BoardMemberDetailsDto {
     private String name;
     private String username;
     private String role;
+
+    public BoardMemberDetailsDto(String username){
+        setUsername(username);
+    }
 }

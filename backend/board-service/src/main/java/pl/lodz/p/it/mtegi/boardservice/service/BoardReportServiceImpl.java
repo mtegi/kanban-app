@@ -13,6 +13,7 @@ import pl.lodz.p.it.mtegi.boardservice.model.Board;
 import pl.lodz.p.it.mtegi.boardservice.model.BoardMember;
 import pl.lodz.p.it.mtegi.boardservice.model.Lane;
 import pl.lodz.p.it.mtegi.boardservice.repository.BoardRepository;
+import pl.lodz.p.it.mtegi.common.dto.BoardMemberDetailsDto;
 import pl.lodz.p.it.mtegi.common.exception.ApplicationException;
 
 import java.util.Comparator;
@@ -41,8 +42,9 @@ public class BoardReportServiceImpl implements BoardReportService {
         dto.setClosed(closedTasks);
         dto.setOpen(openTasks);
 
-        //List<String> usernames = board.getMembers().stream().map(BoardMember::getUsername).collect(Collectors.toList());
-        List<MemberTaskNumberDto> memberTaskNumberDtos = board.getMembers().stream().map(m -> new MemberTaskNumberDto(m.getUsername(), m.getAssignedCards() == null ? 0 : m.getAssignedCards().size())).filter(d -> d.getTaskNumber() > 0).collect(Collectors.toList());
+        List<String> usernames = board.getMembers().stream().map(BoardMember::getUsername).collect(Collectors.toList());
+        List<BoardMemberDetailsDto> memberDetailsDtos =  userService.getBoardMembersDetails(usernames, boardId);
+        List<MemberTaskNumberDto> memberTaskNumberDtos = board.getMembers().stream().map(m -> new MemberTaskNumberDto(memberDetailsDtos.stream().filter(d -> d.getUsername().equals(m.getUsername())).findFirst().orElseGet(() -> new BoardMemberDetailsDto(m.getUsername())).getName(), m.getAssignedCards() == null ? 0 : m.getAssignedCards().size())).filter(d -> d.getTaskNumber() > 0).collect(Collectors.toList());
         int unassigned = 0;
         for(int i=0; i<board.getLanes().size(); i++){
             for(int j=0; j<board.getLanes().get(i).getCards().size(); j++){
