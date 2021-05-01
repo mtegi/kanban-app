@@ -15,4 +15,9 @@ public class TaskDayDto {
     private String day;
     private Integer tasks;
     private Integer totalTasks;
+
+    public TaskDayDto(String day){
+        setTasks(0);
+        setTotalTasks(0);
+    }
 }

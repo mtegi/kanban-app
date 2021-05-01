@@ -20,7 +20,13 @@ export const renderCustomizedLabel = ({
   const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
   return (
-    <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
+    <text
+      x={x}
+      y={y}
+      fill="#37474f"
+      textAnchor={x > cx ? 'start' : 'end'}
+      dominantBaseline="central"
+    >
       {name} ({value})
     </text>
   );

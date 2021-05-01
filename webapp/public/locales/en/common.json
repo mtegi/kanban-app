@@ -19,5 +19,8 @@
   "closed": "Done",
   "open-closed-chart": "Task status",
   "member-tasks-chart": "Task assignment",
-  "unassigned": "Unassigned"
+  "unassigned": "Unassigned",
+  "total-tasks-chart": "Total tasks",
+  "new-tasks-chart": "New tasks",
+  "day": "Day"
 }

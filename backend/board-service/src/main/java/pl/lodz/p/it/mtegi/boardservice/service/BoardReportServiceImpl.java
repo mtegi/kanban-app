@@ -75,6 +75,9 @@ public class BoardReportServiceImpl implements BoardReportService {
 
         while(i<allCards.size()) {
             LocalDate curr = allCards.get(i).toLocalDate();
+            if(i == 0 && curr.isAfter(board.getCreatedAt().toLocalDate())){
+                taskTimeLineDto.getData().add(new TaskDayDto(taskTimeLineDto.getStart()));
+            }
             if (i > 0) {
                 LocalDate prev = allCards.get(i - 1).toLocalDate();
                 if (!curr.isEqual(prev)) {
@@ -93,6 +96,13 @@ public class BoardReportServiceImpl implements BoardReportService {
                 taskDayDto.setTotalTasks(sum);
                 taskDayDto.setTasks(daySum);
                 taskTimeLineDto.getData().add(taskDayDto);
+                if(LocalDate.now().isAfter(curr)){
+                    TaskDayDto todayTaskDto = new TaskDayDto();
+                    todayTaskDto.setDay(LocalDate.now().format(formatter));
+                    todayTaskDto.setTasks(0);
+                    todayTaskDto.setTotalTasks(sum);
+                    taskTimeLineDto.getData().add(todayTaskDto);
+                }
             }
             i++;
         }

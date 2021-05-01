@@ -19,5 +19,8 @@
   "closed": "Zakończone",
   "open-closed-chart": "Status zadań",
   "member-tasks-chart": "Podział zadań",
-  "unassigned": "Nieprzypisane"
+  "unassigned": "Nieprzypisane",
+  "total-tasks-chart": "Liczba wszystkich zadań",
+  "new-tasks-chart": "Nowe zadania",
+  "day": "Dzień"
 }
