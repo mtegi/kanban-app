@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useCallback, useContext, useEffect } from 'react';
 import Board from 'react-trello';
 import { useTranslation, withTranslation } from 'react-i18next';
 import { useAsync } from 'react-async-hook';
@@ -14,7 +14,7 @@ import NewCardForm from './custom/NewCardForm';
 import Card from './custom/Card';
 import { isBoardAction, isUpdateAction, useBoardDispatch } from '../context/BoardContext';
 import EditCardForm from '../EditCardForm';
-import { setEditCard } from '../../../redux/reducers/actions/editCardActions';
+import { fetchEditCardData, setEditCard } from '../../../redux/reducers/actions/editCardActions';
 import LaneHeaderComponent from './custom/LaneHeader';
 import EditLaneForm from '../EditLaneForm';
 import ControlledPopUp from '../../misc/ControlledPopUp';
@@ -110,6 +110,9 @@ const MainBoardView = () => {
                     boardDispatch(body);
                   } else {
                     console.log('event', body);
+                    if (body.type === 'UPDATE_CARD') {
+                      boardDispatch(body);
+                    }
                     handle.publish(body);
                   }
                 } else {

@@ -20,7 +20,7 @@ import FormControlColor from '../forms/FormControlColor';
 import FormControlDateTime from '../forms/FormControlDateTime';
 import { setEditOpen } from '../../redux/reducers/actions/editCardActions';
 import BoardApi from '../../api/BoardApi';
-import { useBoardState } from './context/BoardContext';
+import { useBoardDispatch, useBoardState } from './context/BoardContext';
 import FormControlSelect from '../forms/FormControlSelect';
 import { ChipWrapper, StyledChip } from './manager/styled';
 import Form from '../forms/Form';
@@ -28,6 +28,7 @@ import Form from '../forms/Form';
 const EditCardForm = ({ onEdit }) => {
   const { t } = useTranslation(['boards', 'common', 'error']);
   const dispatch = useDispatch();
+  const boardState = useBoardState();
   const open = useSelector((state) => state.editCard.open);
   const cardId = useSelector((state) => state.editCard.cardId);
   const { members } = useBoardState();
@@ -38,10 +39,16 @@ const EditCardForm = ({ onEdit }) => {
   };
 
   useEffect(() => {
+    if (open && boardState.updateCard?.id === cardId) {
+      data.execute([cardId]);
+    }
+  }, [boardState.updateCard, open, cardId]);
+
+  useEffect(() => {
     if (cardId) {
       data.execute([cardId]);
     }
-  }, [open]);
+  }, [open, cardId]);
 
   const handleSubmit = (values) => {
     const body = { ...values, id: cardId, members: values.members.map((m) => m.username) };

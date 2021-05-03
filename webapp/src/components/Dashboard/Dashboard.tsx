@@ -68,7 +68,7 @@ const Dashboard = () => {
           <TaskNumberChart
             label={t('total-tasks-chart')}
             data={chartData.taskNumber}
-            width={400}
+            width={800}
             height={400}
           />
           <NewTaskChart

@@ -28,13 +28,26 @@ function boardReducer(state, action) {
       return { ...state, token: action.token };
     }
     case BoardActions.SET_ALL: {
-      return action.payload;
+      return {
+        ...state,
+        ...action.payload,
+      };
     }
     case BoardActions.TOGGLE_FAVOURITE: {
       return { ...state, favourite: !state.favourite };
     }
     case BoardActions.UPDATE_MEMBERS: {
       return { ...state, members: action.members };
+    }
+    case BoardActions.UPDATE_CARD: {
+      console.log('update carddd', action, state);
+      return {
+        ...state,
+        updateCard: {
+          id: action.card.id,
+          version: state.updateCard.version + 1,
+        },
+      };
     }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
@@ -50,6 +63,10 @@ function BoardProvider({ children }) {
     color: '#ff7f50',
     token: '',
     members: [{ name: '', username: '', role: '' }],
+    updateCard: {
+      id: '',
+      version: 0,
+    },
   });
   return (
     <BoardStateContext.Provider value={state}>
