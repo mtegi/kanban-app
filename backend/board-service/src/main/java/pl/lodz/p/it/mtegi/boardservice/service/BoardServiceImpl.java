@@ -28,6 +28,7 @@ import pl.lodz.p.it.mtegi.common.exception.CommonError;
 import pl.lodz.p.it.mtegi.common.security.model.Role;
 import pl.lodz.p.it.mtegi.common.utils.crypto.HmacUtils;
 
+import javax.persistence.EntityManager;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;

@@ -13,6 +13,8 @@ import pl.lodz.p.it.mtegi.boardservice.utils.LaneUtils;
 import pl.lodz.p.it.mtegi.common.exception.ApplicationException;
 import pl.lodz.p.it.mtegi.common.exception.CommonError;
 
+import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,10 +31,12 @@ public class LaneServiceImpl implements LaneService {
     private final BoardRepository boardRepository;
     private final AssignedCardRepository assignedCardRepository;
     private final BoardMemberRepository memberRepository;
+    private final EntityManager entityManager;
 
     @Override
     public CardAddedDto addCardToLane(CardAddedDto dto) {
         Lane lane = findById(dto.getLaneId());
+        entityManager.lock(lane, LockModeType.OPTIMISTIC_FORCE_INCREMENT);
         if(lane.getTaskLimit() != null && lane.getCards().size() + 1 > lane.getTaskLimit()) {
             throw new ApplicationException(BoardError.TASK_LIMIT_REACHED);
         }
@@ -53,6 +57,7 @@ public class LaneServiceImpl implements LaneService {
     public CardMovedDto moveCardAcrossLanes(CardMovedDto movedDto) {
         Card card = findCardById(movedDto.getCardId());
         Lane toLane = findById(movedDto.getToLaneId());
+        entityManager.lock(toLane, LockModeType.OPTIMISTIC_FORCE_INCREMENT);
         List<Card> toCards = toLane.getCards();
         if(toLane.getTaskLimit() != null && toCards.size() + 1 > toLane.getTaskLimit()) {
             throw new ApplicationException(BoardError.TASK_LIMIT_REACHED);

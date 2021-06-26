@@ -43,7 +43,7 @@ public class Card {
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @OneToMany(mappedBy = "card")
+    @OneToMany(mappedBy = "card", cascade = CascadeType.REMOVE)
     private Set<AssignedCard> members;
 
 }
