@@ -4,6 +4,11 @@
   "form": {
     "name": "Nazwa",
     "color": "Kolor tablicy",
+    "template": "Szablon",
+    "templates": {
+      "programmatic": "Programistyczny",
+      "default": "Domyślny"
+    },
     "create": {
       "success": "Utworzono tablicę.",
       "submit": "Dodaj tablicę"

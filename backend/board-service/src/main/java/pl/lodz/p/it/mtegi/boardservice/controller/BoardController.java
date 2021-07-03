@@ -29,7 +29,7 @@ public class BoardController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping
     public ResponseEntity<?> createFromTemplate(@Valid @RequestBody CreateBoardDto dto, Authentication authentication){
-        Board board = boardService.createFromDefaultTemplate(dto, authentication.getName());
+        Board board = boardService.createFromTemplate(dto, authentication.getName());
         UriComponents uriComponents = uriBuilder.path("/boards/{id}").buildAndExpand(board.getId());
         return ResponseEntity.created(uriComponents.toUri()).build();
     }

@@ -6,4 +6,5 @@ import pl.lodz.p.it.mtegi.boardservice.model.Board;
 public interface BoardFactory {
 
     Board createFromDefaultTemplate(CreateBoardDto dto);
+    Board createFromProgrammaticTemplate(CreateBoardDto dto);
 }

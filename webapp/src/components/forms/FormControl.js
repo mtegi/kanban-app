@@ -18,6 +18,7 @@ const FormControl = ({
   disabled,
   multiline,
   rows,
+  value,
 }) => (
   <Field
     component={CustomTextField}
@@ -30,6 +31,7 @@ const FormControl = ({
     disabled={disabled}
     multiline={multiline}
     rows={rows}
+    value={value}
   />
 );
 

@@ -57,8 +57,19 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public Board createFromDefaultTemplate(CreateBoardDto dto, String username) {
-        Board board = boardFactory.createFromDefaultTemplate(dto);
+    public Board createFromTemplate(CreateBoardDto dto, String username) {
+        Board board;
+        switch (dto.getTemplate()){
+            case DEFAULT:
+                board = boardFactory.createFromDefaultTemplate(dto);
+                break;
+            case PROGRAMMATIC:
+                board = boardFactory.createFromProgrammaticTemplate(dto);
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + dto.getTemplate());
+        }
+        boardFactory.createFromDefaultTemplate(dto);
         board.getMembers().add(BoardMember.builder().username(username).board(board).build());
         boardRepository.save(board);
         try {

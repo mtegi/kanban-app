@@ -4,6 +4,11 @@
   "form": {
     "name": "Name",
     "color": "Board color",
+    "template": "Template",
+    "templates": {
+      "programmatic": "Programmatic",
+      "default": "Default"
+    },
     "create": {
       "success": "Board created.",
       "submit": "Add board"

@@ -14,6 +14,10 @@ import SubmitButton from '../../forms/SubmitButton';
 import BoardApi from '../../../api/BoardApi';
 import routes from '../../../router/routes.json';
 import FormControlColor from '../../forms/FormControlColor';
+import FormControlSelect from '../../forms/FormControlSelect';
+import { ChipWrapper, StyledChip } from '../manager/styled';
+import { MenuItem } from '@material-ui/core';
+import i18next from 'i18next';
 
 const BoardCreator = () => {
   const { t } = useTranslation(['boards', 'common', 'error']);
@@ -23,6 +27,7 @@ const BoardCreator = () => {
 
   const handleSubmit = async (values, { resetForm }) => {
     try {
+      console.log(values);
       await BoardApi.createBoardFromTemplate(values);
       resetForm({});
       status.handleSuccess();
@@ -34,7 +39,10 @@ const BoardCreator = () => {
 
   const validationSchema = yup.object().shape({
     name: boardHelper.name,
+    template: yup.string().trim().required(i18next.t('error:form.required')),
   });
+
+  const templates = ['programmatic', 'default'];
 
   return (
     <BasicFormContainer>
@@ -44,10 +52,11 @@ const BoardCreator = () => {
         initialValues={{
           name: '',
           color: '#ff7f50',
+          template: templates[0],
         }}
         validationSchema={validationSchema}
       >
-        {({ submitForm, isSubmitting, errors, values }) => (
+        {({ submitForm, isSubmitting, errors, values, setFieldValue, handleChange }) => (
           <Form
             onSubmit={handleSubmit}
             error={status.error}
@@ -62,6 +71,23 @@ const BoardCreator = () => {
             <Row>
               <Col>
                 <FormControlColor label={t('form.color')} name="color" />
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <FormControlSelect
+                  label={t('form.template')}
+                  name="template"
+                  value={values.variant}
+                  onChange={handleChange}
+                  onReset={() => setFieldValue('template', null)}
+                >
+                  {templates.map((value, index) => (
+                    <MenuItem key={index} value={value}>
+                      {t(`form.templates.${value}`)}
+                    </MenuItem>
+                  ))}
+                </FormControlSelect>
               </Col>
             </Row>
             <Row>

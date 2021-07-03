@@ -14,7 +14,7 @@ import java.util.List;
 
 public interface BoardService {
     List<Board> findAll();
-    Board createFromDefaultTemplate(CreateBoardDto dto, String username);
+    Board createFromTemplate(CreateBoardDto dto, String username);
     List<UsersBoardListDto> getUsersBoardsForManager(String username, String name);
     BoardDetailsDto getBoardDetails(String username, Long id);
     void onBoardOpened(BoardOpenedDto dto);

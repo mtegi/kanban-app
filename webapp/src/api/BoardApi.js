@@ -41,7 +41,7 @@ const BoardApi = {
   createBoardFromTemplate: async (values) => {
     try {
       const { Authorization } = store.store.getState().auth;
-      const body = { ...values };
+      const body = { ...values, template: values.template.toUpperCase() };
       await axios.post(`${axios.defaults.baseURL}/${prefix}`, body, {
         headers: {
           Authorization,

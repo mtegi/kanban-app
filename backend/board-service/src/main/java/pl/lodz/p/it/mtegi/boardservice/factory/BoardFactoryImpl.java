@@ -19,6 +19,22 @@ public class BoardFactoryImpl implements BoardFactory {
         int i = 0;
         List<Lane> lanes = new ArrayList<>(
                 Arrays.asList(
+                        Lane.builder().title("todo").index(++i).board(board).build(),
+                        Lane.builder().title("doing").index(++i).board(board).build(),
+                        Lane.builder().title("done").index(++i).board(board).build()
+                ));
+        board.setLanes(lanes);
+        board.setCreatedAt(LocalDateTime.now());
+        return board;
+    }
+
+    @Override
+    public Board createFromProgrammaticTemplate(CreateBoardDto dto) {
+        Board board = new Board();
+        dto.putProperties(board);
+        int i = 0;
+        List<Lane> lanes = new ArrayList<>(
+                Arrays.asList(
                         Lane.builder().title("backlog").index(i).board(board).build(),
                         Lane.builder().title("design").index(++i).board(board).build(),
                         Lane.builder().title("todo").index(++i).board(board).build(),
