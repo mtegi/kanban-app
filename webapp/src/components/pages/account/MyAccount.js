@@ -82,12 +82,18 @@ const MyAccount = () => {
           }}
           validationSchema={validationSchema}
         >
-          {({ submitForm, isSubmitting, errors }) => (
+          {({ submitForm, isSubmitting, errors, values }) => (
             <Form onSubmit={handleSubmit} error={status.error} success={status.success}>
               <EditModeController title={t('common:my-account')} edit={edit} setEdit={setEdit} />
               <Row>
                 <Col>
-                  <FormControl label={t('form.username')} name="username" required disabled />
+                  <FormControl
+                    label={t('form.username')}
+                    name="username"
+                    required
+                    disabled
+                    value={values.username}
+                  />
                 </Col>
                 <Col>
                   <FormControl
@@ -96,15 +102,26 @@ const MyAccount = () => {
                     type="email"
                     required
                     disabled
+                    value={values.email}
                   />
                 </Col>
               </Row>
               <Row>
                 <Col>
-                  <FormControl label={t('form.firstName')} name="firstName" disabled={!edit} />
+                  <FormControl
+                    label={t('form.firstName')}
+                    name="firstName"
+                    disabled={!edit}
+                    value={values.firstName}
+                  />
                 </Col>
                 <Col>
-                  <FormControl label={t('form.lastName')} name="lastName" disabled={!edit} />
+                  <FormControl
+                    label={t('form.lastName')}
+                    name="lastName"
+                    disabled={!edit}
+                    value={values.lastName}
+                  />
                 </Col>
               </Row>
               <Row>

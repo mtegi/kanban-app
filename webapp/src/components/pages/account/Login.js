@@ -17,6 +17,7 @@ import routes from '../../../router/routes.json';
 import FormControlPassword from '../../forms/FormControlPassword';
 import useYupHelper from '../../forms/UseYupHelper';
 import useFormStatus from '../../forms/UseFormStatus';
+import i18next from 'i18next';
 
 const LoginLink = styled(Link)`
   font-size: 1rem;
@@ -55,7 +56,7 @@ const Login = () => {
         initialValues={{ username: '', password: '' }}
         validationSchema={validationSchema}
       >
-        {({ submitForm, isSubmitting }) => (
+        {({ submitForm, isSubmitting, isValid }) => (
           <Form onSubmit={handleSubmit} error={status.error}>
             <Row>
               <Col>
@@ -84,6 +85,7 @@ const Login = () => {
                   label={t('form.submit')}
                   onClick={submitForm}
                   loading={isSubmitting}
+                  disabled={!isValid}
                 />
               </Col>
             </Row>

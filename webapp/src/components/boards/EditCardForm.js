@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -84,7 +84,12 @@ const EditCardForm = ({ onEdit }) => {
               <DialogContentWrapper>
                 <Row>
                   <Col>
-                    <FormControl label={t('card.title')} name="title" required />
+                    <FormControl
+                      label={t('card.title')}
+                      name="title"
+                      required
+                      value={values.title}
+                    />
                   </Col>
                   <Col md="auto">
                     <FormControlColor label={t('card.color')} name="color" />
@@ -92,7 +97,12 @@ const EditCardForm = ({ onEdit }) => {
                 </Row>
                 <Row>
                   <Col>
-                    <FormControl label={t('card.description')} name="description" multiline />
+                    <FormControl
+                      label={t('card.description')}
+                      name="description"
+                      multiline
+                      value={values.description}
+                    />
                   </Col>
                 </Row>
                 <Row>
@@ -101,6 +111,7 @@ const EditCardForm = ({ onEdit }) => {
                       label={t('card.deadline')}
                       name="deadline"
                       minDate={new Date()}
+                      value={values.deadline}
                     />
                   </Col>
                 </Row>
