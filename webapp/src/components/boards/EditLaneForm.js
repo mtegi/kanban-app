@@ -33,7 +33,7 @@ const EditLaneForm = ({ onEdit }) => {
   };
 
   useEffect(() => {
-    if (laneId) {
+    if (laneId && open) {
       data.execute([laneId]);
     }
   }, [open]);
@@ -55,45 +55,48 @@ const EditLaneForm = ({ onEdit }) => {
   return (
     <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title">{t('Edit lane')}</DialogTitle>
-      {data.result && (
-        <Formik
-          validationSchema={validationSchema}
-          enableReinitialize
-          onSubmit={handleSubmit}
-          initialValues={{
-            taskLimit: data.result.taskLimit,
-          }}
-        >
-          {({ submitForm, errors }) => (
-            <Form onSubmit={handleSubmit}>
-              <DialogContentWrapper>
-                <Row>
-                  <Col>
-                    <FormControl label={t('lane.taskLimit')} name="taskLimit" type="number" />
-                  </Col>
-                </Row>
-              </DialogContentWrapper>
-              <DialogActions>
-                <Tooltip title={t('button.Cancel')}>
-                  <IconButton aria-label={t('button.Cancel')} onClick={handleClose} color="primary">
-                    <CancelIcon fontSize="large" />
-                  </IconButton>
-                </Tooltip>
-                <Tooltip title={t('Edit lane')}>
-                  <IconButton
-                    aria-label={t('Edit lane')}
-                    onClick={submitForm}
-                    color="primary"
-                    disabled={Object.keys(errors).length !== 0}
-                  >
-                    <CheckCircleIcon fontSize="large" />
-                  </IconButton>
-                </Tooltip>
-              </DialogActions>
-            </Form>
-          )}
-        </Formik>
-      )}
+      <Formik
+        validationSchema={validationSchema}
+        enableReinitialize
+        onSubmit={handleSubmit}
+        initialValues={{
+          taskLimit: data?.result?.taskLimit || 0,
+        }}
+      >
+        {({ submitForm, values, errors }) => (
+          <Form onSubmit={handleSubmit}>
+            <DialogContentWrapper>
+              <Row>
+                <Col>
+                  <FormControl
+                    label={t('lane.taskLimit')}
+                    name="taskLimit"
+                    type="number"
+                    value={values.taskLimit}
+                  />
+                </Col>
+              </Row>
+            </DialogContentWrapper>
+            <DialogActions>
+              <Tooltip title={t('button.Cancel')}>
+                <IconButton aria-label={t('button.Cancel')} onClick={handleClose} color="primary">
+                  <CancelIcon fontSize="large" />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title={t('Edit lane')}>
+                <IconButton
+                  aria-label={t('Edit lane')}
+                  onClick={submitForm}
+                  color="primary"
+                  disabled={Object.keys(errors).length !== 0}
+                >
+                  <CheckCircleIcon fontSize="large" />
+                </IconButton>
+              </Tooltip>
+            </DialogActions>
+          </Form>
+        )}
+      </Formik>
     </Dialog>
   );
 };
